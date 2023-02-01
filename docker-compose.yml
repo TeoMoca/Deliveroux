@@ -4,6 +4,10 @@ services:
     build: restaurants_api/.
     depends_on:
       - mongo
+  catalogs:
+    build: catalogs_api/.
+    depends_on:
+      - mongo
   mongo:
     image: mongo:latest
     restart: always
