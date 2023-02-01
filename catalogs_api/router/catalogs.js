@@ -51,11 +51,6 @@ catalogsRouter.get("/:id_restaurant", (req, res) => {
     });
   });
 
-
-
-
-
-
   //-------------------------------------------------------ARTICLES-------------------------------------------------------------------------------------
   catalogsRouter.get("/articles/:id_restaurant", (req,res)=>{
     var idr = req.params.id_restaurant;
