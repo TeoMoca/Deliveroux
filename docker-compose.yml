@@ -12,6 +12,10 @@ services:
     build: notifications_api/.
     depends_on:
       - mongo
+  commands:
+    build: commands_api/.
+    depends_on:
+      - mongo
   mongo:
     image: mongo:latest
     restart: always
