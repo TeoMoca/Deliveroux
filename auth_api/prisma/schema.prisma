@@ -1,0 +1,41 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlserver"
+  url      = "sqlserver://deliveroux.database.windows.net:1433;database=Deliveroux;user=deliverouxadmin@deliveroux;password=deliveroux123*;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;"
+}
+
+model Address {
+  Id         String  @id @db.UniqueIdentifier
+  adressName String
+  city       String
+  postalCode String
+  Country    String
+  IsDisabled Boolean
+  Users      Users[]
+}
+
+model Roles {
+  Id         Int     @id @default(autoincrement())
+  Label      String
+  IsDisabled Boolean
+  Users      Users[]
+}
+
+model Users {
+  Id         String  @id @db.UniqueIdentifier
+  Id_Role    Int
+  Id_Address String  @db.UniqueIdentifier
+  FirstName  String
+  LastName   String
+  Mail       String
+  Phone      String
+  IsDisabled Boolean
+  Password   String
+  stripeId   String?
+  IsSponsor  Boolean
+  Address    Address @relation(fields: [Id_Address], references: [Id], onDelete: Cascade)
+  Roles      Roles   @relation(fields: [Id_Role], references: [Id], onDelete: Cascade)
+}
