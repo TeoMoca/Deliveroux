@@ -56,5 +56,13 @@ export default function UsersRouter(
         res.status(400).json({ message: "Wrong email or password" });
       });
 
+      router.post("/check", async(req:Request, res:Response) => {
+        const token = req.body.token;
+
+        const decoded = jwt.decode(token);
+
+        res.send(decoded);
+      });
+
     return router;
 }
