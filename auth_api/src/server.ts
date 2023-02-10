@@ -31,6 +31,6 @@ app.use(express.json());
 const userMiddleware = UsersRouter(new RegisterUserUseCase(new ConnexionRepository(prisma, stripe)), new LoginUserUseCase(new ConnexionRepository(prisma, stripe)));
 
 app.use("/auth", userMiddleware);
-app.listen(PORT, () => {
-    console.log(`Listening on port ${PORT}`);
+app.listen(8080, () => {
+    console.log(`Listening on port ${8080}`);
   });
