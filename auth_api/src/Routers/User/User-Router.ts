@@ -1,4 +1,4 @@
-import express from "express";
+import express, { NextFunction } from "express";
 import { Request, Response } from "express";
 import { Address } from '../../Domain/Address/Address';
 import { User} from "../../Domain/User/User";
@@ -13,6 +13,22 @@ export default function UsersRouter(
 ){
     const router = express.Router();
 
+   const checkTokenMiddleware = (req:Request, res:Response, next:NextFunction)=> {
+    const token = req.header('Authorization')?.replace('Bearer ', '');
+
+    if(!token){
+      throw new Error();
+    }   
+
+    try{
+
+      const decoded = jwt.verify(token, process.env.TOKEN_KEY as string);
+      next();
+
+    } catch (error) {
+      return res.status(401).send({ message: 'Invalid token.' });
+  }
+   }
     router.post("/register", async (req:Request, res:Response) => {
         try{
             console.log(req.body.adress);
@@ -56,12 +72,21 @@ export default function UsersRouter(
         res.status(400).json({ message: "Wrong email or password" });
       });
 
-      router.post("/check", async(req:Request, res:Response) => {
-        const token = req.body.token;
+      router.get("/check", async(req:Request, res:Response) => {
 
-        const decoded = jwt.decode(token);
+        const token = req.header('Authorization')?.replace('Bearer ', '');
 
-        res.send(decoded);
+        if(!token){
+          return res.status(401).send({ message: 'No token provided.' });
+        }   
+
+          try{
+            const decoded = jwt.verify(token, process.env.TOKEN_KEY as string);
+            res.send();
+            
+          } catch (error) {
+            return res.status(401).send({ message: 'Invalid token.' });
+          }
       });
 
     return router;
