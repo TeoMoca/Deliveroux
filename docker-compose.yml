@@ -16,6 +16,10 @@ services:
     build: commands_api/.
     depends_on:
       - mongo
+  livraisons:
+    build: livraisons_api/.
+    depends_on:
+      - mongo
   mongo:
     image: mongo:latest
     restart: always
