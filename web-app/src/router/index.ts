@@ -24,7 +24,11 @@ const routes: Array<RouteRecordRaw> = [
     // which is lazy-loaded when the route is visited.
     component: () => {
       return axios
-        .get(`http://localhost:8080/user/${cookies.get("userId")}`)
+        .get(`http://localhost:8080/user/${cookies.get("userId")}`, {
+          headers: {
+            Authorization: `Bearer ${cookies.get("token")}`,
+          },
+        })
         .then((rep) => {
           console.log(rep.data.roleId);
           switch (rep.data.roleId) {
@@ -67,7 +71,11 @@ const routes: Array<RouteRecordRaw> = [
     // which is lazy-loaded when the route is visited.
     component: () => {
       return axios
-        .get(`http://localhost:8080/users/${cookies.get("userId")}`)
+        .get(`http://localhost:8080/users/${cookies.get("userId")}`, {
+          headers: {
+            Authorization: `Bearer ${cookies.get("token")}`,
+          },
+        })
         .then((rep) => {
           console.log(rep.data.roleId);
           switch (rep.data.roleId) {

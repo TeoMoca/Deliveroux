@@ -49,12 +49,7 @@ export default defineComponent({
   created() {
     if (this.$props.idUser) {
       this.$axios
-        .get("http://127.0.0.1:8080/notifs/" + this.$props.idUser, {
-          headers: {
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*",
-          },
-        })
+        .get("http://127.0.0.1:8080/notifs/" + this.$props.idUser)
         .then((rep) => {
           rep.data.map((notification: never) => {
             this.notifications.push(notification);
@@ -66,16 +61,9 @@ export default defineComponent({
   methods: {
     seeNotifs() {
       var request = "http://127.0.0.1:8080/notifs/seen/" + this.$props.idUser;
-      this.$axios
-        .get(request, {
-          headers: {
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*",
-          },
-        })
-        .then((rep) => {
-          rep.data;
-        });
+      this.$axios.get(request).then((rep) => {
+        rep.data;
+      });
     },
   },
 

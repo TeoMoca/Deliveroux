@@ -19,7 +19,12 @@ export default defineComponent({
   async created() {
     await this.$axios
       .get(
-        "http://localhost:8080/api/users/refers/" + this.$cookies.get("userId")
+        "http://localhost:8080/api/users/refers/" + this.$cookies.get("userId"),
+        {
+          headers: {
+            Authorization: `Bearer ${this.$cookies.get("token")}`,
+          },
+        }
       )
       .then((rep) => {
         console.log(rep.data);

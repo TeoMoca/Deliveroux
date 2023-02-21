@@ -167,8 +167,7 @@ export default defineComponent({
           },
           {
             headers: {
-              "Content-Type": "application/json",
-              "Access-Control-Allow-Origin": "*",
+              Authorization: `Bearer ${this.$cookies.get("token")}`,
             },
           }
         );

@@ -23,11 +23,17 @@ export default defineComponent({
     restaurants: [],
   }),
   created() {
-    this.$axios.get("http://localhost:8080/restaurants").then((rep) => {
-      rep.data.map((restaurant: { notes: number }) => {
-        this.restaurants.push(restaurant);
+    this.$axios
+      .get("http://localhost:8080/restaurants", {
+        headers: {
+          Authorization: `Bearer ${this.$cookies.get("token")}`,
+        },
+      })
+      .then((rep) => {
+        rep.data.map((restaurant: { notes: number }) => {
+          this.restaurants.push(restaurant);
+        });
       });
-    });
   },
   computed: {
     upperRates() {

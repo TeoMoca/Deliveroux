@@ -52,13 +52,22 @@ export default defineComponent({
     console.log(this.$route.params);
     this.$axios
       .get(
-        `http://localhost:8080/restaurants/displayRestaurant/${this.$route.params.id}`
+        `http://localhost:8080/restaurants/displayRestaurant/${this.$route.params.id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${this.$cookies.get("token")}`,
+          },
+        }
       )
       .then((rep) => {
         this.restaurant = rep.data;
         console.log(this.restaurant);
         this.$axios
-          .get(`http://localhost:8080/catalog/${this.restaurant._id}`)
+          .get(`http://localhost:8080/catalog/${this.restaurant._id}`, {
+            headers: {
+              Authorization: `Bearer ${this.$cookies.get("token")}`,
+            },
+          })
           .then((rep) => {
             console.log("catalog api", rep.data);
             rep.data.menusList.map((menu: { name: string }) => {
@@ -71,7 +80,12 @@ export default defineComponent({
       });
     this.$axios
       .get(
-        `http://localhost:8080/restaurants/displayRestaurant/${this.$route.params.id}`
+        `http://localhost:8080/restaurants/displayRestaurant/${this.$route.params.id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${this.$cookies.get("token")}`,
+          },
+        }
       )
       .then((rep) => {
         console.log(rep.data);

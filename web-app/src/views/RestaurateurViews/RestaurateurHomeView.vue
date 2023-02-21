@@ -9,7 +9,11 @@ export default defineComponent({
   name: "RestaurateurHomeView",
   beforeCreate() {
     this.$axios
-      .get("http://localhost:8080/restaurants/displayRestaurant")
+      .get("http://localhost:8080/restaurants/displayRestaurant", {
+        headers: {
+          Authorization: `Bearer ${this.$cookies.get("token")}`,
+        },
+      })
       .then((rep) => {
         console.log(rep.data);
       });

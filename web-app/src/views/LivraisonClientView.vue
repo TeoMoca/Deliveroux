@@ -85,12 +85,24 @@ export default defineComponent({
     //recupère les données du client
     axios
       .get(
-        "http://localhost:8080/livraison/commande/" + this.$props.id.slice(1)
+        "http://localhost:8080/livraison/commande/" + this.$props.id.slice(1),
+        {
+          headers: {
+            Authorization: `Bearer ${this.$cookies.get("token")}`,
+          },
+        }
       )
       .then((resLivraison) => {
         this.livraisonData = resLivraison.data;
         axios
-          .get("http://localhost:8080/api/users/" + resLivraison.data.livreurID)
+          .get(
+            "http://localhost:8080/api/users/" + resLivraison.data.livreurID,
+            {
+              headers: {
+                Authorization: `Bearer ${this.$cookies.get("token")}`,
+              },
+            }
+          )
           .then((resLivreur) => {
             this.livreurData = resLivreur.data;
           });
@@ -100,8 +112,7 @@ export default defineComponent({
         "http://localhost:8080/commands/command/" + this.$props.id.slice(1),
         {
           headers: {
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*",
+            Authorization: `Bearer ${this.$cookies.get("token")}`,
           },
         }
       )

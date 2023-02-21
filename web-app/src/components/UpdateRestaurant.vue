@@ -130,14 +130,7 @@ export default defineComponent({
   async created() {
     axios
       .get(
-        "http://127.0.0.1:8080/restaurants/displayRestaurant/63c8147851cdb28f9f6d46ca",
-        {
-          headers: {
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*",
-          },
-        },
-        {}
+        "http://127.0.0.1:8080/restaurants/displayRestaurant/63c8147851cdb28f9f6d46ca"
       )
       .then((resp) => {
         //console.log(resp)

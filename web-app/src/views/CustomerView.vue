@@ -160,7 +160,6 @@ export default defineComponent({
           this.city,
           this.country
         );
-        this.$axios.defaults.headers.post["Access-Control-Allow-Origin"] = "*";
         const response = await this.$axios.post(
           "http://localhost:8080/users/register",
           {
@@ -171,9 +170,7 @@ export default defineComponent({
           },
           {
             headers: {
-              "Content-Type": "application/json",
-              Accept: "application/json",
-              "Access-Control-Allow-Origin": "*",
+              Authorization: `Bearer ${this.$cookies.get("token")}`,
             },
           }
         );

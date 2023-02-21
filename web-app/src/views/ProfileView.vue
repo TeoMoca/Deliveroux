@@ -132,7 +132,11 @@ import ReferOne from "@/components/ReferOne.vue";
 export default defineComponent({
   async created() {
     this.$axios
-      .get("http://localhost:8080/api/users/" + this.$cookies.get("userId"))
+      .get("http://localhost:8080/api/users/" + this.$cookies.get("userId"), {
+        headers: {
+          Authorization: `Bearer ${this.$cookies.get("token")}`,
+        },
+      })
       .then((data) => {
         this.userId = this.$cookies.get("userId") as string;
         this.firstname = data.data.firstname;
@@ -193,7 +197,12 @@ export default defineComponent({
     async deleteUser() {
       await this.$axios
         .delete(
-          "http://localhost:8080/api/users/" + this.$cookies.get("userId")
+          "http://localhost:8080/api/users/" + this.$cookies.get("userId"),
+          {
+            headers: {
+              Authorization: `Bearer ${this.$cookies.get("token")}`,
+            },
+          }
         )
         .then(async (rep) => {
           console.log(rep.data);
@@ -230,7 +239,12 @@ export default defineComponent({
         );
         const isUpdated = (await this.$axios.patch(
           "http://localhost:8080/api/users",
-          { users: user, adress: adress }
+          { users: user, adress: adress },
+          {
+            headers: {
+              Authorization: `Bearer ${this.$cookies.get("token")}`,
+            },
+          }
         )) as boolean;
         this.updated = isUpdated;
       }

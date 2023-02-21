@@ -21,7 +21,7 @@
           class="item"
           v-for="item in filteredList()"
           :key="item.name"
-          :href="'http://localhost:8080/restaurants/' + item._id"
+          :href="'http://localhost:8081/restaurants/' + item._id"
         >
           <img class="item-img" :src="item.image" />
           <p>{{ item.name }}</p>
@@ -106,16 +106,25 @@ export default defineComponent({
   },
   beforeCreate() {
     //Restaurant
-    console.log("axios", this.$axios);
     if (this.$cookies.get("userId")) {
-      this.$axios.get("http://localhost:8080/restaurants").then((rep) => {
-        rep.data.map((item: { name: string; image: string; _id: string }) => {
-          this.restaurants.push(item);
+      this.$axios
+        .get("http://localhost:8080/restaurants", {
+          headers: {
+            Authorization: `Bearer ${this.$cookies.get("token")}`,
+          },
+        })
+        .then((rep) => {
+          rep.data.map((item: { name: string; image: string; _id: string }) => {
+            this.restaurants.push(item);
+          });
         });
-      });
       //
       this.$axios
-        .get("http://localhost:8080/user/" + this.$cookies.get("userId"))
+        .get("http://localhost:8080/user/" + this.$cookies.get("userId"), {
+          headers: {
+            Authorization: `Bearer ${this.$cookies.get("token")}`,
+          },
+        })
         .then((rep) => {
           this.idRole = rep.data.roleId;
           console.log(this.idRole);
@@ -125,12 +134,9 @@ export default defineComponent({
         .get(
           "http://localhost:8080/livraison/livreur/" +
             this.$cookies.get("userId"),
-          // "http://localhost:8080/api/users/",
-          // { userId: cookies.get("userId") },
           {
             headers: {
-              "Content-Type": "application/json",
-              "Access-Control-Allow-Origin": "*",
+              Authorization: `Bearer ${this.$cookies.get("token")}`,
             },
           }
         )
@@ -142,12 +148,9 @@ export default defineComponent({
         .get(
           "http://localhost:8080/commands/command/" +
             this.$cookies.get("userId"),
-          // "http://localhost:8080/api/users/",
-          // { userId: cookies.get("userId") },
           {
             headers: {
-              "Content-Type": "application/json",
-              "Access-Control-Allow-Origin": "*",
+              Authorization: `Bearer ${this.$cookies.get("token")}`,
             },
           }
         )

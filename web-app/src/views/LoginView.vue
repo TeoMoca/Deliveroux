@@ -57,10 +57,18 @@ export default defineComponent({
     validate(e: Event) {
       e.preventDefault();
       this.$axios
-        .post("http://localhost:8080/auth/login", {
-          mail: this.mail.toLowerCase(),
-          password: this.password,
-        })
+        .post(
+          "http://localhost:8080/auth/login",
+          {
+            mail: this.mail.toLowerCase(),
+            password: this.password,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${this.$cookies.get("token")}`,
+            },
+          }
+        )
         .then((e) => {
           console.log(e);
           document.cookie = `token=${e.data.token};expires=${new Date(
@@ -79,9 +87,7 @@ export default defineComponent({
           document.cookie = `userId=${e.data.data.id};expires=${new Date(
             Date.now() + 1000 * 60 * 60 * 24
           ).toUTCString()}`;
-          this.$axios.defaults.headers.common = {
-            Authorization: `Bearer ${e.data.token}`,
-          };
+
           this.$router.push({ path: "/home" });
         })
         .catch((e) => {

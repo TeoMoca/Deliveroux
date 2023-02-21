@@ -51,7 +51,12 @@ export default defineComponent({
   created() {
     this.$axios
       .get(
-        `http://localhost:8080/restaurants/displayRestaurant/${this.$props.id}`
+        `http://localhost:8080/restaurants/displayRestaurant/${this.$props.id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${this.$cookies.get("token")}`,
+          },
+        }
       )
       .then((rep) => {
         console.log(rep.data.display);
@@ -63,16 +68,22 @@ export default defineComponent({
       });
 
     console.log("props id", this.id, this.$props);
-    this.$axios.get(`http://localhost:8080/catalog/${this.id}`).then((rep) => {
-      console.log("draggableLIst", rep.data, Array.apply(rep.data));
-      Object.values<Array<{ _id: string; name: string; list: number }>>(
-        rep.data
-      ).map((list: Array<{ _id: string; name: string; list: number }>) => {
-        list.map((item) => {
-          this.listTwo.push(item);
+    this.$axios
+      .get(`http://localhost:8080/catalog/${this.id}`, {
+        headers: {
+          Authorization: `Bearer ${this.$cookies.get("token")}`,
+        },
+      })
+      .then((rep) => {
+        console.log("draggableLIst", rep.data, Array.apply(rep.data));
+        Object.values<Array<{ _id: string; name: string; list: number }>>(
+          rep.data
+        ).map((list: Array<{ _id: string; name: string; list: number }>) => {
+          list.map((item) => {
+            this.listTwo.push(item);
+          });
         });
       });
-    });
   },
   computed: {
     filteredList() {
@@ -105,14 +116,23 @@ export default defineComponent({
     sendData() {
       this.$axios
         .get(
-          `http://localhost:8080/restaurants/displayRestaurant/${this.$props.id}`
+          `http://localhost:8080/restaurants/displayRestaurant/${this.$props.id}`,
+          {
+            headers: {
+              Authorization: `Bearer ${this.$cookies.get("token")}`,
+            },
+          }
         )
         .then((rep) => {
           console.log(rep.data);
           rep.data.display = Object.values(this.listOne);
           console.log(rep.data);
           this.$axios
-            .put("http://localhost:8080/restaurants/modify", rep.data)
+            .put("http://localhost:8080/restaurants/modify", rep.data, {
+              headers: {
+                Authorization: `Bearer ${this.$cookies.get("token")}`,
+              },
+            })
             .then((rep) => {
               console.log(rep.data);
             });
