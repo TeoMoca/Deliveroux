@@ -106,57 +106,56 @@ export default defineComponent({
   },
   beforeCreate() {
     //Restaurant
-    this.$axios.get("http://localhost:8080/restaurants").then((rep) => {
-      rep.data.map((item: { name: string; image: string; _id: string }) => {
-        this.restaurants.push(item);
+    console.log("axios", this.$axios);
+    if (this.$cookies.get("userId")) {
+      this.$axios.get("http://localhost:8080/restaurants").then((rep) => {
+        rep.data.map((item: { name: string; image: string; _id: string }) => {
+          this.restaurants.push(item);
+        });
       });
-    });
-    //
-    this.$axios
-      .get("http://localhost:8080/users/users/" + this.$cookies.get("userId"), {
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-        },
-      })
-      .then((rep) => {
-        this.idRole = rep.data.roleId;
-        console.log(this.idRole);
-      });
-    //Livraisons
-    this.$axios
-      .get(
-        "http://localhost:8080/livraison/livreur/" +
-          this.$cookies.get("userId"),
-        // "http://localhost:8080/api/users/",
-        // { userId: cookies.get("userId") },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*",
-          },
-        }
-      )
-      .then((rep) => {
-        this.livraisons = rep.data;
-        console.log(this.$data.livraisons);
-      });
-    this.$axios
-      .get(
-        "http://localhost:8080/commands/command/" + this.$cookies.get("userId"),
-        // "http://localhost:8080/api/users/",
-        // { userId: cookies.get("userId") },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*",
-          },
-        }
-      )
-      .then((rep) => {
-        this.commandes = rep.data;
-        console.log(this.$data.commandes);
-      });
+      //
+      this.$axios
+        .get("http://localhost:8080/user/" + this.$cookies.get("userId"))
+        .then((rep) => {
+          this.idRole = rep.data.roleId;
+          console.log(this.idRole);
+        });
+      //Livraisons
+      this.$axios
+        .get(
+          "http://localhost:8080/livraison/livreur/" +
+            this.$cookies.get("userId"),
+          // "http://localhost:8080/api/users/",
+          // { userId: cookies.get("userId") },
+          {
+            headers: {
+              "Content-Type": "application/json",
+              "Access-Control-Allow-Origin": "*",
+            },
+          }
+        )
+        .then((rep) => {
+          this.livraisons = rep.data;
+          console.log(this.$data.livraisons);
+        });
+      this.$axios
+        .get(
+          "http://localhost:8080/commands/command/" +
+            this.$cookies.get("userId"),
+          // "http://localhost:8080/api/users/",
+          // { userId: cookies.get("userId") },
+          {
+            headers: {
+              "Content-Type": "application/json",
+              "Access-Control-Allow-Origin": "*",
+            },
+          }
+        )
+        .then((rep) => {
+          this.commandes = rep.data;
+          console.log(this.$data.commandes);
+        });
+    }
   },
   data: (): {
     title: string;
