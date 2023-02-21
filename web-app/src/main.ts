@@ -28,6 +28,6 @@ createApp(App)
   .use(router)
   .use(store)
   .use(cookies)
-  .use(axios, { baseUrl: "http://localhost:8000/" })
+  .use(axios, { baseUrl: "http://localhost:8081/" })
   .use(vuetify)
   .mount("#app");
