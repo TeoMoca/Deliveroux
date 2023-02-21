@@ -2,6 +2,8 @@ version: "3"
 services:
   auth:
     build: auth_api/.
+  user:
+    build: user_api/.
   restaurants:
     build: restaurants_api/.
     depends_on:

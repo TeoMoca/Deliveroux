@@ -24,7 +24,7 @@ if (!process.env.PORT) {
  const app = express();
 
  app.use(helmet());
-app.use(cors());
+
 app.use(express.json());
 
 

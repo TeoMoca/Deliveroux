@@ -24,12 +24,7 @@ const routes: Array<RouteRecordRaw> = [
     // which is lazy-loaded when the route is visited.
     component: () => {
       return axios
-        .get(`http://localhost:8080/users/users/${cookies.get("userId")}`, {
-          headers: {
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*",
-          },
-        })
+        .get(`http://localhost:8080/user/${cookies.get("userId")}`)
         .then((rep) => {
           console.log(rep.data.roleId);
           switch (rep.data.roleId) {

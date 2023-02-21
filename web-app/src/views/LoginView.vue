@@ -62,25 +62,10 @@ export default defineComponent({
           password: this.password,
         })
         .then((e) => {
-          document.cookie = `token=${e.data.token};expires=${new Date(
-            Date.now() + 1000 * 60 * 60 * 24
-          ).toUTCString()}`;
-          document.cookie = `lastname=${
-            e.data.data.lastname
-          };expires=${new Date(
-            Date.now() + 1000 * 60 * 60 * 24
-          ).toUTCString()}`;
-          document.cookie = `firstname=${
-            e.data.data.firstname
-          };expires=${new Date(
-            Date.now() + 1000 * 60 * 60 * 24
-          ).toUTCString()}`;
-          document.cookie = `userId=${e.data.data.id};expires=${new Date(
-            Date.now() + 1000 * 60 * 60 * 24
-          ).toUTCString()}`;
-          this.$router.push({ path: "/home" });
+          console.log(e);
         })
         .catch((e) => {
+          console.log(e);
           window.alert(e.response.data.message);
         });
     },

@@ -66,6 +66,7 @@ export default function UsersRouter(
             { expiresIn: "2h" }
           );
           const userInfo = { data, message: "User Connected", token: token };
+          console.log("coucou");
           return res.status(200).json(userInfo);
         }
     
