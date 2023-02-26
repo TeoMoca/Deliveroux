@@ -67,11 +67,15 @@ export default defineComponent({
       var request =
         "http://127.0.0.1:8080/notifications/seen/" + this.$props.idUser;
       this.$axios
-        .put(request, {
-          headers: {
-            Authorization: `Bearer ${this.$cookies.get("token")}`,
-          },
-        })
+        .put(
+          request,
+          {},
+          {
+            headers: {
+              Authorization: `Bearer ${this.$cookies.get("token")}`,
+            },
+          }
+        )
         .then((rep) => {
           rep.data;
         });
