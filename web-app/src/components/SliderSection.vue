@@ -6,9 +6,9 @@
         class="item"
         v-for="item in $props.items"
         v-bind:key="item"
-        :href="'/restaurants/' + item.name"
+        :href="'/restaurants/' + item._id"
       >
-        <img :src="item.image" />
+        <img :src="item.image_link" />
         <div class="informations">
           <p class="item-title">
             {{ item.name }}

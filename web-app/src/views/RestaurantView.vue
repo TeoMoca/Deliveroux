@@ -1,10 +1,10 @@
 <template>
-  <img :src="restaurant.image" class="restaurant-image" />
+  <img :src="restaurant.image_link" class="restaurant-image" />
   <div class="restaurant-container">
     <div class="restaurant-title">
       <p>{{ restaurant.name }}</p>
     </div>
-    <div class="stars" :style="{ '--note': restaurant.notes }"></div>
+    <div class="stars" :style="{ '--note': restaurant.rate }"></div>
 
     <div class="items-container">
       <div v-for="item in display" :key="item.componentTitle">
@@ -24,8 +24,8 @@ export default defineComponent({
   name: "RestaurantView",
   data: (): {
     restaurant: {
-      image: string;
-      notes: number;
+      image_link: string;
+      rate: number;
       name: string;
       _id: string;
     };
@@ -39,8 +39,8 @@ export default defineComponent({
     }>;
   } => ({
     restaurant: {
-      image: "",
-      notes: 0,
+      image_link: "",
+      rate: 0,
       _id: "",
       name: "",
     },
@@ -51,14 +51,11 @@ export default defineComponent({
   beforeCreate() {
     console.log(this.$route.params);
     this.$axios
-      .get(
-        `http://localhost:8080/restaurants/displayRestaurant/${this.$route.params.id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${this.$cookies.get("token")}`,
-          },
-        }
-      )
+      .get(`http://localhost:8080/restaurants/${this.$route.params.id}`, {
+        headers: {
+          Authorization: `Bearer ${this.$cookies.get("token")}`,
+        },
+      })
       .then((rep) => {
         this.restaurant = rep.data;
         console.log(this.restaurant);
@@ -79,14 +76,11 @@ export default defineComponent({
           });
       });
     this.$axios
-      .get(
-        `http://localhost:8080/restaurants/displayRestaurant/${this.$route.params.id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${this.$cookies.get("token")}`,
-          },
-        }
-      )
+      .get(`http://localhost:8080/restaurants/${this.$route.params.id}`, {
+        headers: {
+          Authorization: `Bearer ${this.$cookies.get("token")}`,
+        },
+      })
       .then((rep) => {
         console.log(rep.data);
         rep.data.display.map((item: { name: string }) => {
@@ -98,7 +92,7 @@ export default defineComponent({
   methods: {
     getComponent(
       componentTitle: string,
-      item: { name: string; picture: string }
+      item: { name: string; image_link: string }
     ) {
       console.log("item", item);
       switch (componentTitle) {
@@ -115,7 +109,7 @@ export default defineComponent({
           return `<div>menus - ${item.name}</div>`;
         }
         default: {
-          return `${item.name} <img src='${item.picture}'/>`;
+          return `${item.name} <img src='${item.image_link}'/>`;
         }
       }
     },
@@ -157,8 +151,8 @@ export default defineComponent({
   letter-spacing: 3px;
   background: linear-gradient(
     90deg,
-    #fc0 calc(var(--note) / 20 * 100%),
-    grey calc(var(--note) / 20 * 100%)
+    #fc0 calc(var(--note) / 5 * 100%),
+    grey calc(var(--note) / 5 * 100%)
   );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;

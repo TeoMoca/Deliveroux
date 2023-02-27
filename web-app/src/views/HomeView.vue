@@ -18,7 +18,7 @@ export default defineComponent({
   name: "HomeView",
   components: { SliderSection /*VueTest*/ },
   data: (): {
-    restaurants: { notes: number }[];
+    restaurants: { rate: number }[];
   } => ({
     restaurants: [],
   }),
@@ -30,19 +30,20 @@ export default defineComponent({
         },
       })
       .then((rep) => {
-        rep.data.map((restaurant: { notes: number }) => {
+        rep.data.map((restaurant: { rate: number }) => {
           this.restaurants.push(restaurant);
         });
       });
   },
   computed: {
     upperRates() {
+      console.log(this.restaurants);
       return this.restaurants
         .filter((item) => {
-          return item.notes > 15;
+          return item.rate > 4;
         })
         .sort((a, b) => {
-          return b.notes - a.notes;
+          return b.rate - a.rate;
         });
     },
   },

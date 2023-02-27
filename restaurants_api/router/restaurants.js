@@ -10,7 +10,19 @@ router.get("/", async (req, res) => {
       res.send(rep);
     });
   } catch {
-    res.status(404).send({ message: "TG restaurants FDP" });
+    res.status(404).send({ message: "Error" });
+  }
+});
+
+router.get("/:restaurant_id", async (req, res) => {
+  try {
+    await db.restaurants
+      .findOne({ _id: req.params.restaurant_id })
+      .then((rep) => {
+        res.send(rep);
+      });
+  } catch {
+    res.status(404).send({ message: "Error" });
   }
 });
 
