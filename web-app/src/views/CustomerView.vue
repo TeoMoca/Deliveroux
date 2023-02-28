@@ -146,7 +146,7 @@ export default defineComponent({
       if (valid) {
         const user = new User(
           "",
-          2,
+          15,
           this.firstname,
           this.lastname,
           this.phone,
@@ -161,11 +161,10 @@ export default defineComponent({
           this.country
         );
         const response = await this.$axios.post(
-          "http://localhost:8080/users/register",
+          "http://localhost:8080/auth/register",
           {
             user: user,
             adress: adress,
-            IdRole: 2,
             sponsorMail: this.refercode,
           },
           {

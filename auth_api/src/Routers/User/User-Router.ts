@@ -34,10 +34,10 @@ export default function UsersRouter(
             console.log(req.body.adress);
             const address = new Address(randomUUID(), req.body.adress.adress, req.body.adress.codePostal, req.body.adress.city, req.body.adress.country);
             console.log(address)
-            
+            console.log(req.body.user);
             const user = new User(
                 "",
-            req.body.user.IdRole,
+            req.body.user.roleId,
             address.id,
             req.body.user.firstname,
             req.body.user.lastname,
@@ -45,7 +45,7 @@ export default function UsersRouter(
             req.body.user.mail,
             req.body.user.password, false);
 
-            
+            console.log(user);
             const userCreated = await RegisterUseCase.execute(user, address);
 
             res.send(userCreated);
