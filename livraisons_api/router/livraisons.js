@@ -29,7 +29,7 @@ livraisonsRouter.post("/accept", (req, res) => {
       };
 
       console.log(newLivraison);
-      db.notifications.insertMany(newLivraison);
+      db.livraisons.insertMany(newLivraison);
     }
   });
 });

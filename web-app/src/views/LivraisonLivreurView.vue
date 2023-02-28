@@ -89,7 +89,7 @@ export default defineComponent({
     },
     livraisonValide() {
       axios.post(
-        "http://localhost:8080/livraison/done/" + this.idLivreur,
+        "http://localhost:8080/livraisons/done/" + this.idLivreur,
         {},
         {
           headers: {
@@ -105,7 +105,7 @@ export default defineComponent({
     //recupère les données de la livraison
     console.log(this.idLivreur);
     axios
-      .get("http://localhost:8080/livraison/livreur/" + this.idLivreur, {
+      .get("http://localhost:8080/livraisons/livreur/" + this.idLivreur, {
         headers: {
           Authorization: `Bearer ${this.$cookies.get("token")}`,
         },
@@ -115,7 +115,7 @@ export default defineComponent({
         //recupère les données de la commande
         axios
           .get(
-            "http://localhost:8080/commande/" + resLivraison.data.commandeID,
+            "http://localhost:8080/commands/" + resLivraison.data.commandeID,
             {
               headers: {
                 Authorization: `Bearer ${this.$cookies.get("token")}`,
@@ -127,14 +127,11 @@ export default defineComponent({
             //recupère les données du client
             console.log(resCommande.data.clientID);
             axios
-              .get(
-                "http://localhost:8080/api/users/" + resCommande.data.clientID,
-                {
-                  headers: {
-                    Authorization: `Bearer ${this.$cookies.get("token")}`,
-                  },
-                }
-              )
+              .get("http://localhost:8080/user/" + resCommande.data.clientID, {
+                headers: {
+                  Authorization: `Bearer ${this.$cookies.get("token")}`,
+                },
+              })
               .then((resClient) => {
                 this.clientData = resClient.data;
               });
