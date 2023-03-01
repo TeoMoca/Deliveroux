@@ -132,7 +132,7 @@ import ReferOne from "@/components/ReferOne.vue";
 export default defineComponent({
   async created() {
     this.$axios
-      .get("http://localhost:8080/api/users/" + this.$cookies.get("userId"), {
+      .get("http://localhost:8080/user/" + this.$cookies.get("userId"), {
         headers: {
           Authorization: `Bearer ${this.$cookies.get("token")}`,
         },
@@ -196,14 +196,11 @@ export default defineComponent({
   methods: {
     async deleteUser() {
       await this.$axios
-        .delete(
-          "http://localhost:8080/api/users/" + this.$cookies.get("userId"),
-          {
-            headers: {
-              Authorization: `Bearer ${this.$cookies.get("token")}`,
-            },
-          }
-        )
+        .delete("http://localhost:8080/user/" + this.$cookies.get("userId"), {
+          headers: {
+            Authorization: `Bearer ${this.$cookies.get("token")}`,
+          },
+        })
         .then(async (rep) => {
           console.log(rep.data);
           if (rep.data) {

@@ -84,38 +84,29 @@ export default defineComponent({
   created() {
     //recupère les données du client
     axios
-      .get(
-        "http://localhost:8080/livraison/commande/" + this.$props.id.slice(1),
-        {
-          headers: {
-            Authorization: `Bearer ${this.$cookies.get("token")}`,
-          },
-        }
-      )
+      .get("http://localhost:8080/commands/" + this.$props.id, {
+        headers: {
+          Authorization: `Bearer ${this.$cookies.get("token")}`,
+        },
+      })
       .then((resLivraison) => {
         this.livraisonData = resLivraison.data;
         axios
-          .get(
-            "http://localhost:8080/api/users/" + resLivraison.data.livreurID,
-            {
-              headers: {
-                Authorization: `Bearer ${this.$cookies.get("token")}`,
-              },
-            }
-          )
+          .get("http://localhost:8080/user/" + resLivraison.data.livreurID, {
+            headers: {
+              Authorization: `Bearer ${this.$cookies.get("token")}`,
+            },
+          })
           .then((resLivreur) => {
             this.livreurData = resLivreur.data;
           });
       });
     axios
-      .get(
-        "http://localhost:8080/commands/command/" + this.$props.id.slice(1),
-        {
-          headers: {
-            Authorization: `Bearer ${this.$cookies.get("token")}`,
-          },
-        }
-      )
+      .get("http://localhost:8080/commands/" + this.$props.id.slice(1), {
+        headers: {
+          Authorization: `Bearer ${this.$cookies.get("token")}`,
+        },
+      })
       .then((resCommande) => {
         this.commandeData = resCommande.data;
       });

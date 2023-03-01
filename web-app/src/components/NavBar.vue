@@ -48,7 +48,7 @@
             (commande) => commande.commandeStatut == 'EC'
           )"
           :key="commande.id"
-          :href="'/livraison/:' + commande.id"
+          :href="'/livraisons/:' + commande.id"
         >
           {{ commande.id }}
         </a>
@@ -134,7 +134,7 @@ export default defineComponent({
       //Livraisons
       this.$axios
         .get(
-          "http://localhost:8080/livraison/livreur/" +
+          "http://localhost:8080/livraisons/livreur/" +
             this.$cookies.get("userId"),
           {
             headers: {
@@ -147,15 +147,11 @@ export default defineComponent({
           console.log(this.$data.livraisons);
         });
       this.$axios
-        .get(
-          "http://localhost:8080/commands/command/" +
-            this.$cookies.get("userId"),
-          {
-            headers: {
-              Authorization: `Bearer ${this.$cookies.get("token")}`,
-            },
-          }
-        )
+        .get("http://localhost:8080/commands/" + this.$cookies.get("userId"), {
+          headers: {
+            Authorization: `Bearer ${this.$cookies.get("token")}`,
+          },
+        })
         .then((rep) => {
           this.commandes = rep.data;
           console.log(this.$data.commandes);

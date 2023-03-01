@@ -160,11 +160,11 @@ export default defineComponent({
           this.country
         );
         const response = await this.$axios.post(
-          "http://localhost:8080/users/register",
+          "http://localhost:8080/user/register",
           {
             user: user,
             adress: adress,
-            IdRole: 3,
+            IdRole: 18,
             sponsorMail: this.refercode,
           },
           {
