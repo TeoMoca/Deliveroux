@@ -23,7 +23,7 @@
           :key="item.name"
           :href="'http://localhost:8081/restaurants/' + item._id"
         >
-          <img class="item-img" :src="item.image" />
+          <img class="item-img" :src="item.image_link" />
           <p>{{ item.name }}</p>
         </a>
         <div class="item error" v-if="search && !filteredList().length">
@@ -114,9 +114,11 @@ export default defineComponent({
           },
         })
         .then((rep) => {
-          rep.data.map((item: { name: string; image: string; _id: string }) => {
-            this.restaurants.push(item);
-          });
+          rep.data.map(
+            (item: { name: string; image_link: string; _id: string }) => {
+              this.restaurants.push(item);
+            }
+          );
         });
       //
       this.$axios
@@ -163,7 +165,7 @@ export default defineComponent({
   data: (): {
     title: string;
     search: string;
-    restaurants: { name: string; image: string; _id: string }[];
+    restaurants: { name: string; image_link: string; _id: string }[];
     initials: string;
     idRole: number;
     livraisons: object;
@@ -197,6 +199,7 @@ export default defineComponent({
       }
     },
     disconnect() {
+      console.log("disconnect");
       this.$cookies.remove("token");
       this.$cookies.remove("firstname");
       this.$cookies.remove("lastname");

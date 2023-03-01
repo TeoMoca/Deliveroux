@@ -46,6 +46,31 @@ router.post("/", (req, res) => {
     });
   });
 });
+
+router.put("/modify", (req, res) => {
+  const newRestaurant = {
+    _id: req.body._id,
+    name: req.body.name,
+    gps: req.body.gps,
+    address: req.body.address,
+    rate: req.body.rate,
+    opening_time: req.body.opening_time,
+    closing_time: req.body.closing_time,
+    type: req.body.type,
+    image_link: req.body.image_link,
+    components: req.body.components,
+    display: req.body.display,
+  };
+  db.restaurants
+    .findOneAndUpdate({ _id: newRestaurant._id }, { $set: newRestaurant })
+    .then(() => {
+      res.status(200).json({ message: "Objet modifié" });
+    })
+    .catch((e) => {
+      res.status(404).json({ message: `objet non trouvé` });
+    });
+});
+
 router.delete("/", (req, res) => {});
 router.put("/", (req, res) => {});
 router.get("/test", (req, res) => {

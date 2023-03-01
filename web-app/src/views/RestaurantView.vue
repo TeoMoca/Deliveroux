@@ -12,6 +12,8 @@
       </div>
     </div>
     <DraggableList v-if="restaurant._id" :id="restaurant._id" />
+
+    <CreationItemButton v-if="restaurant._id" :id="restaurant._id" />
   </div>
 </template>
 
@@ -19,6 +21,7 @@
 import { defineComponent } from "vue";
 import DraggableList from "../components/DraggableList.vue";
 import ArticleCard from "../components/ArticleCard.vue";
+import CreationItemButton from "../components/CreationItemButton.vue";
 
 export default defineComponent({
   name: "RestaurantView",
@@ -49,7 +52,6 @@ export default defineComponent({
     display: [],
   }),
   beforeCreate() {
-    console.log(this.$route.params);
     this.$axios
       .get(`http://localhost:8080/restaurants/${this.$route.params.id}`, {
         headers: {
@@ -58,19 +60,18 @@ export default defineComponent({
       })
       .then((rep) => {
         this.restaurant = rep.data;
-        console.log(this.restaurant);
         this.$axios
-          .get(`http://localhost:8080/catalog/${this.restaurant._id}`, {
+          .get(`http://localhost:8080/catalogs/${this.restaurant._id}`, {
             headers: {
               Authorization: `Bearer ${this.$cookies.get("token")}`,
             },
           })
           .then((rep) => {
             console.log("catalog api", rep.data);
-            rep.data.menusList.map((menu: { name: string }) => {
+            rep.data.menusList?.map((menu: { name: string }) => {
               this.menus.push(menu);
             });
-            rep.data.itemsList.map((menu: { name: string }) => {
+            rep.data.articlesList?.map((menu: { name: string }) => {
               this.articles.push(menu);
             });
           });
@@ -114,7 +115,7 @@ export default defineComponent({
       }
     },
   },
-  components: { DraggableList, ArticleCard },
+  components: { DraggableList, ArticleCard, CreationItemButton },
 });
 </script>
 
