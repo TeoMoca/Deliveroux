@@ -24,11 +24,11 @@ commandsRouter.get("/:id_user", (req, res) => {
       });
   });
   
-commandsRouter.patch("/:commandid", async (req, res) => {
+commandsRouter.patch("/accept/:commandid", async (req, res) => {
     console.log(req.params);
     await db.commands.findByIdAndUpdate(
       { _id: req.params.commandid },
-      { isPaid: true }
+      { isAcceptedByRestaurateur: true }
     );
     res.status(200).send();
   });
@@ -42,14 +42,15 @@ commandsRouter.patch("/takedelivery/:commandid", async (req, res) => {
   
     res.status(204).send();
   });
-  
-commandsRouter.patch("/:commandid", async (req, res) => {
+
+  commandsRouter.patch("/finish/:commandid", async (req, res) => {
     console.log(req.params);
-    await db.commands.findByIdAndUpdate(
+    await db.commands.findOneAndUpdate(
       { _id: req.params.commandid },
-      { isPaid: true }
+      { isFinished: true }
     );
-    res.status(200).send();
+  
+    res.status(204).send();
   });
 
 
@@ -58,7 +59,7 @@ commandsRouter.post("/send", (req, res) => {
   
     var newCommand = {
       customerId: req.body.customerId,
-      restorantId: req.body.customerId,
+      restorantId: req.body.restorantId,
       date: req.body.date,
       articles: req.body.articles,
       price: req.body.price,
@@ -68,6 +69,7 @@ commandsRouter.post("/send", (req, res) => {
       isPaid: false,
       isAcceptedByRestaurateur: false,
       isInDelivery: false,
+      isFinished: false
     };
   
     //sensors.push(newSensor);
@@ -89,4 +91,13 @@ commandsRouter.post("/send", (req, res) => {
       .catch(() => {
         res.status(404).json({ message: "no command found" });
       });
+});
+
+commandsRouter.delete("/delete/:commandid", async (req, res) => {
+  console.log(req.params);
+  await db.commands.findOneAndDelete(
+    { _id: req.params.commandid }
+  );
+
+  res.status(204).send();
 });
