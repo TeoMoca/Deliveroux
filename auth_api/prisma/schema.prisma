@@ -25,17 +25,18 @@ model Roles {
 }
 
 model Users {
-  Id         String  @id @db.UniqueIdentifier
-  Id_Role    Int
-  Id_Address String  @db.UniqueIdentifier
-  FirstName  String
-  LastName   String
-  Mail       String
-  Phone      String
-  IsDisabled Boolean
-  Password   String
-  stripeId   String?
-  IsSponsor  Boolean
-  Address    Address @relation(fields: [Id_Address], references: [Id], onDelete: Cascade)
-  Roles      Roles   @relation(fields: [Id_Role], references: [Id], onDelete: Cascade)
+  Id           String  @id @db.UniqueIdentifier
+  Id_Role      Int
+  Id_Address   String  @db.UniqueIdentifier
+  FirstName    String
+  LastName     String
+  Mail         String
+  Phone        String
+  IsDisabled   Boolean
+  Password     String
+  stripeId     String?
+  IsSponsor    Boolean
+  RestaurantId String? @db.NVarChar(Max)
+  Address      Address @relation(fields: [Id_Address], references: [Id], onDelete: Cascade)
+  Roles        Roles   @relation(fields: [Id_Role], references: [Id], onDelete: Cascade)
 }
