@@ -58,7 +58,7 @@
       {{ getUserInitials() }}
       <div class="options">
         <p @click="RedirectProfile">Mes informations</p>
-        <p>Voir mes commandes</p>
+        <p @click="RedirectCommands">Voir mes commandes</p>
         <p>Parrainez un amis</p>
         <p class="disconnect" @click="disconnect">Me déconnecter</p>
       </div>
@@ -178,6 +178,9 @@ export default defineComponent({
   methods: {
     RedirectProfile() {
       this.$router.push("/Profile");
+    },
+    RedirectCommands() {
+      this.$router.push("/livraison/" + this.$cookies.get("userId"));
     },
     filteredList() {
       const regex = new RegExp("^" + this.$data.search.toLowerCase());
