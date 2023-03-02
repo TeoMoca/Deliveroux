@@ -23,4 +23,13 @@ export class UserRepository implements IUserRepository {
 
         return user;
     }
+
+    async updateRestaurantIdAsync(userId: string, restaurantId: string): Promise<Boolean> {
+        const userEntity = await this.userDataSource.users.update({
+            where:{Id:userId},
+            data:{RestaurantId:restaurantId}
+        })
+
+        return true;
+    }
 }
