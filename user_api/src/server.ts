@@ -3,6 +3,7 @@ import express from "express";
 import helmet from "helmet";
 import UsersRouter from "./Routers/User-Router";
 import { GetUserByIdUseCase } from "./Core/UseCase/User/GetUserByIdUseCase";
+import {UpdateRestaurantIdUseCase} from "./Core/UseCase/User/UpdateRestaurantIdUseCase";
 import { UserRepository } from "./Infrastructure/Repository/UserRepository";
 import Stripe from "stripe";
 import { PrismaClient } from "@prisma/client";
@@ -24,8 +25,7 @@ app.use(helmet());
 app.use(express.json());
 
 const userMiddleware = UsersRouter(
-  new GetUserByIdUseCase(new UserRepository(prisma, stripe))
-);
+  new GetUserByIdUseCase(new UserRepository(prisma, stripe)), new UpdateRestaurantIdUseCase(new UserRepository(prisma, stripe)));
 
 app.use("/user", userMiddleware);
 app.listen(8080, () => {
