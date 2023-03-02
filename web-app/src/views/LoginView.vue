@@ -72,20 +72,16 @@ export default defineComponent({
         .then((e) => {
           console.log(e);
           document.cookie = `token=${e.data.token};expires=${new Date(
-            Date.now() + 1000 * 60 * 60 * 24
+            Date.now() + 1000 * 60 * 60 * 2
           ).toUTCString()}`;
           document.cookie = `lastname=${
             e.data.data.lastname
-          };expires=${new Date(
-            Date.now() + 1000 * 60 * 60 * 24
-          ).toUTCString()}`;
+          };expires=${new Date(Date.now() + 1000 * 60 * 60 * 2).toUTCString()}`;
           document.cookie = `firstname=${
             e.data.data.firstname
-          };expires=${new Date(
-            Date.now() + 1000 * 60 * 60 * 24
-          ).toUTCString()}`;
+          };expires=${new Date(Date.now() + 1000 * 60 * 60 * 2).toUTCString()}`;
           document.cookie = `userId=${e.data.data.id};expires=${new Date(
-            Date.now() + 1000 * 60 * 60 * 24
+            Date.now() + 1000 * 60 * 60 * 2
           ).toUTCString()}`;
 
           this.$router.push({ path: "/home" });

@@ -50,14 +50,11 @@ export default defineComponent({
   },
   created() {
     this.$axios
-      .get(
-        `http://localhost:8080/restaurants/displayRestaurant/${this.$props.id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${this.$cookies.get("token")}`,
-          },
-        }
-      )
+      .get(`http://localhost:8080/restaurants/${this.$props.id}`, {
+        headers: {
+          Authorization: `Bearer ${this.$cookies.get("token")}`,
+        },
+      })
       .then((rep) => {
         console.log(rep.data.display);
         rep.data.display.map(
@@ -67,9 +64,8 @@ export default defineComponent({
         );
       });
 
-    console.log("props id", this.id, this.$props);
     this.$axios
-      .get(`http://localhost:8080/catalog/${this.id}`, {
+      .get(`http://localhost:8080/catalogs/${this.id}`, {
         headers: {
           Authorization: `Bearer ${this.$cookies.get("token")}`,
         },
@@ -115,14 +111,11 @@ export default defineComponent({
     },
     sendData() {
       this.$axios
-        .get(
-          `http://localhost:8080/restaurants/displayRestaurant/${this.$props.id}`,
-          {
-            headers: {
-              Authorization: `Bearer ${this.$cookies.get("token")}`,
-            },
-          }
-        )
+        .get(`http://localhost:8080/restaurants/${this.$props.id}`, {
+          headers: {
+            Authorization: `Bearer ${this.$cookies.get("token")}`,
+          },
+        })
         .then((rep) => {
           console.log(rep.data);
           rep.data.display = Object.values(this.listOne);

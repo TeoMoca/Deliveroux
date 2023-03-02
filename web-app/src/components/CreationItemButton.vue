@@ -7,7 +7,7 @@
       <!-- ------------------------------------ -->
       <v-tabs v-model="tab" fixed-tabs bg-color="indigo-darken-2">
         <v-tab value="item"> item </v-tab>
-        <v-tab value="menu"> menu </v-tab>
+        <v-tab value="menu" :disabled="itemsList.length === 0"> menu </v-tab>
       </v-tabs>
       <!-- ------------------------------------ -->
       <v-card v-if="tab == 'item'">
@@ -107,7 +107,7 @@
               </v-col>
               <v-col cols="12">
                 <v-select
-                  v-model="newMenu.items"
+                  v-model="newMenu.articles"
                   :items="itemsList"
                   item-title="name"
                   item-value="_id"
@@ -140,11 +140,10 @@ import axios from "axios";
 
 export default defineComponent({
   name: "CreationItemButton",
-  data: function (): {
+  data: (): {
     dialog: boolean;
     itemsList: Array<{ _id: string; name: string }>;
     newItem: {
-      id_restaurant: string;
       name: string;
       picture: string;
       description: string;
@@ -152,22 +151,20 @@ export default defineComponent({
       price: number;
     };
     newMenu: {
-      id_restaurant: string;
       name: string;
       picture: string;
       description: string;
       price: number;
-      items: Array<string>;
+      articles: Array<string>;
     };
     articleRequestUrl: string;
     menuRequestUrl: string;
     getArticleUrl: string;
     tab: string;
-  } {
+  } => {
     return {
       dialog: false,
       newItem: {
-        id_restaurant: "",
         type: "",
         name: "",
         picture: "",
@@ -175,31 +172,36 @@ export default defineComponent({
         price: 1,
       },
       newMenu: {
-        id_restaurant: "",
         name: "",
         picture: "",
         description: "",
         price: 0,
-        items: [],
+        articles: [],
       },
       itemsList: [],
 
-      articleRequestUrl: "http://127.0.0.1:8080/articles/add",
-      menuRequestUrl: "http://127.0.0.1:8080/menus/add",
-      getArticleUrl: "http://127.0.0.1:8080/articles/",
+      articleRequestUrl: "http://127.0.0.1:8080/catalogs/articles/add",
+      menuRequestUrl: "http://127.0.0.1:8080/catalogs/menus/add",
+      getArticleUrl: "http://127.0.0.1:8080/catalogs/articles/",
       tab: "item",
     };
   },
-
   props: {
-    restaurant_id: { type: String, required: true },
+    id: String,
   },
   computed: {},
   methods: {
     articleSubmit: function () {
-      console.log(this.newItem);
       axios
-        .post(this.articleRequestUrl, this.newItem)
+        .post(
+          this.articleRequestUrl,
+          { id_restaurant: this.id, ...this.newItem },
+          {
+            headers: {
+              Authorization: `Bearer ${this.$cookies.get("token")}`,
+            },
+          }
+        )
         .then(function (response) {
           console.log(response);
         })
@@ -211,7 +213,15 @@ export default defineComponent({
     menuSubmit: function () {
       console.log(this.newMenu);
       axios
-        .post(this.menuRequestUrl, this.newMenu)
+        .post(
+          this.menuRequestUrl,
+          { id_restaurant: this.id, ...this.newMenu },
+          {
+            headers: {
+              Authorization: `Bearer ${this.$cookies.get("token")}`,
+            },
+          }
+        )
         .then(function (response) {
           console.log(response);
         })
@@ -229,16 +239,17 @@ export default defineComponent({
     },
   },
   created() {
-    this.newItem.id_restaurant = this.restaurant_id;
-    this.newMenu.id_restaurant = this.restaurant_id;
-    fetch(this.getArticleUrl + this.restaurant_id, { method: "GET" }).then(
-      (rep) => {
-        rep.json().then((data) => {
-          this.itemsList = data;
-          console.log(this.itemsList);
-        });
-      }
-    );
+    this.$axios
+      .get(`http://localhost:8080/catalogs/articles/${this.$props.id}`, {
+        headers: {
+          Authorization: `Bearer ${this.$cookies.get("token")}`,
+        },
+      })
+      .then((rep) => {
+        console.log("rep.data", rep);
+        this.itemsList = rep.data;
+        console.log("itemlist", this.itemsList);
+      });
   },
 });
 </script>
