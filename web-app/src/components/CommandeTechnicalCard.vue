@@ -1,8 +1,18 @@
 <template>
-  <v-card width="400" :title="userInfos.firstname + ' ' + userInfos.lastname">
-    <p v-for="menu in command.articles.menus" :key="menu">{{ menu }}</p>
-    <p v-for="item in command.articles.items" :key="item">{{ item }}</p>
-    <v-btn color="success" class="me-4" @click="validate">
+  <v-card
+    class="elevation-15"
+    width="400"
+    :title="userInfos.firstname + ' ' + userInfos.lastname"
+  >
+    <p class="type">Menus</p>
+    <p class="content" v-for="menu in command.articles.menus" :key="menu">
+      {{ catalog.menusList.find((a) => a._id == menu)?.name }}
+    </p>
+    <p class="type">Articles Seuls</p>
+    <p class="content" v-for="item in command.articles.items" :key="item">
+      {{ catalog.articlesList.find((a) => a._id == item)?.name }}
+    </p>
+    <v-btn color="success" class="me-4 submit" @click="validate">
       {{ buttonText }}
     </v-btn>
   </v-card>
@@ -15,6 +25,7 @@ export default defineComponent({
   name: "CommandeTechnicalCard",
   props: {
     command: {
+      restorantId: String,
       customerId: String,
       type: Object,
       required: true,
@@ -25,13 +36,28 @@ export default defineComponent({
   },
 
   data: (): {
+    idRestaurant: string;
     userInfos: {
       id: string;
       firstname: string;
       lastname: string;
       phone: string;
     };
+    catalog: {
+      menusList: {
+        _id: string;
+        name: string;
+        type: string;
+      }[];
+      articlesList: {
+        _id: string;
+        name: string;
+        type: string;
+      }[];
+    };
   } => ({
+    idRestaurant: "",
+    catalog: { menusList: [], articlesList: [] },
     userInfos: { id: "", firstname: "", lastname: "", phone: "" },
   }),
 
@@ -45,16 +71,44 @@ export default defineComponent({
       .then((rep) => {
         this.userInfos = rep.data;
       });
+    //---------------------------------------------------------------
+    console.log(this.command.restorantId);
+    this.$axios
+      .get("http://localhost:8080/catalogs/" + this.command.restorantId, {
+        headers: {
+          Authorization: `Bearer ${this.$cookies.get("token")}`,
+        },
+      })
+      .then((rep) => {
+        this.catalog = rep.data;
+        console.log("catalog", this.catalog);
+      });
   },
   methods: {
     validate() {
       //request
-      this.$axios.get("" + this.$props.submitLink, {
-        headers: {
-          Authorization: `Bearer ${this.$cookies.get("token")}`,
-        },
-      });
+      this.$axios.patch(
+        "" + this.$props.submitLink,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${this.$cookies.get("token")}`,
+          },
+        }
+      );
     },
   },
 });
 </script>
+
+<style scoped>
+.type {
+  text-decoration: underline;
+}
+.submit {
+  margin-left: 15%;
+}
+.content {
+  margin-left: 5%;
+}
+</style>

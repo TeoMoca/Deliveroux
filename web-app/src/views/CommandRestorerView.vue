@@ -1,6 +1,7 @@
 <template>
   <div v-for="command in commandeData" :key="command._id">
     <CommandeTechnicalCard
+      :restaurantId="restorant_id"
       :submitLink="validateLink + command._id"
       :command="command"
       :buttonText="text_button"
@@ -24,7 +25,9 @@ export default defineComponent({
     }[];
     validateLink: string;
     text_button: string;
+    restorant_id: string;
   } => ({
+    restorant_id: "",
     commandeData: [],
     validateLink: "http://127.0.0.1:8080/commands/accept/",
     text_button: "Accepter la Commande",
@@ -38,15 +41,29 @@ export default defineComponent({
   created() {
     //recupère les données du client
     axios
-      .get("http://localhost:8080/commands/restaurant/" + this.$props.id, {
+      .get("http://localhost:8080/user/" + this.$props.id, {
         //a changer pour l'id du resto
         headers: {
           Authorization: `Bearer ${this.$cookies.get("token")}`,
         },
       })
-      .then((resCommande) => {
-        this.commandeData = resCommande.data;
-        console.log("commandeData", this.commandeData);
+      .then((infoUser) => {
+        this.restorant_id = infoUser.data.restaurantId;
+        axios
+          .get(
+            "http://localhost:8080/commands/restaurant/" +
+              infoUser.data.restaurantId,
+            {
+              //a changer pour l'id du resto
+              headers: {
+                Authorization: `Bearer ${this.$cookies.get("token")}`,
+              },
+            }
+          )
+          .then((resCommande) => {
+            this.commandeData = resCommande.data;
+            console.log("commandeData", this.commandeData);
+          });
       });
   },
 });

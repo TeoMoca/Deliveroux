@@ -24,7 +24,7 @@ commandsRouter.get("/:id_user", (req, res) => {
       });
   });
 
-  commandsRouter.get("restaurant/:id_restaurant", (req, res) => {
+  commandsRouter.get("/restaurant/:id_restaurant", (req, res) => {
     var id_restaurant = req.params.id_restaurant;
     console.log(id_restaurant);
     db.commands
