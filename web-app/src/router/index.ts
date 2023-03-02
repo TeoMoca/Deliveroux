@@ -82,14 +82,14 @@ const routes: Array<RouteRecordRaw> = [
             case 1: {
               return livraisonClientView;
             }
-            case 2: {
+            case 15: {
               return livraisonClientView;
             }
-            case 3: {
+            case 16: {
               return livraisonLivreurView;
             }
-            case 4: {
-              return livraisonClientView;
+            case 18: {
+              return livraisonLivreurView;
             }
           }
         })

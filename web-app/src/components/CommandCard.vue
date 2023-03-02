@@ -107,7 +107,7 @@ export default defineComponent({
   data: (): {
     restaurant: { name: string; image_link: string; _id: string };
   } => ({
-    restaurant: { name: "", image: "", _id: "" },
+    restaurant: { name: "", image_link: "", _id: "" },
   }),
 
   created() {
