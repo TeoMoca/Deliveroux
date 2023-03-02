@@ -4,6 +4,7 @@ import HomeView from "../views/HomeView.vue";
 import RestaurateurHomeView from "../views/RestaurateurViews/RestaurateurHomeView.vue";
 import RestaurantView from "../views/RestaurantView.vue";
 import livraisonClientView from "../views/LivraisonClientView.vue";
+import CommandRestorerView from "../views/CommandRestorerView.vue";
 import livraisonLivreurView from "../views/LivraisonLivreurView.vue";
 import axios from "axios";
 import Cookies from "cookies-ts";
@@ -80,13 +81,14 @@ const routes: Array<RouteRecordRaw> = [
           console.log(rep.data.roleId);
           switch (rep.data.roleId) {
             case 1: {
-              return livraisonClientView;
+              return CommandRestorerView;
             }
             case 15: {
               return livraisonClientView;
             }
+            //restorer
             case 16: {
-              return livraisonLivreurView;
+              return CommandRestorerView;
             }
             case 18: {
               return livraisonLivreurView;
