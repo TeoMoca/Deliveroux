@@ -7,7 +7,7 @@
       @dragenter.prevent
     >
       <div
-        class="drag-el"
+        class="drag-el white-bg"
         v-for="item in listOne"
         :key="item.name"
         @click="removeFromList(item._id)"
@@ -17,7 +17,7 @@
     </div>
     <div class="drop-zone" @dragover.prevent @dragenter.prevent>
       <div
-        class="drag-el"
+        class="drag-el white-bg"
         v-for="item in filteredList"
         :key="item.name"
         draggable="true"
@@ -25,7 +25,9 @@
       >
         {{ item.name }}
       </div>
-      <div class="drag-el">+</div>
+      <div class="drag-el">
+        <CreationItemButton v-if="id" :id="id" />
+      </div>
     </div>
   </div>
   <button @click="sendData">Valider</button>
@@ -33,6 +35,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import CreationItemButton from "../components/CreationItemButton.vue";
 
 export default defineComponent({
   name: "DraggableList",
@@ -117,9 +120,7 @@ export default defineComponent({
           },
         })
         .then((rep) => {
-          console.log(rep.data);
           rep.data.display = Object.values(this.listOne);
-          console.log(rep.data);
           this.$axios
             .put("http://localhost:8080/restaurants/modify", rep.data, {
               headers: {
@@ -132,13 +133,14 @@ export default defineComponent({
         });
     },
   },
+  components: { CreationItemButton },
 });
 </script>
 
 <style>
 .dragger {
   display: grid;
-  grid-template-columns: 200px 200px;
+  grid-template-columns: 1fr 1fr;
   gap: 10px;
 }
 
@@ -151,7 +153,6 @@ export default defineComponent({
   user-select: none;
 }
 .drag-el {
-  background-color: #fff;
   margin-bottom: 10px;
   padding: 5px;
   display: flex;
@@ -161,5 +162,9 @@ export default defineComponent({
 
 .drag-el[draggable] {
   cursor: grab;
+}
+
+.white-bg {
+  background-color: #fff;
 }
 </style>

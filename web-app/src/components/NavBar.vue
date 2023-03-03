@@ -167,7 +167,7 @@ export default defineComponent({
     livraisons: object;
     commandes: Array<{ commandeStatut: string; id: string }>;
   } => ({
-    title: "U Beuh'r Eats",
+    title: "Deliveroux",
     search: "",
     restaurants: [],
     initials: "",
@@ -212,7 +212,7 @@ export default defineComponent({
   overflow: visible;
   gap: 10px;
   width: 100%;
-  height: 80px;
+  height: 8vh;
   background: var(--light-mode-color-five);
   display: grid;
   grid-auto-flow: column;

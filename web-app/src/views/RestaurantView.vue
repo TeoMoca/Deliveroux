@@ -11,17 +11,12 @@
         <ArticleCard :item="item.data" />
       </div>
     </div>
-    <DraggableList v-if="restaurant._id" :id="restaurant._id" />
-
-    <CreationItemButton v-if="restaurant._id" :id="restaurant._id" />
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import DraggableList from "../components/DraggableList.vue";
 import ArticleCard from "../components/ArticleCard.vue";
-import CreationItemButton from "../components/CreationItemButton.vue";
 
 export default defineComponent({
   name: "RestaurantView",
@@ -115,7 +110,7 @@ export default defineComponent({
       }
     },
   },
-  components: { DraggableList, ArticleCard, CreationItemButton },
+  components: { ArticleCard },
 });
 </script>
 

@@ -1,8 +1,8 @@
 <template>
-  <v-row justify="center">
-    <v-dialog v-model="dialog" persistent>
+  <div>
+    <v-dialog v-model="dialog">
       <template v-slot:activator="{ props }">
-        <v-btn color="primary" v-bind="props"> Ajouter un article/menu </v-btn>
+        <v-btn color="primary" v-bind="props">Ajouter un article/menu</v-btn>
       </template>
       <!-- ------------------------------------ -->
       <v-tabs v-model="tab" fixed-tabs bg-color="indigo-darken-2">
@@ -131,7 +131,7 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-  </v-row>
+  </div>
 </template>
 
 <script lang="ts">
@@ -204,6 +204,7 @@ export default defineComponent({
         )
         .then(function (response) {
           console.log(response);
+          window.location.reload();
         })
         .catch(function (error) {
           console.log(error);
@@ -224,6 +225,7 @@ export default defineComponent({
         )
         .then(function (response) {
           console.log(response);
+          window.location.reload();
         })
         .catch(function (error) {
           console.log(error);
@@ -246,9 +248,7 @@ export default defineComponent({
         },
       })
       .then((rep) => {
-        console.log("rep.data", rep);
         this.itemsList = rep.data;
-        console.log("itemlist", this.itemsList);
       });
   },
 });
