@@ -14,7 +14,8 @@ export class ConnexionMapper {
            phone:entity.Phone,
            mail:entity.Mail,
            password:entity.Password,
-           isdisabled:entity.IsDisabled
+           isdisabled:entity.IsDisabled,
+           restaurantId: entity.RestaurantId || undefined
         };
     }
 }

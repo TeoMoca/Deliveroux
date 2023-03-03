@@ -50,6 +50,10 @@ export const commands = mongoose.model(
         isInDelivery:{
             type:Boolean,
             required:true
+        },
+        isFinished:{
+            type:Boolean,
+            required:true
         }
     })
 );

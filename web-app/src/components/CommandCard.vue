@@ -1,0 +1,139 @@
+<template>
+  <v-container>
+    <v-row justify="space-around">
+      <v-card width="400">
+        <v-img
+          height="200"
+          :src="restaurant.image_link"
+          cover
+          class="text-white"
+        >
+          <v-toolbar color="rgba(0, 0, 0, 0)" theme="dark">
+            <v-toolbar-title class="text-h6">
+              {{ restaurant.name }}
+            </v-toolbar-title>
+            <template v-slot:append>
+              <v-btn icon="mdi-dots-vertical"></v-btn>
+            </template>
+          </v-toolbar>
+        </v-img>
+
+        <v-card-text>
+          <div class="font-weight-bold ms-1 mb-2">@{{ command.date }}</div>
+          <p>n° Commande : {{ command._id }}</p>
+          <v-timeline density="compact" align="start">
+            <v-timeline-item dot-color="green-darken-3" size="x-small">
+              <div class="mb-4">
+                <div class="font-weight-normal">
+                  <strong>Commande Payée</strong>
+                </div>
+              </div>
+            </v-timeline-item>
+
+            <!--_________________________________________________________-->
+            <v-timeline-item
+              v-if="command.isAcceptedByRestaurateur == true"
+              dot-color="green-darken-3"
+              size="x-small"
+            >
+              <div class="mb-4">
+                <div class="font-weight-normal">
+                  <strong>Commande Acceptée par le Restaurant</strong>
+                </div>
+              </div>
+            </v-timeline-item>
+            <v-timeline-item v-else dot-color="red-darken-3" size="x-small">
+              <div class="mb-4">
+                <div class="font-weight-normal">
+                  <strong>Commande Acceptée par le Restaurant</strong>
+                </div>
+              </div>
+            </v-timeline-item>
+            <!--_________________________________________________________-->
+            <v-timeline-item
+              v-if="command.isInDelivery == true"
+              dot-color="green-darken-3"
+              size="x-small"
+            >
+              <div class="mb-4">
+                <div class="font-weight-normal">
+                  <strong>Commande en cours de livraison</strong>
+                </div>
+              </div>
+            </v-timeline-item>
+            <v-timeline-item v-else dot-color="red-darken-3" size="x-small">
+              <div class="mb-4">
+                <div class="font-weight-normal">
+                  <strong>Commande en cours de livraison</strong>
+                </div>
+              </div>
+            </v-timeline-item>
+            <!--_________________________________________________________-->
+            <v-timeline-item
+              v-if="command.isFinished == true"
+              dot-color="green-darken-3"
+              size="x-small"
+            >
+              <div class="mb-4">
+                <div class="font-weight-normal">
+                  <strong>Terminée</strong>
+                </div>
+              </div>
+            </v-timeline-item>
+            <v-timeline-item v-else dot-color="red-darken-3" size="x-small">
+              <div class="mb-4">
+                <div class="font-weight-normal">
+                  <strong>Terminée</strong>
+                </div>
+              </div>
+            </v-timeline-item>
+            <!--_________________________________________________________-->
+          </v-timeline>
+        </v-card-text>
+      </v-card>
+    </v-row>
+  </v-container>
+</template>
+
+<script lang="ts">
+import { defineComponent } from "vue";
+
+export default defineComponent({
+  name: "CommandCard",
+  props: {
+    command: { type: Object, required: true },
+  },
+
+  data: (): {
+    restaurant: { name: string; image_link: string; _id: string };
+  } => ({
+    restaurant: { name: "", image_link: "", _id: "" },
+  }),
+
+  created() {
+    this.$axios
+      .get("http://localhost:8080/restaurants/" + this.command.restorantId, {
+        headers: {
+          Authorization: `Bearer ${this.$cookies.get("token")}`,
+        },
+      })
+      .then((rep) => {
+        this.restaurant = rep.data;
+      });
+  },
+});
+</script>
+
+<style scoped>
+.v-card-actions {
+  justify-content: space-between;
+}
+
+.v-card {
+  width: 100%;
+  height: 100%;
+  justify-content: space-between;
+  display: flex;
+  flex-direction: column;
+}
+</style>

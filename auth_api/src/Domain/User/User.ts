@@ -7,7 +7,8 @@ export interface User {
     addressId:string;
     mail:string;
     password:string;
-    isdisabled:boolean
+    isdisabled:boolean;
+    restaurantId?:string;
 }
 export class User implements User {
     constructor(
@@ -19,6 +20,7 @@ export class User implements User {
       public phone: string,
       public mail: string,
       public password: string,
-      public isdisabled: boolean
+      public isdisabled: boolean,
+      public restaurantId?: string
     ) {}
   }
