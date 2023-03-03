@@ -36,6 +36,31 @@ commandsRouter.get("/:id_user", (req, res) => {
         res.status(404).json({ message: "no command found" });
       });
   });
+
+  commandsRouter.get("/restaurant/toaccept/:id_restaurant", (req, res) => {
+    var id_restaurant = req.params.id_restaurant;
+    console.log(id_restaurant);
+    db.commands
+      .find({ restorantId: id_restaurant, isAcceptedByRestaurateur:false })
+      .then((e) => {
+        res.status(200).json(e);
+      })
+      .catch(() => {
+        res.status(404).json({ message: "no command found" });
+      });
+  });
+  commandsRouter.get("/restaurant/todeliver/:id_restaurant", (req, res) => {
+    var id_restaurant = req.params.id_restaurant;
+    console.log(id_restaurant);
+    db.commands
+      .find({ restorantId: id_restaurant,isAcceptedByRestaurateur:true, isInDelivery:false, isFinished:false })
+      .then((e) => {
+        res.status(200).json(e);
+      })
+      .catch(() => {
+        res.status(404).json({ message: "no command found" });
+      });
+  });
   
 commandsRouter.patch("/accept/:commandid", async (req, res) => {
     console.log(req.params);

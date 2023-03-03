@@ -1,6 +1,6 @@
 <template>
   <v-card
-    class="elevation-15"
+    class="commandTechnical elevation-15"
     width="400"
     :title="userInfos.firstname + ' ' + userInfos.lastname"
   >
@@ -12,7 +12,12 @@
     <p class="content" v-for="item in command.articles.items" :key="item">
       {{ catalog.articlesList.find((a) => a._id == item)?.name }}
     </p>
-    <v-btn color="success" class="me-4 submit" @click="validate">
+    <v-btn
+      v-if="enableButton"
+      color="success"
+      class="me-4 submit"
+      @click="validate"
+    >
       {{ buttonText }}
     </v-btn>
   </v-card>
@@ -31,8 +36,15 @@ export default defineComponent({
       required: true,
       articles: { menus: Array, items: Array },
     },
-    submitLink: String,
-    buttonText: String,
+    submitLink: {
+      type: String,
+      required: false,
+    },
+    enableButton: Boolean,
+    buttonText: {
+      type: String,
+      required: false,
+    },
   },
 
   data: (): {
@@ -87,15 +99,19 @@ export default defineComponent({
   methods: {
     validate() {
       //request
-      this.$axios.patch(
-        "" + this.$props.submitLink,
-        {},
-        {
-          headers: {
-            Authorization: `Bearer ${this.$cookies.get("token")}`,
-          },
-        }
-      );
+      this.$axios
+        .patch(
+          "" + this.$props.submitLink,
+          {},
+          {
+            headers: {
+              Authorization: `Bearer ${this.$cookies.get("token")}`,
+            },
+          }
+        )
+        .then(() => {
+          location.reload();
+        });
     },
   },
 });
@@ -110,5 +126,8 @@ export default defineComponent({
 }
 .content {
   margin-left: 5%;
+}
+.commandTechnical {
+  margin-top: 2%;
 }
 </style>
