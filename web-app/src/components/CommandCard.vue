@@ -90,6 +90,14 @@
             <!--_________________________________________________________-->
           </v-timeline>
         </v-card-text>
+        <v-btn
+          v-if="command.isInDelivery"
+          color="success"
+          class="me-4 submit"
+          @click="validate"
+        >
+          Valider la récéption
+        </v-btn>
       </v-card>
     </v-row>
   </v-container>
@@ -120,6 +128,24 @@ export default defineComponent({
       .then((rep) => {
         this.restaurant = rep.data;
       });
+  },
+  methods: {
+    validate() {
+      //request
+      this.$axios
+        .patch(
+          "http://localhost:8080/commands/finish/" + this.command._id,
+          {},
+          {
+            headers: {
+              Authorization: `Bearer ${this.$cookies.get("token")}`,
+            },
+          }
+        )
+        .then(() => {
+          location.reload();
+        });
+    },
   },
 });
 </script>

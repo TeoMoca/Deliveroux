@@ -8,7 +8,7 @@ export const restaurants = mongoose.model(
       required: true,
     },
     gps: {
-      type: [String, String],
+      type: [Number, Number],
       required: true,
     },
     address: {

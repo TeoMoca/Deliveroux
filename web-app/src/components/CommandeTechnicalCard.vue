@@ -4,14 +4,40 @@
     width="400"
     :title="userInfos.firstname + ' ' + userInfos.lastname"
   >
-    <p class="type">Menus</p>
-    <p class="content" v-for="menu in command.articles.menus" :key="menu">
-      {{ catalog.menusList.find((a) => a._id == menu)?.name }}
-    </p>
-    <p class="type">Articles Seuls</p>
-    <p class="content" v-for="item in command.articles.items" :key="item">
-      {{ catalog.articlesList.find((a) => a._id == item)?.name }}
-    </p>
+    <!--DELIVERY VIEW-->
+    <div v-if="cardType == 'delivery'">
+      <p class="type">Restaurant</p>
+      <p class="content">
+        {{ restaurant.name }}
+      </p>
+      <p class="content">
+        {{ restaurant.address }}
+      </p>
+      <p class="type">client</p>
+      <p class="content">
+        {{
+          userAddress.adress +
+          ", " +
+          userAddress.city +
+          ", " +
+          userAddress.codePostal +
+          ", " +
+          userAddress.country
+        }}
+      </p>
+    </div>
+    <!--RESTORER VIEW-->
+    <div v-if="cardType == 'restorer'">
+      <p class="type">Menus</p>
+      <p class="content" v-for="menu in command.articles.menus" :key="menu">
+        {{ catalog.menusList.find((a) => a._id == menu)?.name }}
+      </p>
+      <p class="type">Articles Seuls</p>
+      <p class="content" v-for="item in command.articles.items" :key="item">
+        {{ catalog.articlesList.find((a) => a._id == item)?.name }}
+      </p>
+    </div>
+
     <v-btn
       v-if="enableButton"
       color="success"
@@ -29,6 +55,7 @@ import { defineComponent } from "vue";
 export default defineComponent({
   name: "CommandeTechnicalCard",
   props: {
+    cardType: String,
     command: {
       restorantId: String,
       customerId: String,
@@ -48,12 +75,17 @@ export default defineComponent({
   },
 
   data: (): {
-    idRestaurant: string;
     userInfos: {
       id: string;
       firstname: string;
       lastname: string;
       phone: string;
+    };
+    userAddress: {
+      adress: string;
+      codePostal: string;
+      city: string;
+      country: string;
     };
     catalog: {
       menusList: {
@@ -67,10 +99,16 @@ export default defineComponent({
         type: string;
       }[];
     };
+    restaurant: {
+      name: string;
+      gps: Array<number>;
+      address: string;
+    };
   } => ({
-    idRestaurant: "",
     catalog: { menusList: [], articlesList: [] },
     userInfos: { id: "", firstname: "", lastname: "", phone: "" },
+    restaurant: { name: "", gps: [], address: "" },
+    userAddress: { adress: "", codePostal: "", city: "", country: "" },
   }),
 
   created() {
@@ -82,8 +120,18 @@ export default defineComponent({
       })
       .then((rep) => {
         this.userInfos = rep.data;
+        this.$axios
+          .get("http://127.0.0.1:8080/user/address/" + rep.data.addressId, {
+            headers: {
+              Authorization: `Bearer ${this.$cookies.get("token")}`,
+            },
+          })
+          .then((addr) => {
+            this.userAddress = addr.data;
+            console.log("catalog", this.catalog);
+          });
       });
-    //---------------------------------------------------------------
+    //catalogs_infos---------------------------------------------------------------
     console.log(this.command.restorantId);
     this.$axios
       .get("http://localhost:8080/catalogs/" + this.command.restorantId, {
@@ -93,6 +141,18 @@ export default defineComponent({
       })
       .then((rep) => {
         this.catalog = rep.data;
+        console.log("catalog", this.catalog);
+      });
+
+    //restaurant_infos--------------------------------------------------------------------
+    this.$axios
+      .get("http://127.0.0.1:8080/restaurants/" + this.command.restorantId, {
+        headers: {
+          Authorization: `Bearer ${this.$cookies.get("token")}`,
+        },
+      })
+      .then((rep) => {
+        this.restaurant = rep.data;
         console.log("catalog", this.catalog);
       });
   },

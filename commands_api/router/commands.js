@@ -24,6 +24,27 @@ commandsRouter.get("/:id_user", (req, res) => {
       });
   });
 
+  commandsRouter.get("/delivery/todeliver", (req, res) => {
+    db.commands
+      .find({isAcceptedByRestaurateur:true, isInDelivery:false, isFinished:false })
+      .then((e) => {
+        res.status(200).json(e);
+      })
+      .catch(() => {
+        res.status(404).json({ message: "no command found" });
+      });
+  });
+  commandsRouter.get("/delivery/delivering", (req, res) => {
+    db.commands
+      .find({isAcceptedByRestaurateur:true, isInDelivery:true, isFinished:false })
+      .then((e) => {
+        res.status(200).json(e);
+      })
+      .catch(() => {
+        res.status(404).json({ message: "no command found" });
+      });
+  });
+
   commandsRouter.get("/restaurant/:id_restaurant", (req, res) => {
     var id_restaurant = req.params.id_restaurant;
     console.log(id_restaurant);

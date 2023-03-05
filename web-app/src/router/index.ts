@@ -80,7 +80,7 @@ const routes: Array<RouteRecordRaw> = [
           console.log(rep.data.roleId);
           switch (rep.data.roleId) {
             case 1: {
-              return CommandRestorerView;
+              return livraisonClientView;
             }
             case 15: {
               return livraisonClientView;
