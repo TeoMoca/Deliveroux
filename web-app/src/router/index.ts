@@ -114,6 +114,11 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import("../views/ProfileView.vue"),
   },
   {
+    path: "/commands/:id/payment",
+    name: "PayedCheckView",
+    component: () => import("../views/PayedCheckView.vue"),
+  },
+  {
     path: "/Refer",
     name: "Refer",
     component: () => import("../views/ReferView.vue"),
