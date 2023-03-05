@@ -32,6 +32,10 @@ export const store = createStore<State>({
       }
     },
 
+    deleteArticle(state) {
+      state.cart = [];
+    },
+
     removeQuantity(state, data) {
       for (const item of state.cart) {
         if (item.id == data) {

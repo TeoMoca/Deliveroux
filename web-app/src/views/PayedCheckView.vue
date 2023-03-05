@@ -11,6 +11,10 @@ export default defineComponent({
     for (const commandId of commandIds) {
       await this.setCommandPayed(commandId);
     }
+    this.$store.commit("deleteArticle");
+    setTimeout(function () {
+      console.log("j'attends");
+    }, 5000000);
     this.$router.push("/home");
   },
   name: "PayedCheckView",
