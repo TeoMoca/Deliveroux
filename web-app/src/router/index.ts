@@ -32,7 +32,7 @@ const routes: Array<RouteRecordRaw> = [
         })
         .then((rep) => {
           switch (rep.data.roleId) {
-            case 4: {
+            case 1: {
               return HomeView;
             }
             case 2: {
@@ -41,7 +41,7 @@ const routes: Array<RouteRecordRaw> = [
             case 3: {
               return HomeView;
             }
-            case 1: {
+            case 4: {
               return RestaurateurHomeView;
             }
           }
