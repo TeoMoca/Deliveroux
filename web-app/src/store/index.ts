@@ -32,6 +32,10 @@ export const store = createStore<State>({
       }
     },
 
+    deleteCommandIds(state) {
+      state.commands = [];
+    },
+
     deleteArticle(state) {
       state.cart = [];
     },

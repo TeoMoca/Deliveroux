@@ -6,6 +6,7 @@
       :command="command"
       :enableButton="true"
       :buttonText="text_button"
+      :articles="command.articles"
     />
   </div>
 </template>
