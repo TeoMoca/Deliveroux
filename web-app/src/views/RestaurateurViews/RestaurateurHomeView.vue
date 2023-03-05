@@ -40,16 +40,11 @@ export default defineComponent({
         })
         .then((rep) => {
           this.$axios
-            .get(
-              `http://localhost:8080/restaurants/${
-                rep.data.id_restaurant || "63fd2dd8eab9f0d6be1fc12e"
-              }`,
-              {
-                headers: {
-                  Authorization: `Bearer ${this.$cookies.get("token")}`,
-                },
-              }
-            )
+            .get(`http://localhost:8080/restaurants/${rep.data.restaurantId}`, {
+              headers: {
+                Authorization: `Bearer ${this.$cookies.get("token")}`,
+              },
+            })
             .then((rep) => {
               this.restaurant = rep.data;
               console.log(rep.data);
