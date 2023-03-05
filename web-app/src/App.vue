@@ -4,9 +4,12 @@
       <nav-bar ref="NavRef" />
       <back-to-page v-if="$route.path !== '/'" />
       <div class="router-container">
-        <router-view @updateBalance="updateBalance" />
+        <router-view
+          @updateNotifications="updateNotifications"
+          @updateBalance="updateBalance"
+        />
       </div>
-      <notif-circle v-if="condition" :id-user="id_user" />
+      <notif-circle ref="NotifRef" v-if="condition" :id-user="id_user" />
     </v-main>
   </v-app>
 </template>
@@ -38,6 +41,12 @@ export default defineComponent({
     updateBalance() {
       let nav = this.$refs.NavRef as any;
       nav.updateBalance();
+    },
+    async updateNotifications() {
+      console.log("yes yes yes");
+      let notif = this.$refs.NotifRef as any;
+      await notif.setNotifsByUserId();
+      console.log("no no no");
     },
   },
   computed: {

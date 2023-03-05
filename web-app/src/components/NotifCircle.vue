@@ -1,8 +1,12 @@
 <template>
   <v-menu transition="scroll-y-transition">
     <template v-slot:activator="{ props }">
-      <div v-if="howMany_unseen > 0" class="notifs">
-        <v-badge :content="howMany_unseen" color="red lighten-1">
+      <div v-if="this.UnseenNotif > 0" class="notifs">
+        <v-badge
+          :value="this.UnseenNotif"
+          :content="this.UnseenNotif"
+          color="red lighten-1"
+        >
           <v-btn
             v-on:click="seeNotifs"
             icon="mdi-bell-outline"
@@ -42,30 +46,45 @@ export default defineComponent({
 
   data: (): {
     notifications: { message: string; seen: boolean; route: string }[];
+    UnseenNotif: number;
   } => ({
     notifications: [],
+    UnseenNotif: 0,
   }),
+
   props: {
     idUser: String,
   },
 
-  created() {
-    if (this.$props.idUser) {
-      this.$axios
-        .get("http://127.0.0.1:8080/notifications/" + this.$props.idUser, {
-          headers: {
-            Authorization: `Bearer ${this.$cookies.get("token")}`,
-          },
-        })
-        .then((rep) => {
-          rep.data.map((notification: never) => {
-            this.notifications.push(notification);
-          });
-          console.log("coucou", this.notifications);
-        });
-    }
+  async created() {
+    await this.setNotifsByUserId();
   },
   methods: {
+    async setNotifsByUserId() {
+      console.log("c'est aberant poto");
+      if (this.$props.idUser) {
+        this.$axios
+          .get("http://127.0.0.1:8080/notifications/" + this.$props.idUser, {
+            headers: {
+              Authorization: `Bearer ${this.$cookies.get("token")}`,
+            },
+          })
+          .then((rep) => {
+            rep.data.map((notification: never) => {
+              this.notifications.push(notification);
+            });
+            console.log("coucou", this.notifications);
+            this.UnseenNotif = this.computeUnseenNotif();
+            console.log("le nombre de notifs pas vue", this.UnseenNotif);
+            this.$forceUpdate();
+          });
+      }
+    },
+    computeUnseenNotif(): number {
+      return this.notifications.filter((notif) => {
+        return notif.seen === false;
+      }).length;
+    },
     seeNotifs() {
       var request =
         "http://127.0.0.1:8080/notifications/seen/" + this.$props.idUser;

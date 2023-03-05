@@ -63,6 +63,7 @@ export default defineComponent({
                 )
                 .then(() => {
                   console.log("notif pushed!");
+                  this.$emit("updateNotifications");
                   console.log(commandId);
                   console.log(this.$cookies.get("userId"));
                 });
