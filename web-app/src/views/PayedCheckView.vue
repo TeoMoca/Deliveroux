@@ -12,7 +12,7 @@ export default defineComponent({
       await this.setCommandPayed(commandId);
     }
     this.$store.commit("deleteArticle");
-    this.$store.commit("deleteCommands");
+    this.$store.commit("deleteCommandIds");
     setTimeout(function () {
       console.log("j'attends");
     }, 5000000);
