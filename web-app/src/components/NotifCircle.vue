@@ -25,7 +25,10 @@
         <v-list-item-title>Vous n'avez pas de notifications</v-list-item-title>
       </v-list-item>
       <v-list-item v-for="notif in notifications" :key="notif.message" link>
-        <v-list-item-title v-text="notif.message"></v-list-item-title>
+        <v-list-item-title
+          v-on:click="redirect(notif.route)"
+          v-text="notif.message"
+        ></v-list-item-title>
       </v-list-item>
     </v-list>
   </v-menu>
@@ -38,7 +41,7 @@ export default defineComponent({
   name: "NotifCircle",
 
   data: (): {
-    notifications: { message: string; seen: boolean }[];
+    notifications: { message: string; seen: boolean; route: string }[];
   } => ({
     notifications: [],
   }),
@@ -79,6 +82,9 @@ export default defineComponent({
         .then((rep) => {
           rep.data;
         });
+    },
+    redirect(location: string) {
+      window.location.href = location;
     },
   },
 

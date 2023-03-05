@@ -33,7 +33,7 @@ const routes: Array<RouteRecordRaw> = [
         .then((rep) => {
           switch (rep.data.roleId) {
             case 1: {
-              return RestaurateurHomeView;
+              return HomeView;
             }
             case 2: {
               return HomeView;
