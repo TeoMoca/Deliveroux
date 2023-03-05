@@ -23,6 +23,17 @@ commandsRouter.get("/:id_user", (req, res) => {
         res.status(404).json({ message: "no command found" });
       });
   });
+  commandsRouter.get("/one/:id", (req, res) => {
+    var id = req.params.id;
+    db.commands
+      .findOne({ _id: id })
+      .then((e) => {
+        res.status(200).json(e);
+      })
+      .catch(() => {
+        res.status(404).json({ message: "no command found" });
+      });
+  });
 
   commandsRouter.get("/delivery/todeliver", (req, res) => {
     db.commands
