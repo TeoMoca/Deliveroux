@@ -91,6 +91,22 @@ commandsRouter.patch("/takedelivery/:commandid", async (req, res) => {
     res.status(204).send();
   });
 
+  commandsRouter.patch("/pay/:commandid", async (req, res) => {
+     try{
+         console.log(req.params);
+         await db.commands.findOneAndUpdate(
+            { _id: req.params.commandid },
+            { isPaid: true }
+          );
+
+         res.status(204).send();
+     }
+     catch (e) {
+        console.log(e);
+        res.status(404).json({ message: `error when update the paid status`, e});
+      }
+  });
+
 
 commandsRouter.post("/send", (req, res) => {
     console.table(req.body);

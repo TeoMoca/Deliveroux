@@ -31,7 +31,16 @@
         </div>
       </div>
     </div>
-    <v-icon v-if="condition">mdi-shopping</v-icon>
+    <v-badge
+      v-if="condition"
+      color="white"
+      :content="this.$store.getters.getCount"
+      :value="this.$store.getters.getCount"
+      @click="RedirectToCheckout"
+      ><v-icon color="white" @click="RedirectToCheckout" large>
+        mdi-shopping
+      </v-icon></v-badge
+    >
     <div v-if="livraison" class="user">
       <v-icon v-if="livraison"
         ><v-btn variant="plain"></v-btn>mdi-bicycle</v-icon
@@ -156,9 +165,11 @@ export default defineComponent({
           this.commandes = rep.data;
           console.log(this.$data.commandes);
         });
+      this.counter = this.$store.getters.getCount;
     }
   },
   data: (): {
+    counter: number;
     title: string;
     search: string;
     restaurants: { name: string; image_link: string; _id: string }[];
@@ -167,6 +178,7 @@ export default defineComponent({
     livraisons: object;
     commandes: Array<{ commandeStatut: string; id: string }>;
   } => ({
+    counter: 0,
     title: "Deliveroux",
     search: "",
     restaurants: [],
@@ -176,8 +188,14 @@ export default defineComponent({
     commandes: [],
   }),
   methods: {
+    updateBalance() {
+      this.counter = this.$store.getters.getCount;
+    },
     RedirectProfile() {
       this.$router.push("/Profile");
+    },
+    RedirectToCheckout() {
+      this.$router.push("/checkout");
     },
     RedirectCommands() {
       this.$router.push("/livraison/" + this.$cookies.get("userId"));

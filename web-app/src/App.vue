@@ -1,10 +1,10 @@
 <template>
   <v-app>
     <v-main>
-      <nav-bar />
+      <nav-bar ref="NavRef" />
       <back-to-page v-if="$route.path !== '/'" />
       <div class="router-container">
-        <router-view />
+        <router-view @updateBalance="updateBalance" />
       </div>
       <notif-circle v-if="condition" :id-user="id_user" />
     </v-main>
@@ -33,6 +33,12 @@ export default defineComponent({
   },
   created() {
     this.id_user = this.$cookies.get("userId") as string;
+  },
+  methods: {
+    updateBalance() {
+      let nav = this.$refs.NavRef as any;
+      nav.updateBalance();
+    },
   },
   computed: {
     condition() {

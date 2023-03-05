@@ -8,7 +8,7 @@
 
     <div class="items-container">
       <div v-for="item in display" :key="item.componentTitle">
-        <ArticleCard :item="item.data" />
+        <ArticleCard @updateBalance="updateBalance" :item="item.data" />
       </div>
     </div>
     <DraggableList v-if="restaurant._id" :id="restaurant._id" />
@@ -91,6 +91,9 @@ export default defineComponent({
   },
   computed: {},
   methods: {
+    updateBalance() {
+      this.$emit("updateBalance");
+    },
     getComponent(
       componentTitle: string,
       item: { name: string; image_link: string }

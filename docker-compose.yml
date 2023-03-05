@@ -12,6 +12,8 @@ services:
     build: catalogs_api/.
     depends_on:
       - mongo
+  payments:
+    build: payment_api/.
   notifications:
     build: notifications_api/.
     depends_on:
