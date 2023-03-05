@@ -12,6 +12,7 @@ export default defineComponent({
       await this.setCommandPayed(commandId);
     }
     this.$store.commit("deleteArticle");
+    this.$store.commit("deleteCommands");
     setTimeout(function () {
       console.log("j'attends");
     }, 5000000);
