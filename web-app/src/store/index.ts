@@ -94,7 +94,8 @@ export const store = createStore<State>({
       for (const item of state.cart) {
         restaurantId.push(item.id_restaurant);
       }
-      return restaurantId;
+      const restaurantIdSet = [...new Set(restaurantId)];
+      return restaurantIdSet;
     },
 
     getAllArticle(state) {
