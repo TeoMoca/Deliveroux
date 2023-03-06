@@ -13,7 +13,7 @@
       <div class="checkoutContainer">
         <v-btn
           id="buttonCheckout"
-          :disabled="this.isDisabled"
+          :disabled="isDisabled"
           @click="startCommand"
           color="success"
           >Payer la commande</v-btn

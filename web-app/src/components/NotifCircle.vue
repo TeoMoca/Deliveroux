@@ -1,10 +1,10 @@
 <template>
   <v-menu transition="scroll-y-transition">
     <template v-slot:activator="{ props }">
-      <div v-if="this.UnseenNotif > 0" class="notifs">
+      <div v-if="UnseenNotif > 0" class="notifs">
         <v-badge
-          :value="this.UnseenNotif"
-          :content="this.UnseenNotif"
+          :value="UnseenNotif"
+          :content="UnseenNotif"
           color="red lighten-1"
         >
           <v-btn
