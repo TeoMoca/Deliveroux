@@ -136,7 +136,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: "/restaurateurRegister",
     name: "restaurateurRegister",
-    component: () => import("../views/RestaurateurView.vue"),
+    component: () => import("../views/RestaurateurRegisterView.vue"),
   },
   {
     path: "/Checkout",

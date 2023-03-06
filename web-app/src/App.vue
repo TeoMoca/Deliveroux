@@ -55,7 +55,8 @@ export default defineComponent({
         this.$route.path === "/" ||
         this.$route.path === "/register" ||
         this.$route.path === "/customerRegister" ||
-        this.$route.path === "/deliveryRegister"
+        this.$route.path === "/deliveryRegister" ||
+        this.$route.path === "/restaurateurRegister"
       );
     },
   },

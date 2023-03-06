@@ -43,7 +43,7 @@ export default defineComponent({
       this.$router.push("/customerRegister");
     },
     toRestorerRegister() {
-      this.$router.push("/restorerRegister");
+      this.$router.push("/restaurateurRegister");
     },
     toDeliveryRegister() {
       this.$router.push("/deliveryRegister");
