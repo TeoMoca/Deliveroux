@@ -10,26 +10,27 @@
           <v-btn
             v-on:click="seeNotifs"
             icon="mdi-bell-outline"
-            color="light-green darken-2"
+            class="notifsPop"
             v-bind="props"
           ></v-btn>
         </v-badge>
       </div>
       <div v-else class="notifs">
         <v-btn
+          class="notifsPop"
           v-on:click="seeNotifs"
           icon="mdi-bell-outline"
-          color="light-green darken-2"
           v-bind="props"
         ></v-btn>
       </div>
     </template>
-    <v-list>
+    <v-list class="liste">
       <v-list-item v-if="getNotificationsNumber === 0" link>
         <v-list-item-title>Vous n'avez pas de notifications</v-list-item-title>
       </v-list-item>
       <v-list-item v-for="notif in notifications" :key="notif.message" link>
         <v-list-item-title
+          class="singleNotif"
           v-on:click="redirect(notif.route)"
           v-text="notif.message"
         ></v-list-item-title>
@@ -128,6 +129,15 @@ export default defineComponent({
   right: 5%;
 }
 .notifsPop {
-  background-color: green;
+  background: var(--color-three);
+}
+.liste {
+  background: var(--color-six);
+}
+.singleNotif {
+  background-color: var(--color-six);
+}
+.v-list {
+  background: var(--color-six) !important;
 }
 </style>
