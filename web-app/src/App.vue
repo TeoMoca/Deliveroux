@@ -65,11 +65,11 @@ export default defineComponent({
 
 <style>
 * {
-  --light-mode-color-one: #000;
-  --light-mode-color-two: #e0e0ce;
-  --light-mode-color-three: #a4243b;
-  --light-mode-color-four: #ff7f11;
-  --light-mode-color-five: #ff3f00;
+  --light-mode-color-one: #003049;
+  --light-mode-color-two: #d62828;
+  --light-mode-color-three: #ff7f00;
+  --light-mode-color-four: #fcbf49;
+  --light-mode-color-five: #eae2b7;
 
   --dark-mode-color-one: #fff;
   --dark-mode-color-two: #00000;

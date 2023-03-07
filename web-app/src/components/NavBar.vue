@@ -1,5 +1,10 @@
 <template>
   <div class="nav-bar">
+    <img
+      class="logo"
+      :src="require('@/assets/deliveroux.png')"
+      alt="Deliveroux"
+    />
     <h1 class="title" v-if="$router.currentRoute.value.fullPath !== '/home'">
       <a :href="'/home'">
         {{ title }}
@@ -10,7 +15,7 @@
     </h1>
 
     <v-spacer></v-spacer>
-    <div class="search-bar" tabindex="1" v-if="condition">
+    <div class="search-bar" tabindex="1" v-if="condition && searchBar">
       <input
         type="text"
         v-model="search"
@@ -32,15 +37,15 @@
       </div>
     </div>
     <v-badge
-      v-if="condition"
+      v-if="condition && cart"
       color="white"
-      :content="this.$store.getters.getCount"
-      :value="this.$store.getters.getCount"
+      :content="$store.getters.getCount"
+      :value="$store.getters.getCount"
       @click="RedirectToCheckout"
       ><v-icon color="white" @click="RedirectToCheckout" large>
         mdi-shopping
-      </v-icon></v-badge
-    >
+      </v-icon>
+    </v-badge>
     <div v-if="livraison" class="user">
       <v-icon v-if="livraison"
         ><v-btn variant="plain"></v-btn>mdi-bicycle</v-icon
@@ -137,8 +142,34 @@ export default defineComponent({
           },
         })
         .then((rep) => {
-          this.idRole = rep.data.roleId;
-          console.log(this.idRole);
+          switch (rep.data.roleId) {
+            case 1: {
+              this.searchBar = true;
+              this.cart = true;
+              break;
+            }
+            case 15: {
+              this.searchBar = true;
+              this.cart = true;
+              break;
+            }
+            case 16: {
+              this.searchBar = false;
+              this.cart = false;
+              break;
+            }
+            case 18: {
+              this.searchBar = true;
+              this.cart = true;
+              break;
+            }
+            default: {
+              this.searchBar = false;
+              this.cart = false;
+              break;
+            }
+          }
+          console.log(this.searchBar, this.cart);
         });
       //Livraisons
       this.$axios
@@ -177,6 +208,8 @@ export default defineComponent({
     idRole: number;
     livraisons: object;
     commandes: Array<{ commandeStatut: string; id: string }>;
+    searchBar: boolean;
+    cart: boolean;
   } => ({
     counter: 0,
     title: "Deliveroux",
@@ -186,6 +219,8 @@ export default defineComponent({
     idRole: 0,
     livraisons: {},
     commandes: [],
+    searchBar: false,
+    cart: false,
   }),
   methods: {
     updateBalance() {
@@ -234,7 +269,7 @@ export default defineComponent({
   gap: 10px;
   width: 100%;
   height: 8vh;
-  background: var(--light-mode-color-five);
+  background: var(--light-mode-color-one);
   display: grid;
   grid-auto-flow: column;
   align-items: center;
@@ -250,6 +285,10 @@ export default defineComponent({
 .nav-bar .title {
   color: var(--light-mode-color-two);
   cursor: default;
+}
+
+.logo {
+  width: 50px;
 }
 
 .search-bar {
@@ -312,12 +351,13 @@ export default defineComponent({
 }
 
 .user {
-  background: var(--light-mode-color-one);
+  background: var(--light-mode-color-five);
   color: var(--light-mode-color-two);
   width: 40px;
   height: 40px;
   padding: 10px;
   border-radius: 30px;
+  grid-area: user-options;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -334,8 +374,8 @@ export default defineComponent({
   outline: none;
   width: 200px;
   height: 200px;
-  background: var(--light-mode-color-two);
-  color: var(--light-mode-color-four);
+  background: var(--light-mode-color-five);
+  color: var(--light-mode-color-two);
   border-radius: 10px 0 10px 10px;
   position: absolute;
   top: 85%;
@@ -357,7 +397,7 @@ export default defineComponent({
 
 .user .options p:hover {
   background: var(--light-mode-color-one);
-  color: var(--light-mode-color-two);
+  color: var(--light-mode-color-four);
 }
 
 .user:focus-within .options {

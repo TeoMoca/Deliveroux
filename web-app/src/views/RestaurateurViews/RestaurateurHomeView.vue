@@ -19,7 +19,10 @@
         {{ restaurant.closing_time }}
       </p>
       <p>Type de votre restaurant: {{ restaurant.type }}</p>
-      <p>Note de votre restaurant: {{ restaurant.rate }} / 5</p>
+      <p>
+        Note de votre restaurant:
+        {{ restaurant.rate.reduce((acc, b) => acc + b, 0) }} / 5
+      </p>
     </div>
   </div>
   <div v-else>
@@ -75,7 +78,7 @@ export default defineComponent({
       address: string;
       opening_time: string;
       closing_time: string;
-      rate: number;
+      rate: Array<number>;
       type: string;
     };
   } => {
@@ -89,7 +92,7 @@ export default defineComponent({
         address: "",
         opening_time: "",
         closing_time: "",
-        rate: 0,
+        rate: [],
         type: "",
       },
     };
