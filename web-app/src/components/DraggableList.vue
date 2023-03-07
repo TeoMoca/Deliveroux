@@ -6,13 +6,9 @@
       @dragover.prevent
       @dragenter.prevent
     >
-      <div
-        class="drag-el white-bg"
-        v-for="item in listOne"
-        :key="item.name"
-        @click="removeFromList(item._id)"
-      >
-        {{ item.name }}
+      <div class="drag-el white-bg" v-for="item in listOne" :key="item.name">
+        <p>{{ item.name }}</p>
+        <p @click="removeFromList(item._id)" class="remove">x</p>
       </div>
     </div>
     <div class="drop-zone" @dragover.prevent @dragenter.prevent>
@@ -25,7 +21,7 @@
       >
         {{ item.name }}
       </div>
-      <div class="drag-el">
+      <div class="add-btn">
         <CreationItemButton v-if="id" :id="id" />
       </div>
     </div>
@@ -137,15 +133,16 @@ export default defineComponent({
 });
 </script>
 
-<style>
+<style scoped>
 .dragger {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 10px;
+  height: 100%;
 }
 
 .drop-zone {
-  background-color: var(--color-five);
+  background-color: var(--color-four);
   margin-bottom: 10px;
   padding: 10px;
   -webkit-user-select: none;
@@ -164,7 +161,41 @@ export default defineComponent({
   cursor: grab;
 }
 
+.drag-el:not([draggable]) {
+  margin-bottom: 10px;
+  padding: 5px 50px;
+  align-items: center;
+  justify-content: center;
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: 1fr max-content;
+}
+
+.remove {
+  cursor: pointer;
+  padding: 0 10px;
+  font-weight: 800;
+  font-size: 20px;
+}
+
+button {
+  background: var(--color-three) !important;
+  display: flex;
+  width: fit-content;
+  padding: 5px 20px;
+  border-radius: 10px;
+  align-self: center;
+}
+
 .white-bg {
-  background-color: var(--color-four);
+  background-color: var(--color-two);
+}
+
+.add-btn {
+  margin-bottom: 10px;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 </style>

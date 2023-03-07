@@ -24,6 +24,7 @@ const routes: Array<RouteRecordRaw> = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () => {
+      console.log("function for hoe component");
       return axios
         .get(`http://localhost:8080/user/${cookies.get("userId")}`, {
           headers: {
@@ -36,9 +37,11 @@ const routes: Array<RouteRecordRaw> = [
               return HomeView;
             }
             case 15: {
+              console.log("client");
               return HomeView;
             }
             case 16: {
+              console.log("restarateur");
               return RestaurateurHomeView;
             }
             case 18: {

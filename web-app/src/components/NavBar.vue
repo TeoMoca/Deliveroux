@@ -257,6 +257,7 @@ export default defineComponent({
       this.$cookies.remove("firstname");
       this.$cookies.remove("lastname");
       this.$cookies.remove("userId");
+      localStorage.removeItem("store");
       this.$router.push({ path: "/" });
     },
   },

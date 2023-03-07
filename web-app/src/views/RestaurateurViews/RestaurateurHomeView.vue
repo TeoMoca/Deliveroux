@@ -106,10 +106,10 @@ export default defineComponent({
   padding: 10px 30px;
   display: grid;
   grid-template-columns: 50% 50%;
-  grid-template-rows: max-content max-content 1fr;
+  grid-template-rows: max-content 1fr 1fr;
   grid-template-areas: "title title" "display commands" "other1 other2";
-  gap: 10px;
-  height: 100%;
+  gap: 50px;
+  height: 85vh;
 }
 
 .title {
@@ -124,6 +124,7 @@ export default defineComponent({
   display: flex;
   flex-direction: column;
   gap: 10px;
+  height: 100%;
 }
 
 .commands {

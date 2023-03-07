@@ -93,7 +93,6 @@ export default defineComponent({
       componentTitle: string,
       item: { name: string; image_link: string }
     ) {
-      console.log("item", item);
       switch (componentTitle) {
         case "article": {
           return `<div>article - ${item.name}</div>`;

@@ -2,7 +2,7 @@
   <div>
     <v-dialog v-model="dialog">
       <template v-slot:activator="{ props }">
-        <v-btn color="primary" v-bind="props">Ajouter un article/menu</v-btn>
+        <v-btn class="add-btn" v-bind="props">Ajouter un article/menu</v-btn>
       </template>
       <!-- ------------------------------------ -->
       <v-tabs v-model="tab" fixed-tabs bg-color="indigo-darken-2">
@@ -255,4 +255,9 @@ export default defineComponent({
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped></style>
+<style scoped>
+.add-btn {
+  background: var(--color-three);
+  color: var(--color-seven);
+}
+</style>

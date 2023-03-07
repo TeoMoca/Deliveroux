@@ -86,7 +86,7 @@ export default defineComponent({
             Date.now() + 1000 * 60 * 60 * 2
           ).toUTCString()}`;
 
-          this.$router.push({ path: "/home" });
+          window.location.href = "/home";
         })
         .catch((e) => {
           console.log(e);
