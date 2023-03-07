@@ -1,6 +1,7 @@
 <template>
   <div v-for="command in commandeData" :key="command._id">
     <CommandeTechnicalCard
+      cardType="restorer"
       :restaurantId="restorant_id"
       :command="command"
       :enableButton="false"

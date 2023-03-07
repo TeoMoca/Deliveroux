@@ -30,18 +30,18 @@
     <div v-if="cardType == 'restorer'">
       <p class="type">Menus</p>
       <p class="content" v-for="menu in command.articles.menus" :key="menu">
-        {{ catalog.menusList.find((a) => a._id == menu)?.name }}
+        {{ catalog.menusList.find((a) => a._id === menu.id)?.name }}
       </p>
       <p class="type">Articles Seuls</p>
       <p class="content" v-for="item in command.articles.items" :key="item">
-        {{ catalog.articlesList.find((a) => a._id == item)?.name }}
+        {{ catalog.articlesList.find((a) => a._id === item.id)?.name }}
       </p>
     </div>
 
     <v-btn
       v-if="enableButton"
       color="success"
-      class="me-4 submit"
+      class="button-card me-4 submit"
       @click="validate"
     >
       {{ buttonText }}
@@ -112,6 +112,7 @@ export default defineComponent({
   }),
 
   created() {
+    console.log("xxxt", this.$props.command);
     this.$axios
       .get("http://localhost:8080/user/" + this.command.customerId, {
         headers: {
@@ -189,5 +190,11 @@ export default defineComponent({
 }
 .commandTechnical {
   margin-top: 2%;
+}
+.button-card {
+  background-color: var(--color-three) !important;
+}
+.v-card {
+  background: var(--color-six);
 }
 </style>

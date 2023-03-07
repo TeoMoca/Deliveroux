@@ -1,12 +1,12 @@
 <template>
   <div v-for="command in commandeData" :key="command._id">
     <CommandeTechnicalCard
+      cardType="restorer"
       :restaurantId="restorant_id"
       :submitLink="validateLink + command._id"
       :command="command"
       :enableButton="true"
       :buttonText="text_button"
-      :articles="command.articles"
     />
   </div>
 </template>

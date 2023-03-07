@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-row justify="space-around">
-      <v-card width="400">
+      <v-card class="v-card-CommandCard" width="400">
         <v-img
           height="200"
           :src="restaurant.image_link"
@@ -22,7 +22,11 @@
           <div class="font-weight-bold ms-1 mb-2">@{{ command.date }}</div>
           <p>n° Commande : {{ command._id }}</p>
           <v-timeline density="compact" align="start">
-            <v-timeline-item dot-color="green-darken-3" size="x-small">
+            <v-timeline-item
+              class="timeline-command"
+              dot-color="green-darken-3"
+              size="x-small"
+            >
               <div class="mb-4">
                 <div class="font-weight-normal">
                   <strong>Commande Payée</strong>
@@ -32,6 +36,7 @@
 
             <!--_________________________________________________________-->
             <v-timeline-item
+              class="timeline-command"
               v-if="command.isAcceptedByRestaurateur == true"
               dot-color="green-darken-3"
               size="x-small"
@@ -42,7 +47,12 @@
                 </div>
               </div>
             </v-timeline-item>
-            <v-timeline-item v-else dot-color="red-darken-3" size="x-small">
+            <v-timeline-item
+              class="timeline-command"
+              v-else
+              dot-color="red-darken-3"
+              size="x-small"
+            >
               <div class="mb-4">
                 <div class="font-weight-normal">
                   <strong>Commande Acceptée par le Restaurant</strong>
@@ -51,6 +61,7 @@
             </v-timeline-item>
             <!--_________________________________________________________-->
             <v-timeline-item
+              class="timeline-command"
               v-if="command.isInDelivery == true"
               dot-color="green-darken-3"
               size="x-small"
@@ -61,7 +72,12 @@
                 </div>
               </div>
             </v-timeline-item>
-            <v-timeline-item v-else dot-color="red-darken-3" size="x-small">
+            <v-timeline-item
+              class="timeline-command"
+              v-else
+              dot-color="red-darken-3"
+              size="x-small"
+            >
               <div class="mb-4">
                 <div class="font-weight-normal">
                   <strong>Commande en cours de livraison</strong>
@@ -70,6 +86,7 @@
             </v-timeline-item>
             <!--_________________________________________________________-->
             <v-timeline-item
+              class="timeline-command"
               v-if="command.isFinished == true"
               dot-color="green-darken-3"
               size="x-small"
@@ -80,7 +97,12 @@
                 </div>
               </div>
             </v-timeline-item>
-            <v-timeline-item v-else dot-color="red-darken-3" size="x-small">
+            <v-timeline-item
+              class="timeline-command"
+              v-else
+              dot-color="red-darken-3"
+              size="x-small"
+            >
               <div class="mb-4">
                 <div class="font-weight-normal">
                   <strong>Terminée</strong>
@@ -150,16 +172,21 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
+<style>
 .v-card-actions {
   justify-content: space-between;
 }
 
-.v-card {
+.v-card-CommandCard {
   width: 100%;
   height: 100%;
   justify-content: space-between;
   display: flex;
   flex-direction: column;
+  background: var(--color-six);
+}
+.timeline-command .v-timeline-divider__before,
+.timeline-command .v-timeline-divider__after {
+  background: var(--color-three) !important;
 }
 </style>

@@ -42,5 +42,6 @@ export default defineComponent({
   height: 100%;
   padding-top: 20px;
   padding-bottom: 20px;
+  background-color: var(--color-four);
 }
 </style>
