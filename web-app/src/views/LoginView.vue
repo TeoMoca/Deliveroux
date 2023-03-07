@@ -17,7 +17,9 @@
         :type="'password'"
         label="Password"
       ></v-text-field>
-      <v-btn type="submit" :disabled="isDisabled">Se connecter </v-btn>
+      <v-btn class="submitButton" type="submit" :disabled="isDisabled"
+        >Se connecter
+      </v-btn>
       <p class="account-creation">
         Pas de compte ? <a :href="'/register'"> Créer un compte</a>
       </p>
@@ -128,5 +130,8 @@ export default defineComponent({
 .account-creation a {
   text-decoration: underline;
   color: blue;
+}
+.submitButton {
+  background: var(--color-four);
 }
 </style>

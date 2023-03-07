@@ -96,7 +96,7 @@ export default defineComponent({
 }
 
 i {
-  color: var(--color-two);
+  color: var(--color-one);
 }
 
 a {
