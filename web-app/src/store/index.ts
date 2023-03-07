@@ -1,5 +1,8 @@
 import { Store, createStore } from "vuex";
 import { Item } from "../../Model/Item";
+import Cookies from "cookies-ts";
+
+const cookies = new Cookies();
 
 export interface State {
   count: number;
@@ -68,6 +71,10 @@ export const store = createStore<State>({
 
     changeMode() {
       document.querySelector("html")?.classList.toggle("dark-mode");
+      localStorage.setItem(
+        "theme",
+        document.querySelector("html.dark-mode") ? "dark" : "light"
+      );
     },
   },
   getters: {

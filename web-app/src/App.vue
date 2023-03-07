@@ -34,6 +34,9 @@ export default defineComponent({
   }),
   beforeCreate() {
     this.$store.commit("initialiseStore");
+    (localStorage.getItem("theme") || "") === "dark"
+      ? document.querySelector("html")?.classList.add("dark-mode")
+      : "";
   },
   created() {
     this.id_user = this.$cookies.get("userId") as string;
