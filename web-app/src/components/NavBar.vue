@@ -75,6 +75,7 @@
         <p @click="RedirectCommands">Voir mes commandes</p>
         <p>Parrainez un amis</p>
         <p class="disconnect" @click="disconnect">Me déconnecter</p>
+        <p @click="$store.commit('changeMode')">Changer de thème</p>
       </div>
     </div>
   </div>
@@ -269,7 +270,7 @@ export default defineComponent({
   gap: 10px;
   width: 100%;
   height: 8vh;
-  background: var(--light-mode-color-one);
+  background: var(--color-one);
   display: grid;
   grid-auto-flow: column;
   align-items: center;
@@ -283,7 +284,7 @@ export default defineComponent({
 }
 
 .nav-bar .title {
-  color: var(--light-mode-color-two);
+  color: var(--color-two);
   cursor: default;
 }
 
@@ -296,7 +297,7 @@ export default defineComponent({
   grid-template-rows: 100% 1fr;
   position: relative;
   margin-right: 10px;
-  background: var(--light-mode-color-two);
+  background: var(--color-two);
   padding: 10px;
   width: 30vw;
 }
@@ -313,8 +314,8 @@ export default defineComponent({
   display: none;
   position: absolute;
   top: 100%;
-  background: #eee;
-  color: #000;
+  background: var(--color-five);
+  color: var(--color-six);
   width: 100%;
   overflow: auto;
   max-height: 300px;
@@ -327,7 +328,7 @@ export default defineComponent({
 }
 
 .search-items .item:hover {
-  background: var(--light-mode-color-two);
+  background: var(--color-two);
 }
 
 .item {
@@ -340,19 +341,19 @@ export default defineComponent({
   height: 100%;
   gap: 10px;
   cursor: pointer;
-  color: var(--light-mode-color-one);
+  color: var(--color-one);
 }
 
 .item .item-img {
   width: 100%;
   height: 80px;
-  background: var(--light-mode-color-one);
+  background: var(--color-one);
   object-fit: cover;
 }
 
 .user {
-  background: var(--light-mode-color-five);
-  color: var(--light-mode-color-two);
+  background: var(--color-five);
+  color: var(--color-two);
   width: 40px;
   height: 40px;
   padding: 10px;
@@ -373,9 +374,8 @@ export default defineComponent({
   display: none;
   outline: none;
   width: 200px;
-  height: 200px;
-  background: var(--light-mode-color-five);
-  color: var(--light-mode-color-two);
+  background: var(--color-six);
+  color: var(--color-two);
   border-radius: 10px 0 10px 10px;
   position: absolute;
   top: 85%;
@@ -396,8 +396,8 @@ export default defineComponent({
 }
 
 .user .options p:hover {
-  background: var(--light-mode-color-one);
-  color: var(--light-mode-color-four);
+  background: var(--color-one);
+  color: var(--color-four);
 }
 
 .user:focus-within .options {

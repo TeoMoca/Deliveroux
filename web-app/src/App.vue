@@ -30,6 +30,7 @@ export default defineComponent({
   },
   data: () => ({
     id_user: "",
+    mode: "",
   }),
   beforeCreate() {
     this.$store.commit("initialiseStore");
@@ -65,21 +66,37 @@ export default defineComponent({
 
 <style>
 * {
-  --light-mode-color-one: #003049;
-  --light-mode-color-two: #d62828;
-  --light-mode-color-three: #ff7f00;
-  --light-mode-color-four: #fcbf49;
-  --light-mode-color-five: #eae2b7;
+  outline: none !important;
+  color: var(--color-seven);
+  transition: all 0.3s 0 ease-in-out !important;
+}
 
-  --dark-mode-color-one: #fff;
-  --dark-mode-color-two: #00000;
-  --dark-mode-color-three: #00000;
-  --dark-mode-color-four: #00000;
-  --dark-mode-color-five: #00000;
+:root.dark-mode {
+  --color-one: #32779c;
+  --color-two: #d62828;
+  --color-three: #ff7f00;
+  --color-four: #fcbf49;
+  --color-five: #474746;
+  --color-six: #000;
+  --color-seven: #fff;
+}
+
+:root {
+  --color-one: #003049;
+  --color-two: #d62828;
+  --color-three: #ff7f00;
+  --color-four: #fcbf49;
+  --color-five: #eae2b7;
+  --color-six: #fff;
+  --color-seven: #000;
+}
+
+.v-main {
+  background: var(--color-five);
 }
 
 i {
-  color: var(--light-mode-color-two);
+  color: var(--color-two);
 }
 
 a {
@@ -99,7 +116,7 @@ body ::-webkit-scrollbar-track {
 
 body ::-webkit-scrollbar-thumb {
   border-radius: 20px;
-  background: var(--light-mode-color-four);
+  background: var(--color-four);
 }
 
 .router-container {

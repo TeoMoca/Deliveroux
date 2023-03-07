@@ -145,7 +145,7 @@ export default defineComponent({
 }
 
 .drop-zone {
-  background-color: #eee;
+  background-color: var(--color-five);
   margin-bottom: 10px;
   padding: 10px;
   -webkit-user-select: none;
@@ -165,6 +165,6 @@ export default defineComponent({
 }
 
 .white-bg {
-  background-color: #fff;
+  background-color: var(--color-four);
 }
 </style>

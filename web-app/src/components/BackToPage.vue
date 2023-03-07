@@ -23,7 +23,7 @@ export default defineComponent({
 .back-to-last-page {
   padding: 10px 30px;
   position: fixed;
-  background: orange;
+  background: var(--color-four);
   border-radius: 20px;
   margin: 1vh;
   top: 8vh;

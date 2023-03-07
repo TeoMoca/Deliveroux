@@ -65,6 +65,10 @@ export const store = createStore<State>({
         );
       }
     },
+
+    changeMode() {
+      document.querySelector("html")?.classList.toggle("dark-mode");
+    },
   },
   getters: {
     getCount(state) {

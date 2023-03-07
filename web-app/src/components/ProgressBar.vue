@@ -60,11 +60,11 @@ export default defineComponent({
   box-sizing: border-box;
 }
 .step-wizard {
-  background-color: var(--light-mode-color-four);
+  background-color: var(--color-four);
   background-image: linear-gradient(
     0deg,
-    var(--light-mode-color-four) 10%,
-    var(--light-mode-color-five) 90%
+    var(--color-four) 10%,
+    var(--color-five) 90%
   );
   height: 30vh;
   width: 100%;
@@ -75,7 +75,7 @@ export default defineComponent({
 .step-wizard-list {
   background: #fff;
   box-shadow: 0 15px 25px rgba(0, 0, 0, 0.1);
-  color: var(--light-mode-color-four);
+  color: var(--color-four);
   list-style-type: none;
   border-radius: 10px;
   display: flex;
@@ -101,7 +101,7 @@ export default defineComponent({
   position: absolute;
   left: 0;
   top: 19px;
-  background: var(--light-mode-color-five);
+  background: var(--color-five);
   width: 100%;
   height: 2px;
   transform: translateX(-50%);
@@ -124,7 +124,7 @@ export default defineComponent({
   content: "";
   height: 40px;
   width: 40px;
-  background: var(--light-mode-color-five);
+  background: var(--color-five);
   position: absolute;
   left: 50%;
   top: 50%;
@@ -136,8 +136,8 @@ export default defineComponent({
   content: "";
   height: 10px;
   width: 20px;
-  border-left: 3.5px solid var(--light-mode-color-two);
-  border-bottom: 3.5px solid var(--light-mode-color-two);
+  border-left: 3.5px solid var(--color-two);
+  border-bottom: 3.5px solid var(--color-two);
   position: absolute;
   left: 50%;
   top: 50%;
@@ -148,7 +148,7 @@ export default defineComponent({
   font-size: 14px;
   font-weight: 600;
   margin-top: 10px;
-  color: var(--light-mode-color-three);
+  color: var(--color-three);
 }
 .current-item .progress-count::before,
 .current-item ~ .step-wizard-item .progress-count::before {
@@ -159,14 +159,14 @@ export default defineComponent({
   width: 10px;
 }
 .current-item ~ .step-wizard-item .progress-label {
-  color: var(--light-mode-color-three);
+  color: var(--color-three);
   opacity: 0.7;
 }
 .current-item .progress-count::after {
   background: #fff;
-  border: 2px solid var(--light-mode-color-five);
+  border: 2px solid var(--color-five);
 }
 .current-item .progress-count {
-  color: var(--light-mode-color-five);
+  color: var(--color-five);
 }
 </style>
