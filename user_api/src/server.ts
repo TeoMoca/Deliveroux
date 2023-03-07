@@ -8,6 +8,8 @@ import { UserRepository } from "./Infrastructure/Repository/UserRepository";
 import Stripe from "stripe";
 import { PrismaClient } from "@prisma/client";
 import {GetAddressByIdUseCase} from "./Core/UseCase/User/GetAddressByIdUseCase";
+import {UpdateUserProfileAsyncUseCase} from "./Core/UseCase/User/UpdateUserProfileAsyncUseCase";
+import {DeleteUserAsyncUseCase} from "./Core/UseCase/User/DeleteUserAsyncUseCase";
 const prisma = new PrismaClient();
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
   apiVersion: "2022-11-15",
@@ -28,7 +30,9 @@ app.use(express.json());
 const userMiddleware = UsersRouter(
   new GetUserByIdUseCase(new UserRepository(prisma, stripe)),
     new UpdateRestaurantIdUseCase(new UserRepository(prisma, stripe)),
-    new GetAddressByIdUseCase(new UserRepository(prisma, stripe)));
+    new GetAddressByIdUseCase(new UserRepository(prisma, stripe)),
+    new UpdateUserProfileAsyncUseCase(new UserRepository(prisma, stripe)),
+    new DeleteUserAsyncUseCase(new UserRepository(prisma, stripe)));
 
 app.use("/user", userMiddleware);
 app.listen(8080, () => {

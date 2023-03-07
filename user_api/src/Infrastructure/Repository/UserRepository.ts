@@ -34,6 +34,37 @@ export class UserRepository implements IUserRepository {
         return true;
     }
 
+    async updateAddressAsync(userId: string, address: Address): Promise<Boolean> {
+        const adressId = await this.userDataSource.users.findUniqueOrThrow({
+            where:{Id:userId},
+            select:{Id_Address:true}
+        });
+
+        await this.userDataSource.address.update({
+            where:{Id:adressId.Id_Address},
+            data:{adressName:address.address, postalCode:address.codePostal, city:address.city, Country:address.country}
+        })
+
+        return true;
+    }
+
+    async deleteUserAsync(userId: string): Promise<Boolean> {
+        await this.userDataSource.users.delete({
+            where:{Id:userId}
+        })
+
+        return true;
+    }
+
+    async updateUserAsync(userId: string, user: User): Promise<Boolean> {
+        await this.userDataSource.users.update({
+            where:{Id:userId},
+            data:{FirstName:user.firstname, LastName:user.lastname, Mail:user.mail, Phone:user.phone}
+        })
+
+        return true;
+    }
+
     async getAddressByAddressIdAsync(userId: string): Promise<Address> {
 
         const entity = await this.userDataSource.address.findUniqueOrThrow({

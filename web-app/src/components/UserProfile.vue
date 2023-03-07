@@ -5,7 +5,13 @@
     max-width="844"
     title="Mes informations"
   >
-    <v-form ref="form" class="mb-2" v-model="valid" @submit.prevent="validate">
+    <v-form
+      ref="form"
+      class="mb-2"
+      :disabled="true"
+      v-model="valid"
+      @submit.prevent="validate"
+    >
       <v-container>
         <v-row>
           <v-col cols="12" md="6">
@@ -102,20 +108,40 @@
         </v-row>
       </v-container>
       <v-card-actions>
+        <v-btn
+          color="error"
+          class="mr-4"
+          type="button"
+          @click="openPopupDelete"
+        >
+          Supprimer mon compte
+        </v-btn>
         <v-spacer></v-spacer>
-        <v-btn color="success" :disabled="!valid" class="mr-4" type="submit">
-          Modifier
+        <v-btn color="success" class="mr-4" type="button" @click="openPopup">
+          Modifier mes informations
         </v-btn>
       </v-card-actions>
     </v-form>
   </v-card>
+  <PopupUpdateProfile @updateProfile="updatedData" ref="popupUpdate" />
+  <PopupDeleteUser ref="popupDelete" @deleteUser="DeleteUser" />
+  <v-snackbar
+    v-model="isUpdated"
+    color="success"
+    close-delay="100"
+    location="top right"
+  >
+    <p>Vos informations ont bien été modifiées !</p>
+  </v-snackbar>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
-
+import PopupUpdateProfile from "@/components/UserProfile/PopupUpdateProfile.vue";
+import PopupDeleteUser from "@/components/UserProfile/PopupDeleteUser.vue";
 export default defineComponent({
   data: () => ({
+    isUpdated: false,
     valid: false,
     firstname: "",
     firstnamerules: [(v: string) => !!v || "Le prénom est requis"],
@@ -150,24 +176,70 @@ export default defineComponent({
     countryrules: [(v: string) => !!v || "Le pays est requis"],
   }),
   name: "UserProfile",
+  components: { PopupUpdateProfile, PopupDeleteUser },
+  methods: {
+    async openPopup() {
+      let popup = this.$refs.popupUpdate as any;
+      await popup.openPopup();
+    },
+    async updatedData() {
+      await this.setData();
+      this.isUpdated = true;
+    },
+    async setData() {
+      var adressId = "";
+      this.$axios
+        .get("http://localhost:8080/user/" + this.$cookies.get("userId"), {
+          headers: {
+            Authorization: `Bearer ${this.$cookies.get("token")}`,
+          },
+        })
+        .then((response) => {
+          console.log(response.data);
+          this.firstname = response.data.firstname;
+          this.lastname = response.data.lastname;
+          this.password = response.data.password;
+          this.email = response.data.mail;
+          this.phone = response.data.phone;
+          adressId = response.data.addressId;
+          this.$axios
+            .get("http://localhost:8080/user/address/" + adressId, {
+              headers: {
+                Authorization: `Bearer ${this.$cookies.get("token")}`,
+              },
+            })
+            .then((response) => {
+              console.log(response.data);
+              this.adressname = response.data.adress;
+              this.city = response.data.city;
+              this.zipcode = response.data.codePostal;
+              this.country = response.data.country;
+            });
+        });
+    },
+    async DeleteUser() {
+      const isDeleted = await this.$axios.delete(
+        "http://localhost:8080/user/" + this.$cookies.get("userId"),
+        {
+          headers: {
+            Authorization: `Bearer ${this.$cookies.get("token")}`,
+          },
+        }
+      );
+
+      if (isDeleted) {
+        this.$cookies.remove("token");
+        this.$cookies.remove("userId");
+        this.$router.push("/login");
+      }
+    },
+    openPopupDelete() {
+      let popup = this.$refs.popupDelete as any;
+      popup.openPopup();
+    },
+  },
   async created() {
-    this.$axios
-      .get("http://localhost:8080/user/" + this.$cookies.get("userId"), {
-        headers: {
-          Authorization: `Bearer ${this.$cookies.get("token")}`,
-        },
-      })
-      .then((response) => {
-        this.firstname = response.data.firstname;
-        this.lastname = response.data.lastname;
-        this.password = response.data.password;
-        this.email = response.data.mail;
-        this.phone = response.data.phone;
-        this.adressname = response.data.adressname;
-        this.city = response.data.city;
-        this.zipcode = response.data.zipcode;
-        this.country = response.data.country;
-      });
+    await this.setData();
   },
 });
 </script>
