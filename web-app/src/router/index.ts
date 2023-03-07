@@ -35,14 +35,14 @@ const routes: Array<RouteRecordRaw> = [
             case 1: {
               return HomeView;
             }
-            case 2: {
+            case 15: {
               return HomeView;
             }
-            case 3: {
-              return HomeView;
-            }
-            case 4: {
+            case 16: {
               return RestaurateurHomeView;
+            }
+            case 18: {
+              return HomeView;
             }
           }
         })

@@ -1,19 +1,14 @@
-<style>
-h1 {
-  text-align: center;
-}
-h2 {
-  text-align: center;
-}
-</style>
-
 <template>
   <div>
     <h1>Créer votre restaurant</h1>
   </div>
-
   <v-card class="ma-auto px-4 py-4">
-    <v-form ref="form" v-model="valid" lazy-validation>
+    <v-form
+      ref="form"
+      v-model="valid"
+      lazy-validation
+      @submit.prevent="validate"
+    >
       <v-text-field
         v-model="datas.name"
         label="Nom du restaurant"
@@ -29,23 +24,19 @@ h2 {
       <v-row>
         <v-col class="ma-auto">
           <label for="resto">Heure d'ouverture</label><br />
-          <input
-            type="time"
+          <v-text-field
+            label="Label Text"
             v-model="datas.openingTime"
-            min="00:00"
-            max="23:59"
-            required
-          />
+            type="time"
+          ></v-text-field>
         </v-col>
         <v-col class="ma-auto">
           <label for="resto">Heure de fermeture</label><br />
-          <input
-            type="time"
+          <v-text-field
+            label="Label Text"
             v-model="datas.closingTime"
-            min="00:00"
-            max="23:59"
-            required
-          />
+            type="time"
+          ></v-text-field>
         </v-col> </v-row
       ><br />
 
@@ -66,7 +57,7 @@ h2 {
           <v-btn
             color="success"
             class="mr-4"
-            @click="validate, (snackbar = true)"
+            type="submit"
             style="width: 150px"
           >
             Valider
@@ -93,19 +84,36 @@ h2 {
   </v-card>
 </template>
 
-<script>
+<script lang="ts">
+import { defineComponent } from "vue";
 import axios from "axios";
-import "@vuepic/vue-datepicker/dist/main.css";
 
-export default {
-  data() {
+export default defineComponent({
+  name: "RestaurantCreation",
+  data: (): {
+    dialog: boolean;
+    valid: boolean;
+    datas: {
+      name: string;
+      gps: number[];
+      address: string;
+      openingTime: string;
+      closingTime: string;
+      type: string;
+      image: string;
+    };
+    snackbar: boolean;
+    text: string;
+  } => {
     return {
+      dialog: false,
       valid: true,
       datas: {
         name: "",
+        gps: [],
         address: "",
-        openingTime: "",
-        closingTime: "",
+        openingTime: "10:00:00",
+        closingTime: "23:00:00",
         type: "",
         image: "",
       },
@@ -115,35 +123,48 @@ export default {
   },
   methods: {
     validate() {
-      const { valid } = this.$refs.form.validate();
-
-      if (valid) alert("Le formulaire est valide");
-
+      console.log("aaaaaaaaaaah", this.datas);
       var postData = {
         name: this.datas.name,
+        gps: [0, 0],
         address: this.datas.address,
-        openingTime: this.datas.openingTime,
-        closingTime: this.datas.closingTime,
+        opening_time: this.datas.openingTime,
+        closing_time: this.datas.closingTime,
         type: this.datas.type,
-        image: this.datas.image,
+        image_link: this.datas.image,
       };
 
-      axios.post(
-        "http://127.0.0.1:8080/restaurants/registerRestaurant",
-        postData
-      );
+      axios
+        .post("http://127.0.0.1:8080/restaurants/", postData, {
+          headers: {
+            Authorization: `Bearer ${this.$cookies.get("token")}`,
+          },
+        })
+        .then((rep) => {
+          this.$axios.patch(
+            "http://127.0.0.1:8080/user/restaurant/",
+            {
+              id: this.$cookies.get("userId"),
+              restaurantId: rep.data.restorantid,
+            },
+            {
+              headers: {
+                Authorization: `Bearer ${this.$cookies.get("token")}`,
+              },
+            }
+          );
+        });
+      this.snackbar = true;
+      window.location.reload();
     },
 
     reset() {
-      this.$refs.form.reset();
+      let formulaire = this.$refs.form as any;
+      formulaire.reset();
     },
   },
-  async created() {
-    axios
-      .get("http://127.0.0.1:8080/restaurants/displayAllRestaurant/")
-      .then((resp) => {
-        console.log(resp);
-      });
-  },
-};
+  //created() {},
+});
 </script>
+
+<style scoped></style>

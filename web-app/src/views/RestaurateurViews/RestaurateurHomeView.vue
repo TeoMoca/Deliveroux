@@ -1,5 +1,5 @@
 <template>
-  <div class="main">
+  <div class="main" v-if="user.restaurantId != undefined">
     <h1 class="title">Mon restaurant</h1>
     <div class="display">
       <h2>Organiser la page de mon restaurant</h2>
@@ -22,11 +22,15 @@
       <p>Note de votre restaurant: {{ restaurant.rate }} / 5</p>
     </div>
   </div>
+  <div v-else>
+    <RestaurantCreation />
+  </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
 import DraggableList from "../../components/DraggableList.vue";
+import RestaurantCreation from "../../components/RestaurantCreation.vue";
 
 export default defineComponent({
   name: "RestaurateurHomeView",
@@ -39,22 +43,32 @@ export default defineComponent({
           },
         })
         .then((rep) => {
-          this.$axios
-            .get(`http://localhost:8080/restaurants/${rep.data.restaurantId}`, {
-              headers: {
-                Authorization: `Bearer ${this.$cookies.get("token")}`,
-              },
-            })
-            .then((rep) => {
-              this.restaurant = rep.data;
-              console.log(rep.data);
-            });
+          this.user = rep.data;
+          console.log("WTF", this.user.restaurantId);
+          if (this.user.restaurantId !== undefined) {
+            this.$axios
+              .get(
+                `http://localhost:8080/restaurants/${rep.data.restaurantId}`,
+                {
+                  headers: {
+                    Authorization: `Bearer ${this.$cookies.get("token")}`,
+                  },
+                }
+              )
+              .then((rep) => {
+                this.restaurant = rep.data;
+                console.log(rep.data);
+              });
+          }
         });
     } catch {
       console.log("error");
     }
   },
   data: (): {
+    user: {
+      restaurantId: string;
+    };
     restaurant: {
       _id: string;
       name: string;
@@ -66,6 +80,9 @@ export default defineComponent({
     };
   } => {
     return {
+      user: {
+        restaurantId: "",
+      },
       restaurant: {
         _id: "",
         name: "",
@@ -77,7 +94,7 @@ export default defineComponent({
       },
     };
   },
-  components: { DraggableList },
+  components: { DraggableList, RestaurantCreation },
 });
 </script>
 

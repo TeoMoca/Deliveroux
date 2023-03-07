@@ -32,19 +32,24 @@ router.post("/", (req, res) => {
     name: req.body.name,
     gps: req.body.gps,
     address: req.body.address,
-    rate: req.body.rate,
     opening_time: req.body.opening_time,
     closing_time: req.body.closing_time,
     type: req.body.type,
     image_link: req.body.image_link,
+    rate: [5],
     components: [],
     display: [],
   };
+
   db.restaurants.insertMany(newRestaurant).then((rep) => {
-    res.status(200).json({
-      message: "le restaurant a bien été créé",
-    });
-  });
+    console.log('data inserted')
+    res
+      .status(200)
+      .json({
+        message: `restaurant créé`,
+        restorantid: rep[0]._id,
+      });
+  })
 });
 
 router.put("/modify", (req, res) => {
