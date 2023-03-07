@@ -67,12 +67,17 @@ export default defineComponent({
 .v-card-actions {
   justify-content: space-between;
 }
-
 .v-card {
   width: 100%;
   height: 100%;
   justify-content: space-between;
   display: flex;
   flex-direction: column;
+  background: var(--color-six);
+  color: var(--color-seven);
+}
+
+.v-img {
+  background: #fff;
 }
 </style>

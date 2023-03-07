@@ -248,7 +248,7 @@ export default defineComponent({
       const lastname = this.$cookies.get("lastname") as string;
       if (firstname && lastname) {
         this.initials = firstname?.charAt(0) + lastname?.charAt(0) || "";
-        return this.initials;
+        return this.initials.toUpperCase();
       }
     },
     disconnect() {
@@ -297,9 +297,10 @@ export default defineComponent({
   grid-template-rows: 100% 1fr;
   position: relative;
   margin-right: 10px;
-  background: var(--color-two);
+  background: var(--color-five);
   padding: 10px;
   width: 30vw;
+  grid-area: search;
 }
 
 .search-bar input:focus {
@@ -314,7 +315,7 @@ export default defineComponent({
   display: none;
   position: absolute;
   top: 100%;
-  background: var(--color-five);
+  background: var(--color-four);
   color: var(--color-six);
   width: 100%;
   overflow: auto;
@@ -349,6 +350,10 @@ export default defineComponent({
   height: 80px;
   background: var(--color-one);
   object-fit: cover;
+}
+
+.v-badge {
+  grid-area: cart;
 }
 
 .user {

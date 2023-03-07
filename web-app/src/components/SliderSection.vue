@@ -64,7 +64,7 @@ h2 {
   max-height: 100%;
   gap: 10px;
   overflow: hidden;
-  background: var(--color-two);
+  background: var(--color-six);
   border-radius: 20px 20px 10px 10px;
 }
 

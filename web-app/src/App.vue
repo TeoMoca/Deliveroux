@@ -121,6 +121,11 @@ body ::-webkit-scrollbar-thumb {
 
 .router-container {
   margin-top: 15vh;
-  height: 85vh;
+}
+
+::placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: var(--color-seven);
+  opacity: 1; /* Firefox */
 }
 </style>
