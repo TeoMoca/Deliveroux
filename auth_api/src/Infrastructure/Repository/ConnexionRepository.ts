@@ -15,13 +15,26 @@ export class ConnexionRepository implements IConnexionRepository {
         this.stripeDataSource = stripeDataSource;
     }
 
-    async registerUser(user: User, adress: Address): Promise<Boolean> {
+    async registerUser(user: User, adress: Address, sponsor: string | undefined): Promise<Boolean> {
        
         const stripeId = await this.stripeDataSource.customers.create({
             phone: user.phone,
             name: user.firstname + "" + user.lastname,
         });
-        
+
+        if(sponsor != undefined){
+            const sponsorship: string= sponsor as string;
+            const userSponsor = await this.connexionDataSource.users.findFirst({
+                where:{ Mail: sponsorship}
+            });
+
+            if(userSponsor != null)
+                await this.connexionDataSource.users.update({
+                    where:{Id: userSponsor.Id},
+                    data:{ IsSponsor: true}
+                });
+        }
+
          await this.connexionDataSource.address.create({
             data:{
                Id: adress.id,

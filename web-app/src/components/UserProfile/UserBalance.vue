@@ -17,5 +17,6 @@ export default {
 <style scoped>
 #titleSummary {
   text-align: center;
+  background-color: var(--color-six);
 }
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div class="text-center">
     <v-dialog v-model="dialog" max-width="900">
-      <v-card>
+      <v-card class="dialog">
         <v-form
           ref="form"
           class="mb-2"
@@ -239,4 +239,8 @@ export default defineComponent({
 });
 </script>
 
-<style scoped></style>
+<style scoped>
+.dialog {
+  background-color: var(--color-six);
+}
+</style>

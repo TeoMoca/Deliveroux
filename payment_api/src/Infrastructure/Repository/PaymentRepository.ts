@@ -34,7 +34,7 @@ export class PaymentRepository implements IPaymentRepository{
                 line_items: command,
                 mode: 'payment',
                 success_url: 'http://localhost:8081/commands/' + userId + '/payment',
-                cancel_url: 'http://localhost:3000/cancel',
+                cancel_url: 'http://localhost:8001/Checkout',
             });
 
             const checkoutSession = new CheckoutSession(session.id, session.url, commandIds);

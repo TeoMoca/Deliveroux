@@ -1,12 +1,12 @@
 <template>
-  <v-card class="mx-auto my-12" max-width="600">
+  <v-card class="mx-auto my-12 cardItem" max-width="600">
     <h2>Je suis un ...</h2>
     <v-container class="d-flex mb-6" fluid>
       <v-row justify="center" no-gutters>
         <v-col cols="3" md="4">
           <v-btn
             @click="toCustomerRegister"
-            color="primary"
+            color="var(--color-four)"
             prepend-icon="mdi-silverware-variant"
           >
             Utilisateur
@@ -16,7 +16,7 @@
           <v-btn
             @click="toRestorerRegister"
             prepend-icon="mdi-chef-hat"
-            color="primary"
+            color="var(--color-four)"
           >
             Restaurateur
           </v-btn>
@@ -25,7 +25,7 @@
           <v-btn
             @click="toDeliveryRegister"
             prepend-icon="mdi-bike"
-            color="primary"
+            color="var(--color-four)"
           >
             Livreur
           </v-btn>
@@ -58,5 +58,9 @@ h2 {
 }
 .container {
   align-items: center;
+}
+.cardItem {
+  text-align: center;
+  background-color: var(--color-six);
 }
 </style>

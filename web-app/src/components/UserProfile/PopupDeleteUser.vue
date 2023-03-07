@@ -1,17 +1,21 @@
 <template>
   <div class="text-center">
     <v-dialog v-model="dialog" width="auto">
-      <v-card>
+      <v-card class="cardItem">
         <v-card-text>
           Vous êtes sur le point de supprimer votre compte. Cette action est
           irréversible.
         </v-card-text>
-        <v-card-actions>
-          <v-btn color="success" block @click="DeleteUser"
-            >Supprimer mon compte</v-btn
-          >
-          <v-btn color="error" block @click="dialog = false">Annuler</v-btn>
-        </v-card-actions>
+        <div class="cardActions">
+          <div>
+            <v-btn color="error" @click="dialog = false">Annuler</v-btn>
+          </div>
+          <div>
+            <v-btn color="success" @click="DeleteUser"
+              >Supprimer mon compte</v-btn
+            >
+          </div>
+        </div>
       </v-card>
     </v-dialog>
   </div>
@@ -36,4 +40,14 @@ export default defineComponent({
 });
 </script>
 
-<style scoped></style>
+<style scoped>
+.cardItem {
+  background-color: var(--color-six);
+}
+.cardActions {
+  padding: 3%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+</style>

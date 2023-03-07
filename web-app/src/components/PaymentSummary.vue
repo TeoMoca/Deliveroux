@@ -1,21 +1,49 @@
 <template>
   <div>
-    <v-card class="cardSummary" max-width="800">
+    <v-card class="cardSummary" max-width="500">
       <v-card-title id="titleSummary">Résumé de la commande</v-card-title>
       <div id="summary">
-        <h4>Articles</h4>
-        <v-card-text>{{ subtotal }}</v-card-text>
-        <h4>Taxes</h4>
-        <v-card-text>{{ tax }}</v-card-text>
-        <h4>Total</h4>
-        <v-card-text>{{ total }}</v-card-text>
+        <div class="articles">
+          <div>
+            <h2>Articles</h2>
+          </div>
+          <div class="price">
+            <h3>{{ subtotal }} €</h3>
+          </div>
+        </div>
+        <v-divider
+          :thickness="2"
+          class="border-opacity-100"
+          color="white"
+        ></v-divider>
+        <div class="articles">
+          <div>
+            <h2>Taxes</h2>
+          </div>
+          <div class="price">
+            <h3>{{ tax }} €</h3>
+          </div>
+        </div>
+        <v-divider
+          :thickness="2"
+          class="border-opacity-100"
+          color="white"
+        ></v-divider>
+        <div class="articles">
+          <div>
+            <h2>Total</h2>
+          </div>
+          <div class="price">
+            <h3>{{ total }} €</h3>
+          </div>
+        </div>
       </div>
       <div class="checkoutContainer">
         <v-btn
           id="buttonCheckout"
           :disabled="isDisabled"
           @click="startCommand"
-          color="success"
+          color="var(--color-one)"
           >Payer la commande</v-btn
         >
       </div>
@@ -143,7 +171,26 @@ export default defineComponent({
 
 <style scoped>
 .cardSummary {
-  background-color: #e5e7eb;
+  background-color: var(--color-four);
+}
+.articles {
+  padding: 3%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.taxes {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.price {
+  padding-right: 3%;
+}
+.total {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 .checkoutContainer {
   display: flex;

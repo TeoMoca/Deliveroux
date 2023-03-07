@@ -6,6 +6,7 @@
     title="Mes informations"
   >
     <v-form
+      id="userForm"
       ref="form"
       class="mb-2"
       :disabled="true"
@@ -107,20 +108,15 @@
           </v-col>
         </v-row>
       </v-container>
-      <v-card-actions>
-        <v-btn
-          color="error"
-          class="mr-4"
-          type="button"
-          @click="openPopupDelete"
-        >
+      <div class="actionCard">
+        <v-btn color="var(--color-two)" type="button" @click="openPopupDelete">
           Supprimer mon compte
         </v-btn>
         <v-spacer></v-spacer>
-        <v-btn color="success" class="mr-4" type="button" @click="openPopup">
+        <v-btn color="var(--color-four)" type="button" @click="openPopup">
           Modifier mes informations
         </v-btn>
-      </v-card-actions>
+      </div>
     </v-form>
   </v-card>
   <PopupUpdateProfile @updateProfile="updatedData" ref="popupUpdate" />
@@ -247,9 +243,18 @@ export default defineComponent({
 <style scoped>
 #UserProfileCard {
   text-align: center;
+  background-color: var(--color-six);
 }
-
+#userForm {
+  background-color: var(--color-six);
+}
 .TitleProfile {
   font-size: 25px;
+}
+
+.actionCard {
+  display: flex;
+  justify-content: space-between;
+  padding: 3%;
 }
 </style>

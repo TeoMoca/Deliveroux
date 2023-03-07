@@ -12,7 +12,6 @@
               required
             />
           </v-col>
-
           <v-col cols="12" md="6"
             ><v-text-field
               v-model="lastname"
@@ -22,9 +21,8 @@
               required
           /></v-col>
         </v-row>
-
         <v-row>
-          <v-col cols="12" md="6">
+          <v-col>
             <v-text-field
               v-model="password"
               class="mb-2"

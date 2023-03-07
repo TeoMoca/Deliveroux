@@ -140,6 +140,7 @@ export default defineComponent({
 <style scoped>
 .scroll {
   overflow-y: auto;
+  background-color: var(--color-six);
 }
 
 .articles {

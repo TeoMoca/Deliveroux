@@ -31,10 +31,7 @@ export default function UsersRouter(
    }
     router.post("/register", async (req:Request, res:Response) => {
         try{
-            console.log(req.body.adress);
             const address = new Address(randomUUID(), req.body.adress.adress, req.body.adress.codePostal, req.body.adress.city, req.body.adress.country);
-            console.log(address)
-            console.log(req.body.user);
             const user = new User(
                 "",
             req.body.user.roleId,
@@ -45,8 +42,7 @@ export default function UsersRouter(
             req.body.user.mail,
             req.body.user.password, false);
 
-            console.log(user);
-            const userCreated = await RegisterUseCase.execute(user, address);
+            const userCreated = await RegisterUseCase.execute(user, address, req.body.sponsor);
 
             res.send(userCreated);
         }catch (err) {
