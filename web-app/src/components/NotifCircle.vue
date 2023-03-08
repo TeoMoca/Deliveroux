@@ -92,7 +92,8 @@ export default defineComponent({
     },
     seeNotifs() {
       var request =
-        "http://127.0.0.1:8080/notifications/seen/" + this.$props.idUser;
+        `http://${location.hostname}:8080/notifications/seen/` +
+        this.$props.idUser;
       this.$axios
         .put(
           request,

@@ -65,7 +65,7 @@ export default defineComponent({
       });
 
     this.$axios
-      .get("http://${location.hostname}:8080/catalogs/${this.id}", {
+      .get(`http://${location.hostname}:8080/catalogs/${this.id}`, {
         headers: {
           Authorization: `Bearer ${this.$cookies.get("token")}`,
         },
