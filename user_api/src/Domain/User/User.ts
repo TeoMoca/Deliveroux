@@ -8,6 +8,7 @@ export interface User {
     mail:string;
     password:string;
     isdisabled:boolean;
+    stripeId:string;
     restaurantId?:string;
 }
 export class User implements User {
@@ -21,6 +22,7 @@ export class User implements User {
       public mail: string,
       public password: string,
       public isdisabled: boolean,
+        public stripeId: string,
         public restaurantId?: string
     ) {}
   }

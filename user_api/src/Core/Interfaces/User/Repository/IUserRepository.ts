@@ -8,4 +8,5 @@ export interface IUserRepository {
     updateAddressAsync(userId:string, address:Address) : Promise<Boolean>;
     updateUserAsync(userId:string, user:User) : Promise<Boolean>;
     deleteUserAsync(userId:string) : Promise<Boolean>;
+    getAllUsersAsync() : Promise<User[]>;
 }

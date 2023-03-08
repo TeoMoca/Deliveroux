@@ -75,4 +75,12 @@ export class UserRepository implements IUserRepository {
 
         return address;
     }
+
+    async getAllUsersAsync(): Promise<User[]> {
+        const users = await this.userDataSource.users.findMany();
+        console.log(users);
+        const usersDomain = users.map(user => UserMapperExtension.ToDomain(user));
+
+        return usersDomain;
+    }
 }

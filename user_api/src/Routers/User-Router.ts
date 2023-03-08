@@ -5,10 +5,12 @@ import {IUpdateRestaurantIdUseCase} from "../Core/Interfaces/User/UseCase/IUpdat
 import {IGetAddressByIdUseCase} from "../Core/Interfaces/User/UseCase/IGetAddressByIdUseCase";
 import {IUpdateUserProfileAsyncUseCase} from "../Core/Interfaces/User/UseCase/IUpdateUserProfileAsyncUseCase";
 import {IDeleteUserAsyncUseCase} from "../Core/Interfaces/User/UseCase/IDeleteUserAsyncUseCase";
+import { IGetAllUserAsyncUseCase } from "../Core/Interfaces/User/UseCase/IGetAllUserAsyncUseCase";
 
 export default function UsersRouter(GetUserByIdUseCase: IGetUserByIdUseCase, UpdateRestaurantIdUseCase: IUpdateRestaurantIdUseCase,
                                     GetAddressByIdUseCase: IGetAddressByIdUseCase, UpdateUserProfileAsyncUseCase: IUpdateUserProfileAsyncUseCase,
-                                    DeleteUserByIdUseCase: IDeleteUserAsyncUseCase) {
+                                    DeleteUserByIdUseCase: IDeleteUserAsyncUseCase,
+                                    GetAllUserAsyncUseCase: IGetAllUserAsyncUseCase ) {
   const router = express.Router();
 
   router.get("/:id", async (req: Request, res: Response) => {
@@ -61,6 +63,17 @@ export default function UsersRouter(GetUserByIdUseCase: IGetUserByIdUseCase, Upd
         res.status (500).send ({message: "Error fetching address by Id"});
       }
     });
+
+  router.get("/all/users", async (req: Request, res: Response) => {
+    try {
+
+      const users = await GetAllUserAsyncUseCase.execute();
+
+      res.send (users);
+    } catch (err) {
+      res.status (500).send ({message: "Error fetching address by Id"});
+    }
+  });
 
 
   return router;

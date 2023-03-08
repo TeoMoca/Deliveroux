@@ -15,6 +15,7 @@ export class UserMapperExtension {
             mail:entity.Mail,
             password:entity.Password,
             isdisabled:entity.IsDisabled,
+            stripeId: entity.stripeId as string,
             restaurantId: entity.RestaurantId || undefined
         };
     }
