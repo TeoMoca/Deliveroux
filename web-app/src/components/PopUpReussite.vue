@@ -32,7 +32,7 @@ export default {
   height: 15%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: rgb(230, 55, 11);
+  background-color: forestgreen;
   color: white;
   padding: 1rem;
   border-radius: 5px;
