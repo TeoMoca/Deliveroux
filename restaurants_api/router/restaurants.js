@@ -76,7 +76,16 @@ router.put("/modify", (req, res) => {
     });
 });
 
-router.delete("/", (req, res) => {});
+router.delete("/:id", (req, res) => {
+  db.restaurants
+    .findOneAndDelete({ _id: req.params.id })
+    .then(() => {
+      res.status(200).json({ message: "Objet Supprimé" });
+    })
+    .catch((e) => {
+      res.status(404).json({ message: `objet non trouvé` });
+    });
+});
 router.put("/", (req, res) => {});
 router.get("/test", (req, res) => {
   console.log("je rentre dans la fonction FDP");
