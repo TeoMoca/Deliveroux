@@ -31,7 +31,7 @@ export default defineComponent({
   } => ({
     restorant_id: "",
     commandeData: [],
-    validateLink: "http://127.0.0.1:8080/commands/accept/",
+    validateLink: `http://${location.hostname}:8080/commands/accept/`,
     text_button: "Accepter la Commande",
   }),
   methods: {},
@@ -40,17 +40,20 @@ export default defineComponent({
   created() {
     //recupère les données du client
     axios
-      .get("http://localhost:8080/user/" + this.$cookies.get("userId"), {
-        //a changer pour l'id du resto
-        headers: {
-          Authorization: `Bearer ${this.$cookies.get("token")}`,
-        },
-      })
+      .get(
+        `http://${location.hostname}:8080/user` + this.$cookies.get("userId"),
+        {
+          //a changer pour l'id du resto
+          headers: {
+            Authorization: `Bearer ${this.$cookies.get("token")}`,
+          },
+        }
+      )
       .then((infoUser) => {
         this.restorant_id = infoUser.data.restaurantId;
         axios
           .get(
-            "http://localhost:8080/commands/restaurant/toaccept/" +
+            `http://${location.hostname}:8080/commands/restaurant/toaccept/` +
               infoUser.data.restaurantId,
             {
               //a changer pour l'id du resto

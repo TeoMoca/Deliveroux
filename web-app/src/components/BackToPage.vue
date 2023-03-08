@@ -25,8 +25,8 @@ export default defineComponent({
   position: fixed;
   background: var(--color-four);
   border-radius: 20px;
-  margin: 1vh;
-  top: 8vh;
+  margin: 10px;
+  top: 70px;
   display: flex;
   align-items: center;
   justify-content: center;

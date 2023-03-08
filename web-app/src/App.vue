@@ -71,7 +71,7 @@ export default defineComponent({
 * {
   outline: none !important;
   color: var(--color-seven);
-  transition: all 0.3s 0 ease-in-out !important;
+  transition: all 0.3s ease-in-out !important;
 }
 
 :root.dark-mode {
@@ -123,7 +123,7 @@ body ::-webkit-scrollbar-thumb {
 }
 
 .router-container {
-  margin-top: 15vh;
+  margin-top: 134px;
 }
 
 ::placeholder {

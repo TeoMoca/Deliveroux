@@ -38,17 +38,20 @@ export default defineComponent({
   created() {
     //recupère les données du client
     axios
-      .get("http://localhost:8080/user/" + this.$cookies.get("userId"), {
-        //a changer pour l'id du resto
-        headers: {
-          Authorization: `Bearer ${this.$cookies.get("token")}`,
-        },
-      })
+      .get(
+        `http://${location.hostname}:8080/user/` + this.$cookies.get("userId"),
+        {
+          //a changer pour l'id du resto
+          headers: {
+            Authorization: `Bearer ${this.$cookies.get("token")}`,
+          },
+        }
+      )
       .then((infoUser) => {
         this.restorant_id = infoUser.data.restaurantId;
         axios
           .get(
-            "http://localhost:8080/commands/restaurant/todeliver/" +
+            `http://${location.hostname}:8080/commands/restaurant/todeliver/` +
               infoUser.data.restaurantId,
             {
               //a changer pour l'id du resto

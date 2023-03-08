@@ -26,7 +26,7 @@ const routes: Array<RouteRecordRaw> = [
     component: () => {
       console.log("function for hoe component");
       return axios
-        .get(`http://localhost:8080/user/${cookies.get("userId")}`, {
+        .get(`http://${location.hostname}:8080/user/${cookies.get("userId")}`, {
           headers: {
             Authorization: `Bearer ${cookies.get("token")}`,
           },
@@ -59,7 +59,7 @@ const routes: Array<RouteRecordRaw> = [
     name: "restaurant",
     component: RestaurantView,
     beforeEnter: (to, from, next) => {
-      //axios.get("http://localhost:8080/", {
+      //axios.get(`http://${location.hostname}:8080/`, {
       //
       //});
       return next();
@@ -74,7 +74,7 @@ const routes: Array<RouteRecordRaw> = [
     // which is lazy-loaded when the route is visited.
     component: () => {
       return axios
-        .get(`http://localhost:8080/user/${cookies.get("userId")}`, {
+        .get(`http://${location.hostname}:8080/user/${cookies.get("userId")}`, {
           headers: {
             Authorization: `Bearer ${cookies.get("token")}`,
           },

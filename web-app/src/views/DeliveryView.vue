@@ -28,7 +28,9 @@
             <v-text-field
               v-model="password"
               class="mb-2"
-              label="Mot de passe"
+              label="Mot
+              de
+              passe"
               :rules="passwordrules"
               required
             />
@@ -59,7 +61,8 @@
         <v-text-field
           v-model="codepostal"
           class="mb-2"
-          label="Code Postal"
+          label="Code
+          Postal"
           :rules="codepostalrules"
           required
         />
@@ -80,7 +83,8 @@
         <v-text-field
           v-model="refercode"
           class="mb-2"
-          label="Parrainage (email)"
+          label="Parrainage
+          (email)"
         />
       </v-container>
       <v-divider></v-divider>
@@ -135,7 +139,7 @@ export default defineComponent({
     cityrules: [(v: string) => !!v || "La ville est obligatoire"],
     password: "",
     passwordrules: [(v: string) => !!v || "Le mot de passe est obligatoire"],
-    existingUsers: [""],
+    existingUsers: [],
     isRegistered: false,
   }),
   methods: {
@@ -160,7 +164,7 @@ export default defineComponent({
           this.country
         );
         const response = await this.$axios.post(
-          "http://localhost:8080/auth/register",
+          `http://${location.hostname}:8080/auth/register`,
           {
             user: user,
             adress: adress,

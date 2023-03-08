@@ -29,7 +29,7 @@ export default defineComponent({
   } => ({
     restorant_id: "",
     commandeData: [],
-    validateLink: "http://127.0.0.1:8080/commands/takedelivery/",
+    validateLink: `http://${location.hostname}:8080/commands/takedelivery/`,
     text_button: "Accepter la Commande",
   }),
 
@@ -38,7 +38,7 @@ export default defineComponent({
   created() {
     //recupère les données du client
     axios
-      .get("http://localhost:8080/commands/delivery/delivering", {
+      .get(`http://${location.hostname}:8080/commands/delivery/delivering`, {
         //a changer pour l'id du resto
         headers: {
           Authorization: `Bearer ${this.$cookies.get("token")}`,

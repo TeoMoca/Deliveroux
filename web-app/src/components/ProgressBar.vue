@@ -97,7 +97,7 @@ export default defineComponent({
   position: relative;
 }
 .step-wizard-item + .step-wizard-item:after {
-  content: "";
+  content: ";
   position: absolute;
   left: 0;
   top: 19px;
@@ -121,7 +121,7 @@ export default defineComponent({
   color: transparent;
 }
 .progress-count::after {
-  content: "";
+  content: ";
   height: 40px;
   width: 40px;
   background: var(--color-five);
@@ -133,7 +133,7 @@ export default defineComponent({
   z-index: -10;
 }
 .progress-count::before {
-  content: "";
+  content: ";
   height: 10px;
   width: 20px;
   border-left: 3.5px solid var(--color-two);

@@ -11,15 +11,20 @@
                 class="mb-2"
                 prefix="€"
                 disabled
-                label="prix de la commande"
+                label="prix de
+                la
+                commande"
               />
             </v-col>
             <v-col cols="6" md="6">
               <v-text-field
                 v-model="commandDate"
-                class="mb-2 text-center"
+                class="mb-2"
+                text-center
                 disabled
-                label="date de la commande"
+                label="date de
+                la
+                commande"
               />
             </v-col>
           </v-row>

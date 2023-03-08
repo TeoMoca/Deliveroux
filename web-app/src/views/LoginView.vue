@@ -60,7 +60,7 @@ export default defineComponent({
       e.preventDefault();
       this.$axios
         .post(
-          "http://localhost:8080/auth/login",
+          `http://${location.hostname}:8080/auth/login`,
           {
             mail: this.mail.toLowerCase(),
             password: this.password,

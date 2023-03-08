@@ -4,7 +4,7 @@
       <v-card-title>Vos Parrainages</v-card-title>
     </v-card-item>
 
-    <v-card-text v-for="refer in refers" v-bind:key="refer">
+    <v-card-text v-for="refer" in refers" v-bind:key="refer">
       {{ refer }}
     </v-card-text>
   </v-card>
@@ -19,7 +19,8 @@ export default defineComponent({
   async created() {
     await this.$axios
       .get(
-        "http://localhost:8080/api/users/refers/" + this.$cookies.get("userId"),
+        `http://${location.hostname}:8080/api/users/refers/` +
+          this.$cookies.get("userId"),
         {
           headers: {
             Authorization: `Bearer ${this.$cookies.get("token")}`,

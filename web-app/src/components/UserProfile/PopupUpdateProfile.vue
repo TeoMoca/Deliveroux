@@ -173,11 +173,15 @@ export default defineComponent({
     async setData() {
       var adressId = "";
       this.$axios
-        .get("http://localhost:8080/user/" + this.$cookies.get("userId"), {
-          headers: {
-            Authorization: `Bearer ${this.$cookies.get("token")}`,
-          },
-        })
+        .get(
+          `http://${location.hostname}:8080/user/` +
+            this.$cookies.get("userId"),
+          {
+            headers: {
+              Authorization: `Bearer ${this.$cookies.get("token")}`,
+            },
+          }
+        )
         .then((response) => {
           console.log(response.data);
           this.firstname = response.data.firstname;
@@ -187,7 +191,7 @@ export default defineComponent({
           this.phone = response.data.phone;
           adressId = response.data.addressId;
           this.$axios
-            .get("http://localhost:8080/user/address/" + adressId, {
+            .get(`http://${location.hostname}:8080/user/address/` + adressId, {
               headers: {
                 Authorization: `Bearer ${this.$cookies.get("token")}`,
               },
@@ -223,7 +227,8 @@ export default defineComponent({
           this.country
         );
         this.$axios.patch(
-          "http://localhost:8080/user/" + this.$cookies.get("userId"),
+          `http://${location.hostname}:8080/user/` +
+            this.$cookies.get("userId"),
           { user, address },
           {
             headers: {

@@ -158,7 +158,7 @@ export default defineComponent({
           this.country
         );
         const response = await this.$axios.post(
-          "http://localhost:8080/users/users/register",
+          `http://${location.hostname}:8080/users/users/register`,
           {
             user: user,
             adress: adress,

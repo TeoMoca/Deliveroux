@@ -48,19 +48,25 @@ export default defineComponent({
   }),
   beforeCreate() {
     this.$axios
-      .get(`http://localhost:8080/restaurants/${this.$route.params.id}`, {
-        headers: {
-          Authorization: `Bearer ${this.$cookies.get("token")}`,
-        },
-      })
+      .get(
+        `http://${location.hostname}:8080/restaurants/${this.$route.params.id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${this.$cookies.get("token")}`,
+          },
+        }
+      )
       .then((rep) => {
         this.restaurant = rep.data;
         this.$axios
-          .get(`http://localhost:8080/catalogs/${this.restaurant._id}`, {
-            headers: {
-              Authorization: `Bearer ${this.$cookies.get("token")}`,
-            },
-          })
+          .get(
+            `http://${location.hostname}:8080/catalogs/${this.restaurant._id}`,
+            {
+              headers: {
+                Authorization: `Bearer ${this.$cookies.get("token")}`,
+              },
+            }
+          )
           .then((rep) => {
             console.log("catalog api", rep.data);
             rep.data.menusList?.map((menu: { name: string }) => {
@@ -72,11 +78,14 @@ export default defineComponent({
           });
       });
     this.$axios
-      .get(`http://localhost:8080/restaurants/${this.$route.params.id}`, {
-        headers: {
-          Authorization: `Bearer ${this.$cookies.get("token")}`,
-        },
-      })
+      .get(
+        `http://${location.hostname}:8080/restaurants/${this.$route.params.id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${this.$cookies.get("token")}`,
+          },
+        }
+      )
       .then((rep) => {
         console.log(rep.data);
         rep.data.display.map((item: { name: string }) => {
@@ -95,19 +104,19 @@ export default defineComponent({
     ) {
       switch (componentTitle) {
         case "article": {
-          return `<div>article - ${item.name}</div>`;
+          return "<div>article - ${item.name}</div>";
         }
         case "menu": {
-          return `<div>menu - ${item.name}</div>`;
+          return "<div>menu - ${item.name}</div>";
         }
         case "articles": {
-          return `<div>articles - ${item.name}</div>`;
+          return "<div>articles - ${item.name}</div>";
         }
         case "menus": {
-          return `<div>menus - ${item.name}</div>`;
+          return "<div>menus - ${item.name}</div>";
         }
         default: {
-          return `${item.name} <img src='${item.image_link}'/>`;
+          return "${item.name} <img src='${item.image_link}'/>";
         }
       }
     },

@@ -180,9 +180,9 @@ export default defineComponent({
       },
       itemsList: [],
 
-      articleRequestUrl: "http://127.0.0.1:8080/catalogs/articles/add",
-      menuRequestUrl: "http://127.0.0.1:8080/catalogs/menus/add",
-      getArticleUrl: "http://127.0.0.1:8080/catalogs/articles/",
+      articleRequestUrl: `http://${location.hostname}:8080/catalogs/articles/add`,
+      menuRequestUrl: `http://${location.hostname}:8080/catalogs/menus/add`,
+      getArticleUrl: `http://${location.hostname}:8080/catalogs/articles/`,
       tab: "item",
     };
   },
@@ -242,11 +242,14 @@ export default defineComponent({
   },
   created() {
     this.$axios
-      .get(`http://localhost:8080/catalogs/articles/${this.$props.id}`, {
-        headers: {
-          Authorization: `Bearer ${this.$cookies.get("token")}`,
-        },
-      })
+      .get(
+        `http://${location.hostname}:8080/catalogs/articles/${this.$props.id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${this.$cookies.get("token")}`,
+          },
+        }
+      )
       .then((rep) => {
         this.itemsList = rep.data;
       });

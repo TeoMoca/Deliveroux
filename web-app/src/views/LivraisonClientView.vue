@@ -28,7 +28,7 @@ export default defineComponent({
   created() {
     //recupère les données du client
     axios
-      .get("http://localhost:8080/commands/" + this.$props.id, {
+      .get(`http://${location.hostname}:8080/commands/` + this.$props.id, {
         headers: {
           Authorization: `Bearer ${this.$cookies.get("token")}`,
         },

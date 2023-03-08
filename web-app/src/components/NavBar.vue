@@ -74,8 +74,8 @@
         <p @click="RedirectProfile">Mes informations</p>
         <p @click="RedirectCommands">Voir mes commandes</p>
         <p>Parrainez un amis</p>
-        <p class="disconnect" @click="disconnect">Me déconnecter</p>
         <p @click="$store.commit('changeMode')">Changer de thème</p>
+        <p class="disconnect" @click="disconnect">Me déconnecter</p>
       </div>
     </div>
   </div>
@@ -123,7 +123,7 @@ export default defineComponent({
     //Restaurant
     if (this.$cookies.get("userId")) {
       this.$axios
-        .get("http://localhost:8080/restaurants", {
+        .get(`http://${location.hostname}:8080/restaurants`, {
           headers: {
             Authorization: `Bearer ${this.$cookies.get("token")}`,
           },
@@ -137,11 +137,15 @@ export default defineComponent({
         });
       //
       this.$axios
-        .get("http://localhost:8080/user/" + this.$cookies.get("userId"), {
-          headers: {
-            Authorization: `Bearer ${this.$cookies.get("token")}`,
-          },
-        })
+        .get(
+          `http://${location.hostname}:8080/user/` +
+            this.$cookies.get("userId"),
+          {
+            headers: {
+              Authorization: `Bearer ${this.$cookies.get("token")}`,
+            },
+          }
+        )
         .then((rep) => {
           switch (rep.data.roleId) {
             case 1: {
@@ -175,7 +179,7 @@ export default defineComponent({
       //Livraisons
       this.$axios
         .get(
-          "http://localhost:8080/livraisons/livreur/" +
+          `http://${location.hostname}:8080/livraisons/livreur/` +
             this.$cookies.get("userId"),
           {
             headers: {
@@ -188,11 +192,15 @@ export default defineComponent({
           console.log(this.$data.livraisons);
         });
       this.$axios
-        .get("http://localhost:8080/commands/" + this.$cookies.get("userId"), {
-          headers: {
-            Authorization: `Bearer ${this.$cookies.get("token")}`,
-          },
-        })
+        .get(
+          `http://${location.hostname}:8080/commands/` +
+            this.$cookies.get("userId"),
+          {
+            headers: {
+              Authorization: `Bearer ${this.$cookies.get("token")}`,
+            },
+          }
+        )
         .then((rep) => {
           this.commandes = rep.data;
           console.log(this.$data.commandes);
@@ -270,7 +278,7 @@ export default defineComponent({
   overflow: visible;
   gap: 10px;
   width: 100%;
-  height: 8vh;
+  height: 70px;
   background: var(--color-one);
   display: grid;
   grid-auto-flow: column;
@@ -285,7 +293,7 @@ export default defineComponent({
 }
 
 .nav-bar .title {
-  color: var(--color-two);
+  color: var(--color-three);
   cursor: default;
 }
 
@@ -298,10 +306,12 @@ export default defineComponent({
   grid-template-rows: 100% 1fr;
   position: relative;
   margin-right: 10px;
-  background: var(--color-five);
+  border: 3px solid var(--color-two);
   padding: 10px;
   width: 30vw;
+  background: var(--color-five);
   grid-area: search;
+  border-radius: 15px;
 }
 
 .search-bar input:focus {

@@ -4,7 +4,10 @@
     max-width="844"
     max-height="500"
     class="scroll"
-    title="Mon historique de commandes"
+    title="Mon
+    historique
+    de
+    commandes"
   >
     <div v-for="item in Allcommands" :key="item.commandNumber">
       <v-divider />
@@ -40,7 +43,8 @@ export default defineComponent({
   methods: {
     async getAllCommands() {
       const commands = await this.$axios.get(
-        "http://localhost:8080/commands/" + this.$cookies.get("userId"),
+        `http://${location.hostname}:8080/commands/` +
+          this.$cookies.get("userId"),
         {
           headers: {
             Authorization: "Bearer " + this.$cookies.get("token"),

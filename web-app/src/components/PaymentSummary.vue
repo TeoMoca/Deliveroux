@@ -78,7 +78,7 @@ export default defineComponent({
         const articles = this.getArticleByRestaurantId(restaurantId);
         console.log(adress);
         const commandId = await this.$axios.post(
-          "http://localhost:8080/commands/send",
+          `http://${location.hostname}:8080/commands/send`,
           {
             customerId: user.data.id,
             restorantId: restaurantId,
@@ -101,7 +101,7 @@ export default defineComponent({
     },
     async getUserInformation() {
       const user = await this.$axios.get(
-        "http://localhost:8080/user/" + this.$cookies.get("userId"),
+        `http://${location.hostname}:8080/user/` + this.$cookies.get("userId"),
         {
           headers: {
             Authorization: `Bearer ${this.$cookies.get("token")}`,
@@ -113,7 +113,7 @@ export default defineComponent({
     },
     async getAdressUserById(addressId) {
       const user = await this.$axios.get(
-        "http://localhost:8080/user/address/" + addressId,
+        `http://${location.hostname}:8080/user/address/` + addressId,
         {
           headers: {
             Authorization: `Bearer ${this.$cookies.get("token")}`,
@@ -125,7 +125,7 @@ export default defineComponent({
     },
     async CreateCheckoutSession(user) {
       const session = await this.$axios.post(
-        "http://localhost:8080/payments/createPayment",
+        `http://${location.hostname}:8080/payments/createPayment`,
         {
           userStripeId: user.data.stripeId,
           userId: user.data.id,

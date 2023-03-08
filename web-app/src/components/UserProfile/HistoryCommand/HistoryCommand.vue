@@ -10,7 +10,8 @@
       <div class="iconHistory" @click="openPopupHistoryCommandView">
         <v-icon
           color="success"
-          icon="mdi mdi-eye-outline"
+          icon="mdi"
+          mdi-eye-outline
           size="large"
         ></v-icon>
       </div>

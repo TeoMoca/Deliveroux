@@ -1,7 +1,8 @@
 <template>
   <v-card class="mx-auto" max-width="400" elevation="6">
     <v-img
-      class="white--text align-end"
+      class="white--text"
+      align-end
       height="150px"
       v-bind:src="item.picture"
       cover

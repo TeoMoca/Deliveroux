@@ -28,7 +28,7 @@ export default defineComponent({
     async setCommandPayed(commandId) {
       await this.$axios
         .patch(
-          "http://localhost:8080/commands/pay/" + commandId,
+          `http://${location.hostname}:8080/commands/pay/` + commandId,
           {},
           {
             headers: {
@@ -38,7 +38,7 @@ export default defineComponent({
         )
         .then(() => {
           this.$axios
-            .get("http://localhost:8080/commands/one/" + commandId, {
+            .get(`http://${location.hostname}:8080/commands/one/` + commandId, {
               //a changer pour l'id du resto
               headers: {
                 Authorization: `Bearer ${this.$cookies.get("token")}`,
@@ -48,7 +48,7 @@ export default defineComponent({
               this.customer_id = cmd.data.customerId;
               this.$axios
                 .post(
-                  "http://127.0.0.1:8080/notifications/send",
+                  `http://127.0.0.1:8080/notifications/send`,
                   {
                     id_user: this.customer_id,
                     message: "commande " + commandId + " Confirmée!",

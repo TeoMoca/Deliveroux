@@ -105,7 +105,7 @@ export default defineComponent({
       restoData: {},
       oldRestaurant: Object,
       snackbar: false,
-      text: `Modification de restaurant réussie`,
+      text: "Modification de restaurant réussie",
     };
   },
   methods: {
@@ -120,7 +120,10 @@ export default defineComponent({
         image: this.restoData.image,
       };
 
-      axios.put("http://127.0.0.1:8080/restaurants/updateRestaurant", putData);
+      axios.put(
+        `http://${location.hostname}:8080/restaurants/updateRestaurant`,
+        putData
+      );
     },
 
     reset() {
@@ -130,7 +133,7 @@ export default defineComponent({
   async created() {
     axios
       .get(
-        "http://127.0.0.1:8080/restaurants/displayRestaurant/63c8147851cdb28f9f6d46ca"
+        `http://${location.hostname}:8080/restaurants/displayRestaurant/63c8147851cdb28f9f6d46ca`
       )
       .then((resp) => {
         //console.log(resp)

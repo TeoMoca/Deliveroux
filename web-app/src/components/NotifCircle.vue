@@ -65,11 +65,15 @@ export default defineComponent({
       console.log("c'est aberant poto");
       if (this.$props.idUser) {
         this.$axios
-          .get("http://127.0.0.1:8080/notifications/" + this.$props.idUser, {
-            headers: {
-              Authorization: `Bearer ${this.$cookies.get("token")}`,
-            },
-          })
+          .get(
+            `http://${location.hostname}:8080/notifications/` +
+              this.$props.idUser,
+            {
+              headers: {
+                Authorization: `Bearer ${this.$cookies.get("token")}`,
+              },
+            }
+          )
           .then((rep) => {
             rep.data.map((notification: never) => {
               this.notifications.push(notification);

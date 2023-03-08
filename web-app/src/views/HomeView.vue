@@ -24,7 +24,7 @@ export default defineComponent({
   }),
   created() {
     this.$axios
-      .get("http://localhost:8080/restaurants", {
+      .get(`http://${location.hostname}:8080/restaurants`, {
         headers: {
           Authorization: `Bearer ${this.$cookies.get("token")}`,
         },

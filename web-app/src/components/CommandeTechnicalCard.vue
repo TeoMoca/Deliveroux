@@ -114,7 +114,7 @@ export default defineComponent({
   created() {
     console.log("xxxt", this.$props.command);
     this.$axios
-      .get("http://localhost:8080/user/" + this.command.customerId, {
+      .get(`http://${location.hostname}:8080/user/` + this.command.customerId, {
         headers: {
           Authorization: `Bearer ${this.$cookies.get("token")}`,
         },
@@ -122,11 +122,15 @@ export default defineComponent({
       .then((rep) => {
         this.userInfos = rep.data;
         this.$axios
-          .get("http://127.0.0.1:8080/user/address/" + rep.data.addressId, {
-            headers: {
-              Authorization: `Bearer ${this.$cookies.get("token")}`,
-            },
-          })
+          .get(
+            `http://${location.hostname}:8080/user/address/` +
+              rep.data.addressId,
+            {
+              headers: {
+                Authorization: `Bearer ${this.$cookies.get("token")}`,
+              },
+            }
+          )
           .then((addr) => {
             this.userAddress = addr.data;
             console.log("catalog", this.catalog);
@@ -135,11 +139,14 @@ export default defineComponent({
     //catalogs_infos---------------------------------------------------------------
     console.log(this.command.restorantId);
     this.$axios
-      .get("http://localhost:8080/catalogs/" + this.command.restorantId, {
-        headers: {
-          Authorization: `Bearer ${this.$cookies.get("token")}`,
-        },
-      })
+      .get(
+        `http://${location.hostname}:8080/catalogs/` + this.command.restorantId,
+        {
+          headers: {
+            Authorization: `Bearer ${this.$cookies.get("token")}`,
+          },
+        }
+      )
       .then((rep) => {
         this.catalog = rep.data;
         console.log("catalog", this.catalog);
@@ -147,11 +154,15 @@ export default defineComponent({
 
     //restaurant_infos--------------------------------------------------------------------
     this.$axios
-      .get("http://127.0.0.1:8080/restaurants/" + this.command.restorantId, {
-        headers: {
-          Authorization: `Bearer ${this.$cookies.get("token")}`,
-        },
-      })
+      .get(
+        `http://${location.hostname}:8080/restaurants/` +
+          this.command.restorantId,
+        {
+          headers: {
+            Authorization: `Bearer ${this.$cookies.get("token")}`,
+          },
+        }
+      )
       .then((rep) => {
         this.restaurant = rep.data;
         console.log("catalog", this.catalog);

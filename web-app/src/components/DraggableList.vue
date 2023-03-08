@@ -6,14 +6,15 @@
       @dragover.prevent
       @dragenter.prevent
     >
-      <div class="drag-el white-bg" v-for="item in listOne" :key="item.name">
+      <div class="drag-el" white-bg v-for="item in listOne" :key="item.name">
         <p>{{ item.name }}</p>
         <p @click="removeFromList(item._id)" class="remove">x</p>
       </div>
     </div>
     <div class="drop-zone" @dragover.prevent @dragenter.prevent>
       <div
-        class="drag-el white-bg"
+        class="drag-el"
+        white-bg
         v-for="item in filteredList"
         :key="item.name"
         draggable="true"
@@ -49,7 +50,7 @@ export default defineComponent({
   },
   created() {
     this.$axios
-      .get(`http://localhost:8080/restaurants/${this.$props.id}`, {
+      .get(`http://${location.hostname}:8080/restaurants/${this.$props.id}`, {
         headers: {
           Authorization: `Bearer ${this.$cookies.get("token")}`,
         },
@@ -64,7 +65,7 @@ export default defineComponent({
       });
 
     this.$axios
-      .get(`http://localhost:8080/catalogs/${this.id}`, {
+      .get("http://${location.hostname}:8080/catalogs/${this.id}", {
         headers: {
           Authorization: `Bearer ${this.$cookies.get("token")}`,
         },
@@ -110,7 +111,7 @@ export default defineComponent({
     },
     sendData() {
       this.$axios
-        .get(`http://localhost:8080/restaurants/${this.$props.id}`, {
+        .get(`http://${location.hostname}:8080/restaurants/${this.$props.id}`, {
           headers: {
             Authorization: `Bearer ${this.$cookies.get("token")}`,
           },
@@ -118,11 +119,15 @@ export default defineComponent({
         .then((rep) => {
           rep.data.display = Object.values(this.listOne);
           this.$axios
-            .put("http://localhost:8080/restaurants/modify", rep.data, {
-              headers: {
-                Authorization: `Bearer ${this.$cookies.get("token")}`,
-              },
-            })
+            .put(
+              `http://${location.hostname}:8080/restaurants/modify`,
+              rep.data,
+              {
+                headers: {
+                  Authorization: `Bearer ${this.$cookies.get("token")}`,
+                },
+              }
+            )
             .then((rep) => {
               console.log(rep.data);
             });
@@ -148,6 +153,10 @@ export default defineComponent({
   -webkit-user-select: none;
   -ms-user-select: none;
   user-select: none;
+  max-height: 160px;
+  min-height: 160px;
+  overflow: auto;
+  position: relative;
 }
 .drag-el {
   margin-bottom: 10px;
@@ -192,10 +201,14 @@ button {
 }
 
 .add-btn {
-  margin-bottom: 10px;
-  padding: 5px;
+  padding: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background: var(--color-four);
 }
 </style>

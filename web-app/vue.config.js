@@ -3,6 +3,10 @@ module.exports = defineConfig({
   transpileDependencies: true,
 
   pluginOptions: {
-    vuetify: {}
-  }
+    vuetify: {},
+  },
+
+  devServer: {
+    host: "25.65.113.21",
+  },
 });

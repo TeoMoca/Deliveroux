@@ -1,12 +1,12 @@
 <template>
-  <div class="d-flex justify-space-evenly">
-    <v-col class="HalfDashboard d-flex justify-center" cols="12" sm="5">
+  <div class="d-flex" justify-space-evenly>
+    <v-col class="HalfDashboard" d-flex justify-center cols="12" sm="5">
       <div class="flex-column">
         <h1>Livraisons à accepter</h1>
         <DeliveryCommandToAccept />
       </div>
     </v-col>
-    <v-col class="HalfDashboard d-flex justify-center" cols="12" sm="5">
+    <v-col class="HalfDashboard" d-flex justify-center cols="12" sm="5">
       <div class="flex-column">
         <h1>Livraisons en cours</h1>
         <DeliveryCommandsInCharge />

@@ -19,7 +19,7 @@ export default defineComponent({
       id: string;
     }>;
   } => ({
-    requestUrl: "http://127.0.0.1:8080/menus/1",
+    requestUrl: `http://${location.hostname}:8080/menus/1`,
     dataList: [],
   }),
   methods: {},

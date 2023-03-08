@@ -1,17 +1,8 @@
 <template>
   <div class="main" v-if="user.restaurantId != undefined">
     <h1 class="title">Mon restaurant</h1>
-    <div class="display">
-      <h2>Organiser la page de mon restaurant</h2>
-      <DraggableList v-if="restaurant._id" :id="restaurant._id" />
-      <a :href="'/restaurants/' + restaurant._id">
-        Voir la fiche de mon restaurant
-      </a>
-    </div>
-    <div class="commands">
-      <h2>Commandes à valider</h2>
-    </div>
     <div class="informations">
+      <div></div>
       <p>Nom de votre restaurant: {{ restaurant.name }}</p>
       <p>Addresse de votre restaurant: {{ restaurant.address }}</p>
       <p>
@@ -23,6 +14,16 @@
         Note de votre restaurant:
         {{ restaurant.rate.reduce((acc, b) => acc + b, 0) }} / 5
       </p>
+    </div>
+    <div class="display">
+      <h2>Organiser la page de mon restaurant</h2>
+      <DraggableList v-if="restaurant._id" :id="restaurant._id" />
+      <a :href="'/restaurants/' + restaurant._id">
+        Voir la fiche de mon restaurant
+      </a>
+    </div>
+    <div class="commands">
+      <h2>Commandes à valider</h2>
     </div>
   </div>
   <div v-else>
@@ -40,18 +41,23 @@ export default defineComponent({
   beforeCreate() {
     try {
       this.$axios
-        .get(`http://localhost:8080/user/${this.$cookies.get("userId")}`, {
-          headers: {
-            Authorization: `Bearer ${this.$cookies.get("token")}`,
-          },
-        })
+        .get(
+          `http://${location.hostname}:8080/user/${this.$cookies.get(
+            "userId"
+          )}`,
+          {
+            headers: {
+              Authorization: `Bearer ${this.$cookies.get("token")}`,
+            },
+          }
+        )
         .then((rep) => {
           this.user = rep.data;
           console.log("WTF", this.user.restaurantId);
           if (this.user.restaurantId !== undefined) {
             this.$axios
               .get(
-                `http://localhost:8080/restaurants/${rep.data.restaurantId}`,
+                `http://${location.hostname}:8080/restaurants/${rep.data.restaurantId}`,
                 {
                   headers: {
                     Authorization: `Bearer ${this.$cookies.get("token")}`,
@@ -107,9 +113,11 @@ export default defineComponent({
   display: grid;
   grid-template-columns: 50% 50%;
   grid-template-rows: max-content 1fr 1fr;
-  grid-template-areas: "title title" "display commands" "other1 other2";
-  gap: 50px;
-  height: 85vh;
+  grid-template-areas:
+    "title title"
+    "infos commands"
+    "display commands";
+  gap: 0 50px;
 }
 
 .title {
@@ -135,7 +143,7 @@ export default defineComponent({
 }
 
 .informations {
-  grid-area: other1;
+  grid-area: infos;
   display: flex;
   flex-direction: column;
   gap: 10px;

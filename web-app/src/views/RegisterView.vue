@@ -1,7 +1,7 @@
 <template>
-  <v-card class="mx-auto my-12 cardItem" max-width="600">
+  <v-card class="mx-auto" my-12 cardItem max-width="600">
     <h2>Je suis un ...</h2>
-    <v-container class="d-flex mb-6" fluid>
+    <v-container class="d-flex" mb-6 fluid>
       <v-row justify="center" no-gutters>
         <v-col cols="3" md="4">
           <v-btn

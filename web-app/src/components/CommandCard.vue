@@ -142,11 +142,15 @@ export default defineComponent({
 
   created() {
     this.$axios
-      .get("http://localhost:8080/restaurants/" + this.command.restorantId, {
-        headers: {
-          Authorization: `Bearer ${this.$cookies.get("token")}`,
-        },
-      })
+      .get(
+        `http://${location.hostname}:8080/restaurants/` +
+          this.command.restorantId,
+        {
+          headers: {
+            Authorization: `Bearer ${this.$cookies.get("token")}`,
+          },
+        }
+      )
       .then((rep) => {
         this.restaurant = rep.data;
       });
@@ -156,7 +160,8 @@ export default defineComponent({
       //request
       this.$axios
         .patch(
-          "http://localhost:8080/commands/finish/" + this.command._id,
+          `http://${location.hostname}:8080/commands/finish/` +
+            this.command._id,
           {},
           {
             headers: {

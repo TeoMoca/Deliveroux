@@ -118,7 +118,7 @@ export default defineComponent({
         image: "",
       },
       snackbar: false,
-      text: `Création de restaurant validée`,
+      text: "Création de restaurant validée",
     };
   },
   methods: {
@@ -135,14 +135,14 @@ export default defineComponent({
       };
 
       axios
-        .post("http://127.0.0.1:8080/restaurants/", postData, {
+        .post(`http://${location.hostname}:8080/restaurants/`, postData, {
           headers: {
             Authorization: `Bearer ${this.$cookies.get("token")}`,
           },
         })
         .then((rep) => {
           this.$axios.patch(
-            "http://127.0.0.1:8080/user/restaurant/",
+            `http://${location.hostname}:8080/user/restaurant/`,
             {
               id: this.$cookies.get("userId"),
               restaurantId: rep.data.restorantid,
