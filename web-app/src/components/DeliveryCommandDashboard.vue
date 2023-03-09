@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex" justify-space-evenly>
+  <div class="d-flex justify-space-evenly">
     <v-col class="HalfDashboard" d-flex justify-center cols="12" sm="5">
       <div class="flex-column">
         <h1>Livraisons à accepter</h1>

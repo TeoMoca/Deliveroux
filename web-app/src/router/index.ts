@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
 import LoginView from "../views/LoginView.vue";
 import HomeView from "../views/HomeView.vue";
+import DeliveryHomeView from "../views/DeliveryHomeView.vue";
 import RestaurateurHomeView from "../views/RestaurateurViews/RestaurateurHomeView.vue";
 import RestaurantView from "../views/RestaurantView.vue";
 import livraisonClientView from "../views/LivraisonClientView.vue";
@@ -45,7 +46,7 @@ const routes: Array<RouteRecordRaw> = [
               return RestaurateurHomeView;
             }
             case 18: {
-              return HomeView;
+              return DeliveryHomeView;
             }
           }
         })
