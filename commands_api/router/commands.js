@@ -179,6 +179,13 @@ commandsRouter.post("/send", (req, res) => {
       });
 });
 
+commandsRouter.delete("/delete", async (req, res) => {
+  await db.commands.deleteMany(
+    {}
+  );
+  res.status(204).send();
+});
+
 commandsRouter.delete("/delete/:commandid", async (req, res) => {
   console.log(req.params);
   await db.commands.findOneAndDelete(
