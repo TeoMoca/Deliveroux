@@ -73,7 +73,6 @@
       <div class="options">
         <p @click="RedirectProfile">Mes informations</p>
         <p @click="RedirectCommands">Voir mes commandes</p>
-        <p>Parrainez un amis</p>
         <p @click="$store.commit('changeMode')">Changer de thème</p>
         <p class="disconnect" @click="disconnect">Me déconnecter</p>
       </div>

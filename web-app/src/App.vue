@@ -82,6 +82,7 @@ export default defineComponent({
   --color-five: #474746;
   --color-six: #000;
   --color-seven: #fff;
+  --color-eight: #fc382c;
 }
 
 :root {
@@ -92,6 +93,7 @@ export default defineComponent({
   --color-five: #eae2b7;
   --color-six: #fff;
   --color-seven: #000;
+  --color-eight: #fc382c;
 }
 
 .v-main {

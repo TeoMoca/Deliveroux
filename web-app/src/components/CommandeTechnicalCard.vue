@@ -1,8 +1,7 @@
 <template>
   <v-card
     class="commandTechnical elevation-15"
-    width="400"
-    :title="userInfos.firstname + ' ' + userInfos.lastname"
+    :title="'Commande n° ' + command._id"
   >
     <!--DELIVERY VIEW-->
     <div v-if="cardType == 'delivery'">
@@ -194,12 +193,16 @@ export default defineComponent({
   text-decoration: underline;
 }
 .submit {
-  margin-left: 15%;
+  margin: 0;
+  margin-bottom: 10px;
+  width: fit-content;
+  align-self: center;
 }
 .content {
   margin-left: 5%;
 }
 .commandTechnical {
+  width: 100%;
   margin-top: 2%;
 }
 .button-card {
@@ -207,5 +210,11 @@ export default defineComponent({
 }
 .v-card {
   background: var(--color-six);
+  display: flex;
+  flex-direction: column;
+}
+
+p {
+  padding: 5px 10px;
 }
 </style>

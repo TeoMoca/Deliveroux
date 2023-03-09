@@ -2,28 +2,32 @@
   <div class="main" v-if="user.restaurantId != undefined">
     <h1 class="title">Mon restaurant</h1>
     <div class="informations">
-      <div></div>
-      <p>Nom de votre restaurant: {{ restaurant.name }}</p>
-      <p>Addresse de votre restaurant: {{ restaurant.address }}</p>
-      <p>
-        Horaires: ouvert de {{ restaurant.opening_time }} à
-        {{ restaurant.closing_time }}
-      </p>
-      <p>Type de votre restaurant: {{ restaurant.type }}</p>
-      <p>
-        Note de votre restaurant:
-        {{ restaurant.rate.reduce((acc, b) => acc + b, 0) }} / 5
-      </p>
+      <div class="card">
+        <img :src="restaurant.image_link" :alt="restaurant.name" />
+        <div>
+          <p>Nom de votre restaurant: {{ restaurant.name }}</p>
+          <p>Addresse de votre restaurant: {{ restaurant.address }}</p>
+          <p>
+            Horaires: ouvert de {{ restaurant.opening_time }} à
+            {{ restaurant.closing_time }}
+          </p>
+          <p>Type de votre restaurant: {{ restaurant.type }}</p>
+          <p>
+            Note de votre restaurant:
+            {{ restaurant.rate.reduce((acc, b) => acc + b, 0) }} / 5
+          </p>
+        </div>
+      </div>
     </div>
     <div class="display">
       <h2>Organiser la page de mon restaurant</h2>
       <DraggableList v-if="restaurant._id" :id="restaurant._id" />
-      <a :href="'/restaurants/' + restaurant._id">
+      <a class="preview" :href="'/restaurants/' + restaurant._id">
         Voir la fiche de mon restaurant
       </a>
     </div>
     <div class="commands">
-      <h2>Commandes à valider</h2>
+      <RestorerCommandDashboard />
     </div>
   </div>
   <div v-else>
@@ -35,6 +39,7 @@
 import { defineComponent } from "vue";
 import DraggableList from "../../components/DraggableList.vue";
 import RestaurantCreation from "../../components/RestaurantCreation.vue";
+import RestorerCommandDashboard from "@/components/RestorerCommandDashboard.vue";
 
 export default defineComponent({
   name: "RestaurateurHomeView",
@@ -86,6 +91,7 @@ export default defineComponent({
       closing_time: string;
       rate: Array<number>;
       type: string;
+      image_link: string;
     };
   } => {
     return {
@@ -100,10 +106,11 @@ export default defineComponent({
         closing_time: "",
         rate: [],
         type: "",
+        image_link: "",
       },
     };
   },
-  components: { DraggableList, RestaurantCreation },
+  components: { DraggableList, RestaurantCreation, RestorerCommandDashboard },
 });
 </script>
 
@@ -111,13 +118,13 @@ export default defineComponent({
 .main {
   padding: 10px 30px;
   display: grid;
-  grid-template-columns: 50% 50%;
-  grid-template-rows: max-content 1fr 1fr;
+  grid-template-columns: repeat(2, calc((100vw - 60px) / 2));
+  grid-template-rows: max-content max-content 1fr;
   grid-template-areas:
     "title title"
-    "infos commands"
-    "display commands";
-  gap: 0 50px;
+    "infos display"
+    "commands commands";
+  gap: 10px 0;
 }
 
 .title {
@@ -147,5 +154,27 @@ export default defineComponent({
   display: flex;
   flex-direction: column;
   gap: 10px;
+  align-items: center;
+  justify-content: center;
+}
+
+.card {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  grid-template-rows: 1fr;
+  width: 100%;
+  gap: 20px;
+}
+
+img {
+  height: 120px;
+  width: 120px;
+  object-fit: cover;
+  object-position: left;
+  vertical-align: middle;
+}
+
+.preview {
+  color: var(--color-two);
 }
 </style>

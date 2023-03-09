@@ -5,8 +5,4 @@ module.exports = defineConfig({
   pluginOptions: {
     vuetify: {},
   },
-
-  devServer: {
-    host: "25.65.113.21",
-  },
 });

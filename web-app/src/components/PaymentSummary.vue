@@ -8,7 +8,7 @@
             <h2>Articles</h2>
           </div>
           <div class="price">
-            <h3>{{ subtotal }} €</h3>
+            <h3>{{ subtotal.toFixed(2) }} €</h3>
           </div>
         </div>
         <v-divider
@@ -21,7 +21,7 @@
             <h2>Taxes</h2>
           </div>
           <div class="price">
-            <h3>{{ tax }} €</h3>
+            <h3>{{ tax.toFixed(2) }} €</h3>
           </div>
         </div>
         <v-divider
@@ -34,7 +34,7 @@
             <h2>Total</h2>
           </div>
           <div class="price">
-            <h3>{{ total }} €</h3>
+            <h3>{{ total.toFixed(2) }} €</h3>
           </div>
         </div>
       </div>

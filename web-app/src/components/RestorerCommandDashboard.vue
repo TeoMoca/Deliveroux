@@ -36,11 +36,15 @@ export default defineComponent({
 
 <style scoped>
 .HalfDashboard {
-  margin-top: 200px;
   border-radius: 20px;
   height: 100%;
   padding-top: 20px;
   padding-bottom: 20px;
   background-color: var(--color-four);
+}
+
+.flex-column h1 {
+  text-align: center;
+  font-size: 24px;
 }
 </style>

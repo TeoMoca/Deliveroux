@@ -1,5 +1,5 @@
 <template>
-  <div v-for="command in commandeData" :key="command._id">
+  <div class="container" v-for="command in commandeData" :key="command._id">
     <CommandeTechnicalCard
       cardType="restorer"
       :restaurantId="restorant_id"
@@ -41,7 +41,7 @@ export default defineComponent({
     //recupère les données du client
     axios
       .get(
-        `http://${location.hostname}:8080/user` + this.$cookies.get("userId"),
+        `http://${location.hostname}:8080/user/` + this.$cookies.get("userId"),
         {
           //a changer pour l'id du resto
           headers: {
