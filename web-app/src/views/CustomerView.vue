@@ -1,5 +1,5 @@
 <template>
-  <v-card class="mx-auto" max-width="444" title="Enregistrement">
+  <v-card class="mx-auto cardItem" max-width="444" title="Enregistrement">
     <v-form ref="form" class="mb-2" v-model="valid" @submit.prevent="validate">
       <v-container>
         <v-row>
@@ -163,7 +163,7 @@ export default defineComponent({
           {
             user: user,
             adress: adress,
-            sponsorMail: this.refercode,
+            sponsor: this.refercode,
           },
           {
             headers: {
@@ -179,3 +179,9 @@ export default defineComponent({
   },
 });
 </script>
+
+<style>
+.cardItem {
+  background-color: var(--color-six);
+}
+</style>

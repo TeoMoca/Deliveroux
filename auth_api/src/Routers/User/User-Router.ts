@@ -42,6 +42,7 @@ export default function UsersRouter(
             req.body.user.mail,
             req.body.user.password, false);
 
+            console.log(req.body);
             const userCreated = await RegisterUseCase.execute(user, address, req.body.sponsor);
 
             res.send(userCreated);

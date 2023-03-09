@@ -10,11 +10,12 @@ export class RegisterUserUseCase implements IRegisterUserUseCase {
     this.connexionRepository = userRepository;
   }
 
-  async execute(user: User, address:Address): Promise<Boolean> {
+  async execute(user: User, address:Address, sponsor:string | undefined): Promise<Boolean> {
     user.id = randomUUID();
     const userCreated = await this.connexionRepository.registerUser(
       user,
-      address
+      address,
+        sponsor
     );
 
     return userCreated;

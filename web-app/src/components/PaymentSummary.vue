@@ -43,7 +43,7 @@
           id="buttonCheckout"
           :disabled="isDisabled"
           @click="startCommand"
-          color="var(--color-one)"
+          color="var(--color-six)"
           >Payer la commande</v-btn
         >
       </div>

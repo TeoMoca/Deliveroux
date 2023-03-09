@@ -2,7 +2,7 @@
   <v-card
     id="titleSummary"
     max-width="844"
-    max-height="500"
+    max-height="700"
     class="scroll"
     title="Mon
     historique

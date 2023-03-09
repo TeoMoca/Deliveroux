@@ -11,19 +11,25 @@
           <h1>{{ item.name }}</h1>
         </v-col>
         <v-col class="buttonQuantity" cols="6" md="3">
-          <v-btn
-            icon="mdi-plus"
-            color="var(--color-one)"
-            @click="($event) => addQuantity(item.id)"
-          ></v-btn>
-          <div class="quantity">
-            {{ item.quantity }}
+          <div>
+            <v-btn
+              icon="mdi-plus"
+              color="var(--color-seven)"
+              @click="($event) => addQuantity(item.id)"
+            ></v-btn>
           </div>
-          <v-btn
-            icon="mdi-window-minimize"
-            color="var(--color-three)"
-            @click="removeQuantity(item.id)"
-          ></v-btn>
+          <div class="spaceButton">
+            <v-btn icon="mdi-window-minimize" color="var(--color-six)">{{
+              item.quantity
+            }}</v-btn>
+          </div>
+          <div class="spaceButton">
+            <v-btn
+              icon="mdi-window-minimize"
+              color="var(--color-three)"
+              @click="removeQuantity(item.id)"
+            ></v-btn>
+          </div>
         </v-col>
         <v-divider :thickness="2"></v-divider>
       </v-row>
@@ -77,8 +83,8 @@ export default defineComponent({
 }
 .quantity {
   font-size: 20px;
-  height: 50px;
-  width: 50px;
+  height: 60px;
+  width: 60px;
   background-color: var(--color-four);
   border-radius: 50%;
   text-align: center;
@@ -90,5 +96,8 @@ export default defineComponent({
 .rowName {
   display: flex;
   align-items: center;
+}
+.spaceButton {
+  margin-left: 10%;
 }
 </style>

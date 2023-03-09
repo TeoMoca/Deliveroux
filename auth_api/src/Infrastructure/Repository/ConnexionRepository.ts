@@ -22,8 +22,10 @@ export class ConnexionRepository implements IConnexionRepository {
             name: user.firstname + "" + user.lastname,
         });
 
+        console.log(sponsor);
         if(sponsor != undefined){
-            const sponsorship: string= sponsor as string;
+            const sponsorship = sponsor as string;
+            console.log(sponsorship);
             const userSponsor = await this.connexionDataSource.users.findFirst({
                 where:{ Mail: sponsorship}
             });
