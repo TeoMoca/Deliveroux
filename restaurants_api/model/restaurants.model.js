@@ -8,7 +8,7 @@ export const restaurants = mongoose.model(
       required: true,
     },
     gps: {
-      type: [String, String],
+      type: [Number, Number],
       required: true,
     },
     address: {
@@ -16,7 +16,7 @@ export const restaurants = mongoose.model(
       required: true,
     },
     rate: {
-      type: Number,
+      type: Array,
       required: true,
     },
     opening_time: {

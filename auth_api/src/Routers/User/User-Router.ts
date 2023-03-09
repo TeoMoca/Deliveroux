@@ -31,13 +31,10 @@ export default function UsersRouter(
    }
     router.post("/register", async (req:Request, res:Response) => {
         try{
-            console.log(req.body.adress);
             const address = new Address(randomUUID(), req.body.adress.adress, req.body.adress.codePostal, req.body.adress.city, req.body.adress.country);
-            console.log(address)
-            
             const user = new User(
                 "",
-            req.body.user.IdRole,
+            req.body.user.roleId,
             address.id,
             req.body.user.firstname,
             req.body.user.lastname,
@@ -45,8 +42,8 @@ export default function UsersRouter(
             req.body.user.mail,
             req.body.user.password, false);
 
-            
-            const userCreated = await RegisterUseCase.execute(user, address);
+            console.log(req.body);
+            const userCreated = await RegisterUseCase.execute(user, address, req.body.sponsor);
 
             res.send(userCreated);
         }catch (err) {
@@ -66,6 +63,7 @@ export default function UsersRouter(
             { expiresIn: "2h" }
           );
           const userInfo = { data, message: "User Connected", token: token };
+          console.log("coucou");
           return res.status(200).json(userInfo);
         }
     

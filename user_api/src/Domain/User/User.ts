@@ -4,13 +4,14 @@ export interface User {
     lastname:string;
     phone:string;
     roleId: number;
-    addressId:number;
+    addressId:string;
     mail:string;
     password:string;
-    isSponsor:boolean
+    isdisabled:boolean;
+    stripeId:string;
+    restaurantId?:string;
 }
-
-export class Users implements Users {
+export class User implements User {
     constructor(
       public id: string,
       public roleId: number,
@@ -20,6 +21,8 @@ export class Users implements Users {
       public phone: string,
       public mail: string,
       public password: string,
-      public issponsor: boolean
+      public isdisabled: boolean,
+        public stripeId: string,
+        public restaurantId?: string
     ) {}
   }
