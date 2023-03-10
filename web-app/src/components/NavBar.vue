@@ -164,7 +164,7 @@ export default defineComponent({
             }
             case 18: {
               this.searchBar = true;
-              this.cart = true;
+              this.cart = false;
               break;
             }
             default: {
